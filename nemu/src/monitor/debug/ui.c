@@ -40,6 +40,7 @@ static int cmd_si(char *args){
 	sscanf(args,"%d",&i);
 	if(args==NULL){
 					i=1;
+					printf("no argument.\n");
 	}
 	cpu_exec(i);
 	return 0;
