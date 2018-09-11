@@ -37,10 +37,11 @@ static int cmd_q(char *args) {
 }
 static int cmd_si(char *args){
 	int i;
-	sscanf(args,"%d",&i);
 	if(args==NULL){
 					i=1;
 					printf("no argument.\n");
+	}else{
+					sscanf(args,"%d",&i);
 	}
 	cpu_exec(i);
 	return 0;
