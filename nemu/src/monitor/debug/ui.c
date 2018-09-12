@@ -66,11 +66,29 @@ static int cmd_info(char *args){
 	}
 	return 0;
 }
+
+static int cmd_x(char *args){
+	int i,n,addr;
+	if(args==NULL){
+		printf("x N addr--print N elements of 4 bytes start at addr\n");
+		return 0;
+	}
+	sscanf(args,"%d%d",&n,&addr);
+	for(i=0;i<n;++i){
+		if((i&3)==0){
+			printf("\n%d:",addr);
+		}
+		printf("%08x",vaddr_read(addr,4));
+		addr+=4;
+	}
+	return 0;
+}
 static struct {
   char *name;
   char *description;
   int (*handler) (char *);
 } cmd_table [] = {
+	{ "x", "Print the number at assigned address", cmd_x},
 	{ "info", "Print info of registers or watchpoints", cmd_info},
   { "si", "Step N instruction(s) exactly.", cmd_si},
   { "help", "Display informations about all supported commands", cmd_help },
