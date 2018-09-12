@@ -73,14 +73,15 @@ static int cmd_x(char *args){
 		printf("x N addr--print N elements of 4 bytes start at addr\n");
 		return 0;
 	}
-	sscanf(args,"%d%d",&n,&addr);
+	sscanf(args,"%d%x",&n,&addr);
 	for(i=0;i<n;++i){
 		if((i&3)==0){
 			printf("\n%d:",addr);
 		}
-		printf("%08x",vaddr_read(addr,4));
+		printf("\t%08x",vaddr_read(addr,4));
 		addr+=4;
 	}
+	putchar('\n');
 	return 0;
 }
 static struct {
