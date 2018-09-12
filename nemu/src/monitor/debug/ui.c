@@ -89,12 +89,12 @@ static struct {
   char *description;
   int (*handler) (char *);
 } cmd_table [] = {
-	{ "x", "Print the number at assigned address", cmd_x},
-	{ "info", "Print info of registers or watchpoints", cmd_info},
-  { "si", "Step N instruction(s) exactly.", cmd_si},
-  { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
+  { "help", "Display informations about all supported commands", cmd_help },
+	{ "info", "Print info of registers or watchpoints", cmd_info},
   { "q", "Exit NEMU", cmd_q },
+  { "si", "Step N instruction(s) exactly.", cmd_si},
+	{ "x", "Print the number at assigned address", cmd_x},
   /* TODO: Add more commands */
 
 };
