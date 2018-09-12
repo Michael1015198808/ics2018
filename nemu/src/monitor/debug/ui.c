@@ -57,7 +57,7 @@ static int cmd_info(char *args){
 	}
 	if(strcmp(args,"r") == 0) {
 		for(i=0;i<8;++i){
-			printf("R[%s] is %d\n",regsl[i],cpu.gpr[i]._32);
+			printf("R[%s] is 0x%8x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
 		}
 	}else if(strcmp(args,"w")==0){
     printf("Haven't done!\n");
