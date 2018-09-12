@@ -76,9 +76,9 @@ static int cmd_x(char *args){
 	sscanf(args,"%d%x",&n,&addr);
 	for(i=0;i<n;++i){
 		if((i&3)==0){
-			printf("\n%d:",addr);
+			printf("\n0x%08x:",addr);
 		}
-		printf("\t%08x",vaddr_read(addr,4));
+		printf("\t0x%08x",vaddr_read(addr,4));
 		addr+=4;
 	}
 	putchar('\n');
