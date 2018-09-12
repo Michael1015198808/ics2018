@@ -35,6 +35,9 @@ static int cmd_c(char *args) {
 static int cmd_q(char *args) {
   return -1;
 }
+
+static int cmd_help(char *args);
+
 static int cmd_si(char *args){
 	int i;
 	if(args==NULL){
@@ -46,17 +49,33 @@ static int cmd_si(char *args){
 	cpu_exec(i);
 	return 0;
 }
-static int cmd_help(char *args);
 
+static int cmd_info(char *args){
+	int i=0;
+	if(args==NULL){
+		printf("info r--print the status of registers\ninfo w--print the status of watchpoints");
+	}
+	if(strcmp(args,"r") == 0) {
+		for(i=0;i<8;++i){
+			printf("R[%s] is %d\n",regsl[i],cpu.gpr[i]._32);
+		}
+	}else if(strcmp(args,"w")==0){
+    printf("Haven't done!\n");
+	}else{
+			printf("Unknown command!\n");
+	}
+	return 0;
+}
 static struct {
   char *name;
   char *description;
   int (*handler) (char *);
 } cmd_table [] = {
+	{ "info", "Print info of registers or watchpoints", cmd_info},
+  { "si", "Step N instruction(s) exactly.", cmd_si},
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "Step N instruction(s) exactly.", cmd_si},
   /* TODO: Add more commands */
 
 };
