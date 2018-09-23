@@ -7,7 +7,9 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ,
+	TK_LEFT, TK_RIGHT,
+	TK_NUM
 
   /* TODO: Add more token types */
 
@@ -24,7 +26,13 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+	{"-", '-'},						// minus
+	{"\\*", '*'},					// multiply
+	{"/", '/'},						// devide
+	{"\\(", TK_LEFT},
+	{"//)", TK_RIGHT},
+	{"\\d+", TK_NUM},
+	{"==", TK_EQ}         // equal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -34,12 +42,15 @@ static regex_t re[NR_REGEX];
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
+int check_parentheses(int,int);
+int eval(int,int);
+
 void init_regex() {
   int i;
   char error_msg[128];
   int ret;
 
-  for (i = 0; i < NR_REGEX; i ++) {
+  for (i = 0; i < NR_REGEX;++ i) {
     ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
     if (ret != 0) {
       regerror(ret, &re[i], error_msg, 128);
@@ -72,16 +83,31 @@ static bool make_token(char *e) {
 
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
-        position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
 
+				int j=0;
         switch (rules[i].token_type) {
-          default: TODO();
+					case TK_NOTYPE:
+						break;
+					case TK_NUM:
+						for(j=0;j<substr_len;++j){
+							tokens[nr_token].str[j]=e[position+j];	
+							if(j>30){
+								return false;
+							}
+						}
+						tokens[nr_token].str[j]='\0';
+						//Falls down
+          default:
+						tokens[nr_token].type=rules[i].token_type;
+						++nr_token;
+						// TODO: copy string to here.
         }
+        position += substr_len;
 
         break;
       }
@@ -103,7 +129,86 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
+	printf("%d",eval(0,nr_token-1));
   return 0;
+}
+int eval(int p,int q) {
+				  if (p > q) {
+									//printf("Wrong expression!\n");
+									return 0;
+					}else if (p == q) {
+									int i=0,j=0;
+									if(tokens[p].type==TK_NUM){
+										while(tokens[p].str[j]!='\0'){
+											i*=10;
+											i+=tokens[p].str[j]-'0';
+										}
+									}else{
+										printf("Wrong expression!\n");
+									}
+									return i;
+					}else if (check_parentheses(p, q) == true) {
+				    return eval(p + 1, q - 1);
+					}else {
+						int i=0,flags=0,op=i;
+						for(i=p;i<q;++i){
+								switch(tokens[i].type){
+									case TK_LEFT:
+										++flags;
+										break;
+									case TK_RIGHT:
+										--flags;
+										break;
+									case '+':
+										if(flags==0){
+											op=i;
+										}
+										break;
+									case '-':
+										if(flags==0){
+											op=i;
+										}
+										break;
+									case '*':
+										if(flags==0&&tokens[op].type!='+'&&tokens[op].type!='-'){
+											op=i;
+										}
+										break;
+									case '/':
+										if(flags==0&&tokens[op].type!='+'&&tokens[op].type!='-'){
+											op=i;
+										}
+										break;
+									default:
+										break;
+								}
+						}
+						int val1 = eval(p, op - 1);
+						int val2 = eval(op + 1, q);
+						switch (tokens[op].type) {
+						  case '+': return val1 + val2;
+						  case '-': return val1 - val2;
+						  case '*': return val1 * val2;
+						  case '/': return val1 / val2;
+						  default: assert(0);
+				  }
+					}
+}
+int check_parentheses(int p,int q){
+	int flags=0,i=0;
+	for(i=p;i<q;++i){
+		if(tokens[i].type==TK_LEFT){
+			++flags;
+		}else if(tokens[i].type==TK_RIGHT){
+			--flags;
+		}
+		if(flags==0){
+			return false;
+		}
+	}
+	if(flags==1&&tokens[i].type==TK_RIGHT){
+		return true;
+	}
+	printf("Wrong expression!\n");
+	return false;
 }

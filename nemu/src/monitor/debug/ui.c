@@ -32,23 +32,7 @@ static int cmd_c(char *args) {
   return 0;
 }
 
-static int cmd_q(char *args) {
-  return -1;
-}
-
 static int cmd_help(char *args);
-
-static int cmd_si(char *args){
-	int i;
-	if(args==NULL){
-					i=1;
-					printf("no argument.\n");
-	}else{
-					sscanf(args,"%d",&i);
-	}
-	cpu_exec(i);
-	return 0;
-}
 
 static int cmd_info(char *args){
 	int i=0;
@@ -64,6 +48,32 @@ static int cmd_info(char *args){
 	}else{
 			printf("Unknown command!\n");
 	}
+	return 0;
+}
+
+static int cmd_p(char *args) {
+	bool success=true;
+	expr(args,&success);
+	if(success==false){
+					printf("A bad expression\n");
+					return -1;
+	}
+	return 0;
+}
+
+static int cmd_q(char *args) {
+  return -1;
+}
+
+static int cmd_si(char *args){
+	int i;
+	if(args==NULL){
+					i=1;
+					printf("no argument.\n");
+	}else{
+					sscanf(args,"%d",&i);
+	}
+	cpu_exec(i);
 	return 0;
 }
 
@@ -89,10 +99,11 @@ static struct {
   char *description;
   int (*handler) (char *);
 } cmd_table [] = {
-  { "c", "Continue the execution of the program", cmd_c },
-  { "help", "Display informations about all supported commands", cmd_help },
+  { "c", "Continue the execution of the program", cmd_c},
+  { "help", "Display informations about all supported commands", cmd_help},
 	{ "info", "Print info of registers or watchpoints", cmd_info},
-  { "q", "Exit NEMU", cmd_q },
+	{ "p", "calculate the value", cmd_p},
+  { "q", "Exit NEMU", cmd_q},
   { "si", "Step N instruction(s) exactly.", cmd_si},
 	{ "x", "Print the number at assigned address", cmd_x},
   /* TODO: Add more commands */
