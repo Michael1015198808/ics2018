@@ -31,7 +31,7 @@ static struct rule {
 	{"/", '/'},						// devide
 	{"\\(", TK_LEFT},
 	{"\\)", TK_RIGHT},
-	{"\\d+", TK_NUM},
+	{"[0123456789]+", TK_NUM},
 	{"==", TK_EQ}         // equal
 };
 
