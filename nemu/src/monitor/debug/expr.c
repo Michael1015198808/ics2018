@@ -143,6 +143,7 @@ int eval(int p,int q) {
 										while(tokens[p].str[j]!='\0'){
 											i*=10;
 											i+=tokens[p].str[j]-'0';
+											++j;
 										}
 									}else{
 										printf("Wrong expression!\n");
