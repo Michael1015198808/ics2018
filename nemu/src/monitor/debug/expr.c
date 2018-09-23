@@ -30,7 +30,7 @@ static struct rule {
 	{"\\*", '*'},					// multiply
 	{"/", '/'},						// devide
 	{"\\(", TK_LEFT},
-	{"//)", TK_RIGHT},
+	{"\\)", TK_RIGHT},
 	{"\\d", TK_NUM},
 	{"==", TK_EQ}         // equal
 };
