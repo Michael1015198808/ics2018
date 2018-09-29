@@ -3,6 +3,7 @@
 #include "monitor/watchpoint.h"
 #include "nemu.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -136,6 +137,15 @@ static int cmd_help(char *args) {
 }
 
 void ui_mainloop(int is_batch_mode) {
+	int i;
+	bool p=true;
+	while(scanf("%d",&i)==1){
+    char *exp = rl_gets();
+		if(i==expr(exp,&p));else{
+						printf("Wrong\n");
+		}
+	}
+	return;
   if (is_batch_mode) {
     cmd_c(NULL);
     return;

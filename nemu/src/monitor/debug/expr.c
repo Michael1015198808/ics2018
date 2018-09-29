@@ -9,7 +9,7 @@
 enum {
   TK_NOTYPE = 256, TK_EQ,
 	TK_LEFT, TK_RIGHT,
-	TK_NUM
+	TK_NUM, TK_DEREF
 
   /* TODO: Add more token types */
 
@@ -103,7 +103,11 @@ static bool make_token(char *e) {
 						tokens[nr_token].str[j]='\0';
 						//Falls down
           default:
-						tokens[nr_token].type=rules[i].token_type;
+						if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM&&tokens[i - 1].type != TK_LEFT)) ) {
+						  tokens[i].type = TK_DEREF;
+						}else{
+							tokens[nr_token].type=rules[i].token_type;
+						}
 						++nr_token;
 						// TODO: copy string to here.
         }

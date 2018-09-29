@@ -20,7 +20,7 @@ void gen_num(void){
 	}
 }
 void gen_rand_op(void){
-	switch(rand()%3){
+	switch(rand()&3){
 		case 0:gen('+');break;
 		case 1:gen('-');break;
 		case 2:gen('*');break;
@@ -56,6 +56,10 @@ int main(int argc, char *argv[]) {
 		position=-1;
     gen_rand_expr();
 		buf[position+1]='\0';
+		if(position>100){
+			--i;
+			continue;
+		}
 
     sprintf(code_buf, code_format, buf);
 
