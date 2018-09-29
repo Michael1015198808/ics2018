@@ -9,6 +9,9 @@
 static char buf[65536];
 static int position;
 void gen(char c){
+		if(position>100){
+						return;
+		}
 	buf[++position]=c;
 //	putchar(c);
 }
@@ -55,11 +58,11 @@ int main(int argc, char *argv[]) {
   for (i = 0; i < loop; i ++) {
 		position=-1;
     gen_rand_expr();
-		buf[position+1]='\0';
 		if(position>100){
 			--i;
 			continue;
 		}
+		buf[position+1]='\0';
 
     sprintf(code_buf, code_format, buf);
 
