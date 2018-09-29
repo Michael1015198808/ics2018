@@ -140,9 +140,10 @@ void ui_mainloop(int is_batch_mode) {
 	int i;
 	bool p=true;
 	while(scanf("%d",&i)==1){
-    char *exp = rl_gets();
+    char exp[110];
+		scanf("%s",exp);
 		if(i==expr(exp,&p));else{
-						printf("Wrong\n");
+			printf("Wrong\n");
 		}
 	}
 	return;
