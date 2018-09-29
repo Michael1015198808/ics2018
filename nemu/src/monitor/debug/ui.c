@@ -142,7 +142,9 @@ void ui_mainloop(int is_batch_mode) {
 	while(scanf("%d",&i)==1){
     char exp[110];
 		scanf("%s",exp);
-		if(i==expr(exp,&p));else{
+		if(i==expr(exp,&p)){
+			printf("Right\n");
+		}else{
 			printf("Wrong\n");
 		}
 	}
