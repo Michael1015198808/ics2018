@@ -1,2 +1,2 @@
 #include <stdio.h>
-int main() {   unsigned result = 896+540+159;   printf("%u", result);   return 0; }
+int main() {   unsigned result = 433*156-667*974;   printf("%u", result);   return 0; }

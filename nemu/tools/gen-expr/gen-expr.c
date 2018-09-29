@@ -68,8 +68,11 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc .code.c -o .expr");
-    if (ret != 0) continue;
+    int ret = system("gcc -o .expr .code.c -Werror");
+    if (ret != 0){
+						--i;
+					 	continue;
+		}
 
     fp = popen("./.expr", "r");
     assert(fp != NULL);
