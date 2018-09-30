@@ -37,7 +37,7 @@ void free_wp_by_int(int i){
 }
 void free_wp(WP *wp){
 	int i;
-	if(head->next==wp){
+	if(head==wp){
 		head=wp->next;
 	}else{
 		for(i=0;i<NR_WP;++i){
