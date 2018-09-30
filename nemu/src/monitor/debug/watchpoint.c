@@ -69,7 +69,7 @@ void show_wp(void){
 		WP *temp=head;
 		printf("Num\tvalue\t\texpression\n");
 		while(temp!=NULL&&temp!=free_){
-			printf("%d\t%d\t%s\n",temp->NO,temp->old_value,temp->exprr);
+			printf("%d\t%d\t\t%s\n",temp->NO,temp->old_value,temp->exprr);
 			temp=temp->next;
 		}
 }
