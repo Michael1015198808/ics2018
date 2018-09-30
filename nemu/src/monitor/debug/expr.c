@@ -109,7 +109,7 @@ static bool make_token(char *e) {
 						if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM&&tokens[i - 1].type != TK_LEFT)) ) {
 						  tokens[i].type = TK_DEREF;
 						}else{
-							tokens[nr_token].type=rules[i].token_type;
+							tokens[i].type=rules[i].token_type;
 						}
 						++nr_token;
 						// TODO: copy string to here.
