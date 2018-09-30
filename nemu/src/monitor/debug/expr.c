@@ -153,9 +153,9 @@ int eval(int p,int q) {
 										}
 									}else{
 										for(j=0;j<8;++j){
-											if(!strcmp(regsl[j],tokens[p].str)){
+											if(!strcmp(regsl[j],tokens[p].str+1)){
 												extern CPU_state cpu;
-												i=cpu.gpr[j]._32;
+												i=(int)cpu.gpr[j]._32;
 												break;
 											}
 										}

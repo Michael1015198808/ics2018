@@ -70,7 +70,6 @@ static int cmd_si(char *args){
 	int i;
 	if(args==NULL){
 					i=1;
-					printf("no argument.\n");
 	}else{
 					sscanf(args,"%d",&i);
 	}
