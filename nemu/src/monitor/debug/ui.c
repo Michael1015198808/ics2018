@@ -54,11 +54,12 @@ static int cmd_info(char *args){
 
 static int cmd_p(char *args) {
 	bool success=true;
-	expr(args,&success);
+	int i=expr(args,&success);
 	if(success==false){
 					printf("A bad expression\n");
 					return -1;
 	}
+	printf("%d\n",i);
 	return 0;
 }
 
