@@ -9,7 +9,8 @@
 enum {
   TK_NOTYPE = 256, TK_EQ,
 	TK_LEFT, TK_RIGHT,
-	TK_NUM, TK_DEREF
+	TK_NUM, TK_DEREF,
+	TK_REG
 
   /* TODO: Add more token types */
 
@@ -32,7 +33,8 @@ static struct rule {
 	{"\\(", TK_LEFT},
 	{"\\)", TK_RIGHT},
 	{"[0123456789]+", TK_NUM},
-	{"==", TK_EQ}         // equal
+	{"==", TK_EQ},        // equal
+	{"\\$e..", TK_REG},		// regester
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -94,6 +96,7 @@ static bool make_token(char *e) {
 					case TK_NOTYPE:
 						break;
 					case TK_NUM:
+					case TK_REG:
 						for(j=0;j<substr_len;++j){
 							tokens[nr_token].str[j]=e[position+j];	
 							if(j>30){
@@ -149,9 +152,15 @@ int eval(int p,int q) {
 											++j;
 										}
 									}else{
-										printf("Wrong expression!\n");
-									}
+										for(j=0;j<8;++j){
+											if(!strcmp(regsl[j],tokens[p].str)){
+												extern CPU_state cpu;
+												i=cpu.gpr[j]._32;
+												break;
+											}
+										}
 									return i;
+									}
 					}else if (check_parentheses(p, q) == true) {
 				    return eval(p + 1, q - 1);
 					}else {
@@ -196,8 +205,9 @@ int eval(int p,int q) {
 						  case '*': return val1 * val2;
 						  case '/': return val1 / val2;
 						  default: assert(0);
-				  }
+				  	}
 					}
+		return 0;
 }
 int check_parentheses(int p,int q){
 	int flags=0,i=0;
