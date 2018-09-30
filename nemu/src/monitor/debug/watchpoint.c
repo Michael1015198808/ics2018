@@ -10,9 +10,8 @@ void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
-    wp_pool[i].next = &wp_pool[i + 1];
+    wp_pool[i].next = NULL;
   }
-  wp_pool[NR_WP - 1].next = NULL;
 
   head = NULL;
   free_ = wp_pool;
@@ -24,10 +23,10 @@ WP* new_wp(void){
 	if(free_->next==NULL){
 		assert(0);
 	}
-	WP *temp=head;
 	if(head==NULL){
 		head=free_;
 	}
+	WP *temp=head;
 	while(temp->next!=NULL){
 		temp=temp->next;
 	}
