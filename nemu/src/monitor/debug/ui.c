@@ -96,10 +96,10 @@ static int cmd_x(char *args){
 	return 0;
 }
 static int cmd_w(char *args){
+	bool success=true;
 	WP *temp=new_wp();
-	printf("%s\n",args);
 	strcpy(temp->exprr,args);
-	printf("%s\n",temp->exprr);
+	temp->old_value=expr(temp->exprr,&success);
 	return 0;
 }
 static int cmd_d(char *args){
