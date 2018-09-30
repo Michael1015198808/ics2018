@@ -24,12 +24,16 @@ WP* new_wp(void){
 	if(free_->next==NULL){
 		assert(0);
 	}
-	WP *temp;
-	temp=free_;
-	free_=free_->next;
+	WP *temp=head;
 	if(head==NULL){
-		head=temp;
+		head=free_;
 	}
+	while(temp->next!=NULL){
+		temp=temp->next;
+	}
+	temp->next=free_;
+	free_=free_->next;
+	temp->next=NULL;
 	return temp;
 }
 void free_wp_by_int(int i){
