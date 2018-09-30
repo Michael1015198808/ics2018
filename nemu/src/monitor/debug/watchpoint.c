@@ -39,15 +39,14 @@ void free_wp(WP *wp){
 	int i;
 	if(head==wp){
 		head=wp->next;
-	}else{
-		for(i=0;i<NR_WP;++i){
-			if(wp_pool[i].next==wp){
-				break;
-			}
-		}
-		WP *temp=&wp_pool[i];
-		temp->next=wp->next;
 	}
+	for(i=0;i<NR_WP;++i){
+		if(wp_pool[i].next==wp){
+			break;
+		}
+	}
+	WP *temp=&wp_pool[i];
+	temp->next=wp->next;
 	wp->next=free_;
 	free_=wp;
 }
