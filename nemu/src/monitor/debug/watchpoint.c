@@ -27,7 +27,6 @@ WP* new_wp(void){
 	WP *temp;
 	temp=free_;
 	free_=free_->next;
-	temp->next=NULL;
 	if(head==NULL){
 		head=temp;
 	}
@@ -55,7 +54,7 @@ void free_wp(WP *wp){
 bool check_wp(void){
 	bool success=false,trash=true;
 	WP *temp=head;
-	while(temp!=NULL){
+	while(temp!=NULL&&temp!=free_){
 		int i=expr(temp->exprr,&trash);
 		if(i!=temp->old_value){
 			printf("Watchpoint%d :\n%s\n changes from %d to %d\n",temp->NO,temp->exprr,temp->old_value,i);
@@ -67,7 +66,7 @@ bool check_wp(void){
 }
 void show_wp(void){
 		WP *temp=head;
-		while(temp!=NULL){
+		while(temp!=NULL&&temp!=free_){
 			printf("Watchpoint%d :\n%s=%d\n",temp->NO,temp->exprr,temp->old_value);
 			temp=temp->next;
 		}
