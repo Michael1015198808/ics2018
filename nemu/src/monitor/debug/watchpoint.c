@@ -27,11 +27,7 @@ WP* new_wp(void){
 	if(head==NULL){
 		head=free_;
 	}
-	WP *temp=head;
-	while(temp->next!=free_){
-		temp=temp->next;
-	}
-	temp->next=free_;
+	WP *temp=free_;
 	free_=free_->next;
 	return temp;
 }
@@ -44,15 +40,15 @@ void free_wp(WP *wp){
 		temp=temp->next;
 	}
 	temp->next=wp;
-	temp=head;
 	if(head==wp){
 		head=wp->next;
 	}else{
+		temp=head;
 		while(temp->next!=wp){
 			temp=temp->next;
 		}
+		temp->next=wp->next;
 	}
-	temp->next=wp->next;
 	wp->next=NULL;
 }
 bool check_wp(void){
