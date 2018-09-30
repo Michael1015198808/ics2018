@@ -159,8 +159,8 @@ int eval(int p,int q) {
 												break;
 											}
 										}
-									return i;
 									}
+									return i;
 					}else if (check_parentheses(p, q) == true) {
 				    return eval(p + 1, q - 1);
 					}else {
