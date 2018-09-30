@@ -51,6 +51,8 @@ $(BINARY): $(OBJS)
 	$(call git_commit, "compile")
 	@echo + LD $@
 	@$(LD) -O2 -rdynamic $(SO_LDLAGS) -o $@ $^ -lSDL2 -lreadline -ldl
+clear:
+	clear
 
 run: $(BINARY)
 	$(call git_commit, "run")

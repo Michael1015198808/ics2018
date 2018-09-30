@@ -45,7 +45,12 @@ static int cmd_info(char *args){
 			printf("R[%s] is 0x%08x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
 		}
 	}else if(strcmp(args,"w")==0){
-    printf("Haven't done!\n");
+		extern WP *head;
+		WP *temp=head;
+		while(temp!=NULL){
+			printf("Watchpoint%d :\n%s=%d\n",temp->NO,temp->exprr,temp->old_value);
+			temp=temp->next;
+		}
 	}else{
 			printf("Unknown command!\n");
 	}
@@ -95,17 +100,31 @@ static int cmd_x(char *args){
 	putchar('\n');
 	return 0;
 }
+static int cmd_w(char *args){
+	WP *temp=new_wp();
+	strcmp(temp->exprr,args);
+	return 0;
+}
+static int cmd_d(char *args){
+	int i=0;
+	sscanf(args,"%d",&i);
+	extern WP* wp_pool;
+	free_wp(wp_pool+i);
+	return 0;
+}
 static struct {
   char *name;
   char *description;
   int (*handler) (char *);
 } cmd_table [] = {
   { "c", "Continue the execution of the program", cmd_c},
+	{ "d", "Delete a watchpoint by its number", cmd_d},
   { "help", "Display informations about all supported commands", cmd_help},
 	{ "info", "Print info of registers or watchpoints", cmd_info},
 	{ "p", "calculate the value", cmd_p},
   { "q", "Exit NEMU", cmd_q},
   { "si", "Step N instruction(s) exactly.", cmd_si},
+	{ "w", "Set a watchpoint.", cmd_w},
 	{ "x", "Print the number at assigned address", cmd_x},
   /* TODO: Add more commands */
 
@@ -137,18 +156,6 @@ static int cmd_help(char *args) {
 }
 
 void ui_mainloop(int is_batch_mode) {
-	int i;
-	bool p=true;
-	while(scanf("%d",&i)==1){
-    char exp[110];
-		scanf("%s",exp);
-		if(i==expr(exp,&p)){
-			printf("Right\n");
-		}else{
-			printf("Wrong\n");
-		}
-	}
-	return;
   if (is_batch_mode) {
     cmd_c(NULL);
     return;

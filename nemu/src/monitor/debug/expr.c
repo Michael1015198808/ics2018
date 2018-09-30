@@ -64,7 +64,7 @@ typedef struct token {
   char str[32];
 } Token;
 
-Token tokens[32];
+Token tokens[60];
 int nr_token;
 
 static bool make_token(char *e) {
