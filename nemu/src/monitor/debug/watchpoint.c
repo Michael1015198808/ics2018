@@ -48,3 +48,16 @@ void free_wp(WP *wp){
 	wp->next=free_;
 	free_=wp;
 }
+bool check_wp(void){
+	bool success=false,trash=true;
+	WP *temp=head;
+	while(temp!=NULL){
+		int i=expr(temp->exprr,&trash);
+		if(i!=temp->old_value){
+			printf("Watchpoint%d :\n%s\n changes from %d to %d\n",temp->NO,temp->exprr,temp->old_value,i);
+			temp->old_value=i;
+			success=true;
+		}
+	}
+	return success;
+}

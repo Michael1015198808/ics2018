@@ -40,19 +40,10 @@ void cpu_exec(uint64_t n) {
     nr_guest_instr_add(1);
 
 #ifdef DEBUG
-		extern WP* head;
-		extern uint32_t expr(char *e, bool *success);
-		WP *temp=head;
-		while(temp!=NULL){
-			bool success=true;
-			int i=expr(temp->exprr,&success);
-			if(temp->old_value!=i){
-				printf("Watchpoint%d changes from %d to %d\n",temp->NO,temp->old_value,i);
-				temp->old_value=i;
-				return;
-			}
+		if(check_wp()){
+			return;
 		}
-    /* TODO: check watchpoints here. */
+   /* TODO: check watchpoints here. */
 
 #endif
 
