@@ -106,10 +106,10 @@ static bool make_token(char *e) {
 						tokens[nr_token].str[j]='\0';
 						//Falls down
           default:
-						if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM&&tokens[i - 1].type != TK_LEFT)) ) {
+						if(rules[i].token_type == '*' && (i == 0 || (tokens[nr_token - 1].type != TK_NUM&&tokens[nr_token - 1].type != TK_LEFT)) ) {
 						  tokens[i].type = TK_DEREF;
 						}else{
-							tokens[i].type=rules[i].token_type;
+							tokens[nr_token].type=rules[i].token_type;
 						}
 						++nr_token;
 						// TODO: copy string to here.
