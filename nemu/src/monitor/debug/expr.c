@@ -106,7 +106,7 @@ static bool make_token(char *e) {
 						tokens[nr_token].str[j]='\0';
 						//Falls down
           default:
-						if(rules[i].token_type == '*' && (nr_token == 0 || (tokens[nr_token - 1].type != TK_NUM&&tokens[nr_token - 1].type != TK_LEFT)) ) {
+						if(rules[i].token_type == '*' && (nr_token == 0 || (tokens[nr_token - 1].type != TK_NUM&&tokens[nr_token - 1].type != TK_RIGHT)) ) {
 						  tokens[nr_token].type = TK_DEREF;
 						}else{
 							tokens[nr_token].type=rules[i].token_type;
@@ -134,7 +134,6 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-	printf("Make successfully\n");
 
   /* TODO: Insert codes to evaluate the expression. */
 //	printf("%d\n",eval(0,nr_token-1));
