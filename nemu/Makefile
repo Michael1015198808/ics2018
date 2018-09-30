@@ -32,7 +32,6 @@ $(OBJ_DIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(SO_CFLAGS) -c -o $@ $<
 
-
 # Depencies
 -include $(OBJS:.o=.d)
 
