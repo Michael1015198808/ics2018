@@ -66,10 +66,10 @@ bool check_wp(void){
 	return success;
 }
 void show_wp(void){
-		printf("%d\t%d\n",head->NO,free_->NO);
 		WP *temp=head;
+		printf("Num\tvalue\texpression\n");
 		while(temp!=NULL&&temp!=free_){
-			printf("Watchpoint%d :\n%s=%d\n",temp->NO,temp->exprr,temp->old_value);
+			printf("%d\t%d\t%s\n",temp->NO,temp->old_value,temp->exprr);
 			temp=temp->next;
 		}
 }
