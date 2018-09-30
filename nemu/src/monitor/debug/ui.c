@@ -45,12 +45,7 @@ static int cmd_info(char *args){
 			printf("R[%s] is 0x%08x\t%d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
 		}
 	}else if(strcmp(args,"w")==0){
-		extern WP *head;
-		WP *temp=head;
-		while(temp!=NULL){
-			printf("Watchpoint%d :\n%s=%d\n",temp->NO,temp->exprr,temp->old_value);
-			temp=temp->next;
-		}
+		show_wp();
 	}else{
 			printf("Unknown command!\n");
 	}

@@ -64,3 +64,10 @@ bool check_wp(void){
 	}
 	return success;
 }
+void show_wp(void){
+		WP *temp=head;
+		while(temp!=NULL){
+			printf("Watchpoint%d :\n%s=%d\n",temp->NO,temp->exprr,temp->old_value);
+			temp=temp->next;
+		}
+}
