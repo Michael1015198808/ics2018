@@ -61,6 +61,7 @@ bool check_wp(void){
 			temp->old_value=i;
 			success=true;
 		}
+		temp=temp->next;
 	}
 	return success;
 }

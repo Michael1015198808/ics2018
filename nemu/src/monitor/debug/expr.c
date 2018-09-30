@@ -98,7 +98,7 @@ static bool make_token(char *e) {
 					case TK_NUM:
 					case TK_REG:
 						for(j=0;j<substr_len;++j){
-							tokens[nr_token].str[j]=e[position+j];	
+							tokens[nr_token].str[j]=e[position+j];
 							if(j>30){
 								return false;
 							}
