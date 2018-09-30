@@ -10,8 +10,9 @@ void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
-    wp_pool[i].next = NULL;
+    wp_pool[i].next = &wp_pool[i];
   }
+	wp_pool[NR_WP-1].next=NULL;
 
   head = NULL;
   free_ = wp_pool;
@@ -27,31 +28,32 @@ WP* new_wp(void){
 		head=free_;
 	}
 	WP *temp=head;
-	while(temp->next!=NULL){
+	while(temp->next!=free_){
 		temp=temp->next;
 	}
 	temp->next=free_;
 	free_=free_->next;
-	temp->next=NULL;
 	return temp;
 }
 void free_wp_by_int(int i){
 	free_wp(wp_pool+i);
 }
 void free_wp(WP *wp){
-	int i;
+	WP *temp=free_;
+	while(temp->next!=NULL){
+		temp=temp->next;
+	}
+	temp->next=wp;
+	temp=head;
 	if(head==wp){
 		head=wp->next;
-	}
-	for(i=0;i<NR_WP;++i){
-		if(wp_pool[i].next==wp){
-			break;
+	}else{
+		while(temp->next!=wp){
+			temp=temp->next;
 		}
 	}
-	WP *temp=&wp_pool[i];
 	temp->next=wp->next;
-	wp->next=free_;
-	free_=wp;
+	wp->next=NULL;
 }
 bool check_wp(void){
 	bool success=false,trash=true;
