@@ -32,6 +32,9 @@ WP* new_wp(void){
 	}
 	return temp;
 }
+void free_wp_by_int(int i){
+	free_wp(wp_pool+i);
+}
 void free_wp(WP *wp){
 	int i;
 	if(head->next==wp){

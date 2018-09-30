@@ -108,8 +108,7 @@ static int cmd_w(char *args){
 static int cmd_d(char *args){
 	int i=0;
 	sscanf(args,"%d",&i);
-	extern WP* wp_pool;
-	free_wp(wp_pool+i);
+	free_wp_by_int(i);
 	return 0;
 }
 static struct {
