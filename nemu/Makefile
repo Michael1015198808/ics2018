@@ -11,7 +11,6 @@ endif
 OBJ_DIR ?= $(BUILD_DIR)/obj$(SO)
 BINARY ?= $(BUILD_DIR)/$(NAME)$(SO)
 
-include Makefile.git
 
 .DEFAULT_GOAL = app
 
