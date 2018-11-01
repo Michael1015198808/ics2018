@@ -2,13 +2,16 @@
 #include "cpu/cc.h"
 
 make_EHelper(test) {
-  TODO();
+	rtl_and(&t2,&id_dest->val,&id_src->val);
+	cpu.OF=cpu.CF=0;
+	rtl_update_ZFSF(&t2,id_dest->val);
 
   print_asm_template2(test);
 }
 
 make_EHelper(and) {
-  TODO();
+	rtl_and(&t2,&id_dest->val,&id_src->val);
+	operand_write(id_dest,&t2);
 
   print_asm_template2(and);
 }
@@ -51,6 +54,7 @@ make_EHelper(setcc) {
   uint32_t cc = decoding.opcode & 0xf;
 
   rtl_setcc(&t2, cc);
+	printf("%d",id_dest->width);
   operand_write(id_dest, &t2);
 
   print_asm("set%s %s", get_cc_name(cc), id_dest->str);

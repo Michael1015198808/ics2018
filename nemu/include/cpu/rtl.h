@@ -121,6 +121,7 @@ static inline void interpret_rtl_jr(rtlreg_t *target) {
 static inline void interpret_rtl_jrelop(uint32_t relop,
     const rtlreg_t *src1, const rtlreg_t *src2, vaddr_t target) {
   bool is_jmp = interpret_relop(relop, *src1, *src2);
+	//printf("is_jmp%d\n",is_jmp);
   if (is_jmp) cpu.eip = target;
   decoding_set_jmp(is_jmp);
 }
@@ -185,10 +186,10 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    TODO(); \
+    cpu.f=*src; \
   } \
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
-    TODO(); \
+    *dest=cpu.f; \
   }
 
 make_rtl_setget_eflags(CF)
@@ -197,13 +198,22 @@ make_rtl_setget_eflags(ZF)
 make_rtl_setget_eflags(SF)
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
+	//printf("result%d\t%d",*result,width);
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  TODO();
+	if((*result&~(0xffffffff<<(width*8)))==0){
+					cpu.ZF=1;
+	}else{
+					cpu.ZF=0;
+	}
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  TODO();
+	if((*result)&(1<<(8*width-1))){
+					cpu.SF=1;
+	}else{
+					cpu.SF=0;
+	}
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {

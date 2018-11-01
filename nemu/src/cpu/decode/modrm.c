@@ -108,7 +108,10 @@ void read_ModR_M(vaddr_t *eip, Operand *rm, bool load_rm_val, Operand *reg, bool
   else {
     load_addr(eip, &m, rm);
     if (load_rm_val) {
+	//puts("test");
+	//printf("%d\t%d\t%d\n",rm->val,rm->addr,rm->width);
       rtl_lm(&rm->val, &rm->addr, rm->width);
+	//puts("test");
     }
   }
 }

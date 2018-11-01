@@ -2,6 +2,7 @@
 
 make_EHelper(mov) {
   operand_write(id_dest, &id_src->val);
+
   print_asm_template2(mov);
 }
 
@@ -31,7 +32,12 @@ make_EHelper(popa) {
 }
 
 make_EHelper(leave) {
-  TODO();
+	if(id_src->width==4){
+					cpu.esp=cpu.ebp;
+	}else{
+					cpu.gpr[R_ESP]._16=cpu.gpr[R_EBP]._16;
+	}
+	rtl_pop(&cpu.ebp);
 
   print_asm("leave");
 }
@@ -62,16 +68,20 @@ make_EHelper(movsx) {
   id_dest->width = decoding.is_operand_size_16 ? 2 : 4;
   rtl_sext(&t0, &id_src->val, id_src->width);
   operand_write(id_dest, &t0);
+
   print_asm_template2(movsx);
 }
 
 make_EHelper(movzx) {
   id_dest->width = decoding.is_operand_size_16 ? 2 : 4;
   operand_write(id_dest, &id_src->val);
+
   print_asm_template2(movzx);
 }
 
 make_EHelper(lea) {
+	//printf("lea dest is %d\n",id_dest->reg);
   operand_write(id_dest, &id_src->addr);
+
   print_asm_template2(lea);
 }
