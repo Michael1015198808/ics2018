@@ -47,6 +47,7 @@ make_EHelper(movsx);
 make_EHelper(shl);
 make_EHelper(not);
 //For load-store.c
-
+make_EHelper(sar);
+//For bit.c
 
 
