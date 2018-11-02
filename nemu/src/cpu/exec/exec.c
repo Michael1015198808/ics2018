@@ -47,11 +47,11 @@ make_group(gp1,
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EX(shr), EMPTY, EMPTY)
+    EX(shl), EX(shr), EMPTY, EMPTY)
 
   /* 0xf6, 0xf7 */
 make_group(gp3,
-    IDEX(test_I,test), EMPTY, EMPTY, EMPTY,
+    IDEX(test_I,test), EMPTY, EX(not), EMPTY,
     EX(mul), EMPTY, EMPTY, EX(idiv))
 
   /* 0xfe */
@@ -86,7 +86,7 @@ opcode_entry opcode_table [512] = {
   /* 0x2c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x30 */	EMPTY, IDEX(G2E,xor), EMPTY, IDEX(E2G,xor),
   /* 0x34 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x38 */	IDEXW(G2E,cmp,1), IDEX(G2E,cmp), EMPTY, EMPTY,
+  /* 0x38 */	IDEXW(G2E,cmp,1), IDEX(G2E,cmp), EMPTY, IDEX(E2G,cmp),
   /* 0x3c */	EMPTY, IDEX(I2a,cmp), EMPTY, EMPTY,
   /* 0x40 */	IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),
   /* 0x44 */	IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),
@@ -184,9 +184,9 @@ opcode_entry opcode_table [512] = {
   /* 0xa8 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xac */	EMPTY, EMPTY, EMPTY, IDEX(E2G,imul2),
   /* 0xb0 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0xb4 */	EMPTY, EMPTY, IDEXW(E2G,movzx,1), EMPTY,
+  /* 0xb4 */	EMPTY, EMPTY, IDEXW(mov_E2G,movzx,1), IDEXW(mov_E2G,movzx,2),
   /* 0xb8 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0xbc */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0xbc */	EMPTY, EMPTY, EMPTY, IDEXW(mov_E2G,movsx,2),
   /* 0xc0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xc4 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xc8 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -249,8 +249,8 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
 
-/*	printf("\neip:%x",ori_eip);
-	int watchregs[]={R_ECX};
+/*	printf("\neip:%x\n",ori_eip);
+	int watchregs[]={R_EAX};
 	int watchaddrs[]={};
 	int i;
 	for(i=0;i<sizeof(watchregs)/4;++i){
@@ -263,9 +263,9 @@ void exec_wrapper(bool print_flag) {
 					if(!(i&3)){
 									puts("");
 					}
-					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],4),vaddr_read(watchaddrs[i],4));
-	}
-	printf("ZF:%d\n",cpu.ZF);*/
+					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],2),vaddr_read(watchaddrs[i],2));
+	}*/
+	//printf("ZF:%d\n",cpu.ZF);
   update_eip();
 
 #if defined(DIFF_TEST)

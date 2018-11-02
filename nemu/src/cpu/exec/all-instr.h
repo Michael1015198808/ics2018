@@ -42,5 +42,11 @@ make_EHelper(shr);
 //Nothing for prime.c, goldbach.c, fib.c, switch.c...
 make_EHelper(adc);
 make_EHelper(or);
+//For add-longlong.c
+make_EHelper(movsx);
+make_EHelper(shl);
+make_EHelper(not);
+//For load-store.c
+
 
 

@@ -90,5 +90,4 @@ void difftest_step(uint32_t eip) {
 					printf("  instead of %d\n",cpu.f);\
 	}
 	//check(CF);check(ZF);check(SF);check(OF);
-	check(ZF);
 }
