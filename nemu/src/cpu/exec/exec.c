@@ -90,12 +90,12 @@ opcode_entry opcode_table [512] = {
   /* 0x3c */	EMPTY, IDEX(I2a,cmp), EMPTY, EMPTY,
   /* 0x40 */	IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),
   /* 0x44 */	IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),
-  /* 0x48 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x4c */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x48 */	IDEX(r,dec),IDEX(r,dec),IDEX(r,dec),IDEX(r,dec),
+  /* 0x4c */	IDEX(r,dec),IDEX(r,dec),IDEX(r,dec),IDEX(r,dec),
   /* 0x50 */	IDEX(r,push),IDEX(r,push),IDEX(r,push),IDEX(r,push),
   /* 0x54 */	IDEX(r,push),IDEX(r,push),IDEX(r,push),IDEX(r,push),
-  /* 0x58 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x5c */	EMPTY, IDEX(r,pop), EMPTY, EMPTY,
+  /* 0x58 */	IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),
+  /* 0x5c */	IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),
   /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
   /* 0x68 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -249,7 +249,7 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
 
-	int watchregs[]={R_EAX,R_ESI};
+	int watchregs[]={R_EAX,R_EBX};
 	int watchaddrs[]={};
 	int i;
 	for(i=0;i<sizeof(watchregs)/4;++i){

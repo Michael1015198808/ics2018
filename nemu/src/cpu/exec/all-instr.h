@@ -25,4 +25,4 @@ make_EHelper(movzx);
 make_EHelper(test);
 make_EHelper(leave);
 //For sum.c
-
+make_EHelper(dec);

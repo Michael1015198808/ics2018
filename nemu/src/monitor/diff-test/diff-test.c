@@ -79,4 +79,8 @@ void difftest_step(uint32_t eip) {
 									nemu_state=NEMU_ABORT;
 					}
 	}
+	if(cpu.eip!=ref_r.eip){
+					printf("eip should be %4d\t(0x%x)\n",ref_r.eip,ref_r.eip);
+					printf("   instead of %4d\t(0x%x)\n",cpu.eip,cpu.eip);
+	}
 }
