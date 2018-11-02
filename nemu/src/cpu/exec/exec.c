@@ -249,7 +249,7 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
 
-	printf("\neip:%x",ori_eip);
+/*	printf("\neip:%x",ori_eip);
 	int watchregs[]={R_ECX};
 	int watchaddrs[]={};
 	int i;
@@ -265,7 +265,7 @@ void exec_wrapper(bool print_flag) {
 					}
 					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],4),vaddr_read(watchaddrs[i],4));
 	}
-	printf("ZF:%d\n",cpu.ZF);
+	printf("ZF:%d\n",cpu.ZF);*/
   update_eip();
 
 #if defined(DIFF_TEST)
