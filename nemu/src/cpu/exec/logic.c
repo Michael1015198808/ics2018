@@ -2,8 +2,8 @@
 #include "cpu/cc.h"
 
 make_EHelper(test) {
-	printf("cl%d\n",reg_b(R_CL));
-	printf("%d\t%d\ntest\n",id_dest->val,id_src->val);
+	//printf("cl%d\n",reg_b(R_CL));
+	//printf("%d\t%d\ntest\n",id_dest->val,id_src->val);
 	rtl_and(&t2,&id_dest->val,&id_src->val);
 	cpu.OF=cpu.CF=0;
 	rtl_update_ZFSF(&t2,id_dest->width);
@@ -30,7 +30,10 @@ make_EHelper(xor) {
 }
 
 make_EHelper(or) {
-  TODO();
+	rtl_or(&t2,&id_dest->val,&id_src->val);
+	cpu.OF=cpu.CF=0;
+	rtl_update_ZFSF(&t2,id_dest->width);
+	operand_write(id_dest,&t2);
 
   print_asm_template2(or);
 }

@@ -39,8 +39,8 @@ make_EHelper(imul2);
 make_EHelper(mul);
 make_EHelper(shr);
 //For shuixianhua.c
-//Nothing for prime.c, goldbach.c, fib.c, switch.c
-//
-
+//Nothing for prime.c, goldbach.c, fib.c, switch.c...
+make_EHelper(adc);
+make_EHelper(or);
 
 
