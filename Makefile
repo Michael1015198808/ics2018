@@ -13,4 +13,7 @@ submit: clean
 	git gc
 	STUID=$(STUID) STUNAME=$(STUNAME) bash -c "$$(curl -s http://moon.nju.edu.cn/~jyy/teach/submit.sh)"
 
-.PHONY: default clean submit
+git:
+	@git add .
+	@git commit
+.PHONY: default clean submit git
