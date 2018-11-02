@@ -30,6 +30,11 @@ make_EHelper(dec);
 make_EHelper(nop);
 make_EHelper(cltd);
 make_EHelper(idiv);
+//For wanshu.c
+//Nothing for mov-c.c
+make_EHelper(jmp);
+make_EHelper(imul2);
+//For fact.c
 
 
 
