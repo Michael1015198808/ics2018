@@ -52,7 +52,7 @@ make_group(gp2,
   /* 0xf6, 0xf7 */
 make_group(gp3,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    EMPTY, EMPTY, EMPTY, EX(idiv))
 
   /* 0xfe */
 make_group(gp4,
@@ -86,7 +86,7 @@ opcode_entry opcode_table [512] = {
   /* 0x2c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x30 */	EMPTY, IDEX(G2E,xor), EMPTY, EMPTY,
   /* 0x34 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x38 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x38 */	IDEXW(G2E,cmp,1), IDEX(G2E,cmp), EMPTY, EMPTY,
   /* 0x3c */	EMPTY, IDEX(I2a,cmp), EMPTY, EMPTY,
   /* 0x40 */	IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),
   /* 0x44 */	IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),
@@ -108,9 +108,9 @@ opcode_entry opcode_table [512] = {
   /* 0x84 */	EMPTY, IDEX(G2E,test), EMPTY, EMPTY,
   /* 0x88 */	IDEXW(mov_G2E, mov, 1), IDEX(mov_G2E, mov), IDEXW(mov_E2G, mov, 1), IDEX(mov_E2G, mov),
   /* 0x8c */	EMPTY, IDEX(E2G,lea), EMPTY, EMPTY,
-  /* 0x90 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x90 */	EX(nop), EMPTY, EMPTY, EMPTY,
   /* 0x94 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x98 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x98 */	EMPTY, EX(cltd), EMPTY, EMPTY,
   /* 0x9c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xa0 */	IDEXW(O2a, mov, 1), IDEX(O2a, mov), IDEXW(a2O, mov, 1), IDEX(a2O, mov),
   /* 0xa4 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -249,7 +249,7 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
 
-	int watchregs[]={R_EAX,R_EBX};
+	int watchregs[]={R_EAX,R_EDX};
 	int watchaddrs[]={};
 	int i;
 	for(i=0;i<sizeof(watchregs)/4;++i){

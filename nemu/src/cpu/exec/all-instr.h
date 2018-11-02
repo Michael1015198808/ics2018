@@ -26,3 +26,11 @@ make_EHelper(test);
 make_EHelper(leave);
 //For sum.c
 make_EHelper(dec);
+//For unalign.c
+make_EHelper(nop);
+make_EHelper(cltd);
+make_EHelper(idiv);
+
+
+
+

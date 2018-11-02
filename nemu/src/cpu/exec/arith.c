@@ -27,6 +27,8 @@ make_EHelper(inc) {
 	id_src->val=1;
 	rtl_add(&t2,&id_dest->val,&id_src->val);
 	operand_write(id_dest,&t2);
+	t2=!t2;
+	rtl_set_ZF(&t2);
 
   print_asm_template1(inc);
 }
@@ -34,10 +36,9 @@ make_EHelper(inc) {
 make_EHelper(dec) {
 	id_src->val=1;
 	rtl_sub(&t2,&id_dest->val,&id_src->val);
-	at=0;
-  rtl_setrelop(RELOP_EQ, &t3, &t2, &at);
-	rtl_set_ZF(&t3);
 	operand_write(id_dest,&t2);
+	t2=!t2;
+	rtl_set_ZF(&t2);
 
   print_asm_template1(dec);
 }
