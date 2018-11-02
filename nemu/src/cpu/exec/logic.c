@@ -2,7 +2,8 @@
 #include "cpu/cc.h"
 
 make_EHelper(test) {
-	//printf("%d\t%d\n",id_dest->width,id_src->width);
+	printf("cl%d\n",reg_b(R_CL));
+	printf("%d\t%d\ntest\n",id_dest->val,id_src->val);
 	rtl_and(&t2,&id_dest->val,&id_src->val);
 	cpu.OF=cpu.CF=0;
 	rtl_update_ZFSF(&t2,id_dest->width);
@@ -12,6 +13,8 @@ make_EHelper(test) {
 
 make_EHelper(and) {
 	rtl_and(&t2,&id_dest->val,&id_src->val);
+	cpu.OF=cpu.CF=0;
+	rtl_update_ZFSF(&t2,id_dest->width);
 	operand_write(id_dest,&t2);
 
   print_asm_template2(and);
@@ -19,6 +22,8 @@ make_EHelper(and) {
 
 make_EHelper(xor) {
 	rtl_xor(&t2,&id_dest->val,&id_src->val);
+	cpu.OF=cpu.CF=0;
+	rtl_update_ZFSF(&t2,id_dest->width);
 	operand_write(id_dest,&t2);
 
   print_asm_template2(xor);
@@ -46,6 +51,7 @@ make_EHelper(shl) {
 
 make_EHelper(shr) {
 	rtl_shr(&t0,&id_dest->val,&id_src->val);
+	rtl_update_ZFSF(&t2,id_dest->width);
 	operand_write(id_dest,&t0);
   // unnecessary to update CF and OF in NEMU
 

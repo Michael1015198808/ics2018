@@ -51,7 +51,7 @@ make_group(gp2,
 
   /* 0xf6, 0xf7 */
 make_group(gp3,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    IDEX(test_I,test), EMPTY, EMPTY, EMPTY,
     EX(mul), EMPTY, EMPTY, EX(idiv))
 
   /* 0xfe */
@@ -82,7 +82,7 @@ opcode_entry opcode_table [512] = {
   /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x20 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x24 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x28 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x28 */	EMPTY, IDEX(G2E,sub), EMPTY, EMPTY,
   /* 0x2c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x30 */	EMPTY, IDEX(G2E,xor), EMPTY, EMPTY,
   /* 0x34 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -100,10 +100,10 @@ opcode_entry opcode_table [512] = {
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
   /* 0x68 */	EMPTY, EMPTY, IDEXW(I,push,1), EMPTY,
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x70 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x70 */	IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),
   /* 0x74 */	IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),
   /* 0x78 */	IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),
-  /* 0x7c */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x7c */	IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),
   /* 0x80 */	IDEXW(I2E, gp1, 1), IDEX(I2E, gp1), EMPTY, IDEX(SI2E, gp1),
   /* 0x84 */	EMPTY, IDEX(G2E,test), EMPTY, EMPTY,
   /* 0x88 */	IDEXW(mov_G2E, mov, 1), IDEX(mov_G2E, mov), IDEXW(mov_E2G, mov, 1), IDEX(mov_E2G, mov),
@@ -248,8 +248,9 @@ void exec_wrapper(bool print_flag) {
     puts(decoding.asm_buf);
   }
 #endif
-/*
-	int watchregs[]={R_EAX,R_EDX};
+
+	printf("\neip:%x",ori_eip);
+	int watchregs[]={R_ECX};
 	int watchaddrs[]={};
 	int i;
 	for(i=0;i<sizeof(watchregs)/4;++i){
@@ -265,9 +266,8 @@ void exec_wrapper(bool print_flag) {
 					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],4),vaddr_read(watchaddrs[i],4));
 	}
 	printf("ZF:%d\n",cpu.ZF);
- */ update_eip();/*
-	printf("\neip:%x\n",cpu.eip);
-*/
+  update_eip();
+
 #if defined(DIFF_TEST)
   void difftest_step(uint32_t);
   difftest_step(ori_eip);
