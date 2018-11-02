@@ -39,6 +39,7 @@ make_EHelper(imul2);
 make_EHelper(mul);
 make_EHelper(shr);
 //For shuixianhua.c
+//Nothing for prime.c
 
 
 

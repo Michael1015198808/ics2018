@@ -2,7 +2,7 @@
 #include "cpu/cc.h"
 
 make_EHelper(test) {
-	printf("%d\t%d\n",id_dest->width,id_src->width);
+	//printf("%d\t%d\n",id_dest->width,id_src->width);
 	rtl_and(&t2,&id_dest->val,&id_src->val);
 	cpu.OF=cpu.CF=0;
 	rtl_update_ZFSF(&t2,id_dest->width);
@@ -56,7 +56,7 @@ make_EHelper(setcc) {
   uint32_t cc = decoding.opcode & 0xf;
 
   rtl_setcc(&t2, cc);
-	printf("%d",id_dest->width);
+	//printf("%d",id_dest->width);
   operand_write(id_dest, &t2);
 
   print_asm("set%s %s", get_cc_name(cc), id_dest->str);
