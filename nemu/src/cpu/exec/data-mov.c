@@ -7,7 +7,7 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-	rtl_push(&cpu.gpr[id_dest->reg]._32);
+	rtl_push(&id_dest->val);
 
   print_asm_template1(push);
 }
