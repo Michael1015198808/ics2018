@@ -47,12 +47,12 @@ make_group(gp1,
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    EMPTY, EX(shr), EMPTY, EMPTY)
 
   /* 0xf6, 0xf7 */
 make_group(gp3,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EX(idiv))
+    EX(mul), EMPTY, EMPTY, EX(idiv))
 
   /* 0xfe */
 make_group(gp4,
@@ -248,7 +248,7 @@ void exec_wrapper(bool print_flag) {
     puts(decoding.asm_buf);
   }
 #endif
-
+/*
 	int watchregs[]={R_EAX,R_EDX};
 	int watchaddrs[]={};
 	int i;
@@ -265,9 +265,9 @@ void exec_wrapper(bool print_flag) {
 					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],4),vaddr_read(watchaddrs[i],4));
 	}
 	printf("ZF:%d\n",cpu.ZF);
-  update_eip();
+ */ update_eip();/*
 	printf("\neip:%x\n",cpu.eip);
-
+*/
 #if defined(DIFF_TEST)
   void difftest_step(uint32_t);
   difftest_step(ori_eip);

@@ -36,6 +36,9 @@ make_EHelper(jmp);
 make_EHelper(imul2);
 //For fact.c
 //Nothing for div.c
+make_EHelper(mul);
+make_EHelper(shr);
+//For shuixianhua.c
 
 
 
