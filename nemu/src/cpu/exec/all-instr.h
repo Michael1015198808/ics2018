@@ -49,5 +49,5 @@ make_EHelper(not);
 //For load-store.c
 make_EHelper(sar);
 //For bit.c
-
+make_EHelper(neg);
 

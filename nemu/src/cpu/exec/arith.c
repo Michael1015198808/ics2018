@@ -40,13 +40,11 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
-	printf("%d\t%d\n",id_dest->val,id_src->val);
 	rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_update_ZFSF(&t2, id_dest->width);
 
   rtl_setrelop(RELOP_GT, &t0, &id_dest->val, &id_src->val);
 	//				maybe		 GE
-	printf("t0:%d\n",t0);
   rtl_set_CF(&t0);
 
 	rtl_get_SF(&at);
@@ -104,7 +102,10 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
+	t1=0;
+	rtl_sub(&t0,&t1,&id_dest->val);
+	operand_write(id_dest,&t0);
+	rtl_update_ZFSF(&t0, id_dest->width);
 
   print_asm_template1(neg);
 }
