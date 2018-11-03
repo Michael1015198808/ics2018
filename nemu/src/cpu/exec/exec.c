@@ -61,7 +61,7 @@ make_group(gp4,
 
   /* 0xff */
 make_group(gp5,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    EX(inc), EMPTY, EMPTY, EMPTY,
     EMPTY, EMPTY, EX(push), EMPTY)
 
   /* 0x0f 0x01*/
@@ -171,10 +171,10 @@ opcode_entry opcode_table [512] = {
   /* 0x74 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x78 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x7c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x80 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x84 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x88 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x8c */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x80 */	IDEX(J,jcc),IDEX(J,jcc),IDEX(J,jcc),IDEX(J,jcc),
+  /* 0x84 */	IDEX(J,jcc),IDEX(J,jcc),IDEX(J,jcc),IDEX(J,jcc),
+  /* 0x88 */	IDEX(J,jcc),IDEX(J,jcc),IDEX(J,jcc),IDEX(J,jcc),
+  /* 0x8c */	IDEX(J,jcc),IDEX(J,jcc),IDEX(J,jcc),IDEX(J,jcc),
   /* 0x90 */	IDEXW(E,setcc,1),IDEXW(E,setcc,1),IDEXW(E,setcc,1),IDEXW(E,setcc,1),
   /* 0x94 */	IDEXW(E,setcc,1),IDEXW(E,setcc,1),IDEXW(E,setcc,1),IDEXW(E,setcc,1),
   /* 0x98 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -249,8 +249,8 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
 
-/*	printf("\neip:%x\n",ori_eip);
-	int watchregs[]={R_EAX};
+	printf("\neip:%x\n",ori_eip);
+	int watchregs[]={R_EAX,R_EBX};
 	int watchaddrs[]={};
 	int i;
 	for(i=0;i<sizeof(watchregs)/4;++i){
@@ -264,7 +264,7 @@ void exec_wrapper(bool print_flag) {
 									puts("");
 					}
 					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],2),vaddr_read(watchaddrs[i],2));
-	}*/
+	}//
 	//printf("ZF:%d\n",cpu.ZF);
   update_eip();
 
