@@ -62,7 +62,7 @@ re:;
 				}
 				break;
 			default:
-				if(*p==0){
+				if(*p=='0'){
 					fill='0';
 					++p;
 				}
