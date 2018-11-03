@@ -32,7 +32,7 @@ typedef union {
     vaddr_t eip;
 		union{
 			struct{
-				uint32_t CF:1,OF:1,ZF:1,SF:1;
+				uint32_t CF:1,:5,ZF:1,SF:1,:3,OF:1;
 			};
 			rtlreg_t eflags;
 		};

@@ -52,7 +52,7 @@ make_group(gp2,
   /* 0xf6, 0xf7 */
 make_group(gp3,
     IDEX(test_I,test), EMPTY, EX(not), EX(neg),
-    EX(mul), EMPTY, EMPTY, EX(idiv))
+    EX(mul), EX(imul1), EMPTY, EX(idiv))
 
   /* 0xfe */
 make_group(gp4,
@@ -61,8 +61,8 @@ make_group(gp4,
 
   /* 0xff */
 make_group(gp5,
-    EX(inc), EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EX(push), EMPTY)
+    EX(inc), EMPTY, EX(call_rm), EMPTY,
+    EX(jmp_rm), EMPTY, EX(push), EMPTY)
 
   /* 0x0f 0x01*/
 make_group(gp7,
@@ -78,11 +78,11 @@ opcode_entry opcode_table [512] = {
   /* 0x0c */	EMPTY, EMPTY, EMPTY, EX(2byte_esc),
   /* 0x10 */	EMPTY, EMPTY, EMPTY, IDEX(E2G,adc),
   /* 0x14 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x18 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x18 */	EMPTY, EMPTY, EMPTY, IDEX(E2G,sbb),
   /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x20 */	EMPTY, EMPTY, IDEXW(E2G,and,1), EMPTY,
   /* 0x24 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x28 */	EMPTY, IDEX(G2E,sub), EMPTY, EMPTY,
+  /* 0x28 */	EMPTY, IDEX(G2E,sub), EMPTY, IDEX(E2G,sub),
   /* 0x2c */	EMPTY, IDEX(I2a,sub), EMPTY, EMPTY,
   /* 0x30 */	EMPTY, IDEX(G2E,xor), EMPTY, IDEX(E2G,xor),
   /* 0x34 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -98,7 +98,7 @@ opcode_entry opcode_table [512] = {
   /* 0x5c */	IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),
   /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
-  /* 0x68 */	EMPTY, EMPTY, IDEXW(I,push,1), EMPTY,
+  /* 0x68 */	IDEX(I,push), EMPTY, IDEXW(I,push,1), EMPTY,
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x70 */	IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),
   /* 0x74 */	IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),IDEXW(J,jcc,1),
@@ -249,8 +249,8 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
 
-	printf("\neip:%x\n",ori_eip);
-	int watchregs[]={R_ESI};
+	printf("\neip:%x->%x\n",ori_eip,decoding.seq_eip);
+	int watchregs[]={};
 	int watchaddrs[]={};
 	int i;
 	for(i=0;i<sizeof(watchregs)/4;++i){
@@ -264,8 +264,10 @@ void exec_wrapper(bool print_flag) {
 									puts("");
 					}
 					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],2),vaddr_read(watchaddrs[i],2));
-	}//
-	//printf("ZF:%d\n",cpu.ZF);
+	}
+#define print(f) \
+					printf("%s:%d\n",#f,cpu.f);
+	//print(CF);print(OF);print(ZF);print(SF);
   update_eip();
 
 #if defined(DIFF_TEST)

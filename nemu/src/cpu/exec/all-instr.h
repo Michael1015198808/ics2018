@@ -4,6 +4,7 @@ make_EHelper(mov);
 
 make_EHelper(operand_size);
 
+
 make_EHelper(inv);
 make_EHelper(nemu_trap);
 //Before PA2
@@ -50,4 +51,9 @@ make_EHelper(not);
 make_EHelper(sar);
 //For bit.c
 make_EHelper(neg);
+//For matrix-mul.c
+make_EHelper(imul1);
+make_EHelper(call_rm);
+make_EHelper(jmp_rm);
+make_EHelper(sbb);
 
