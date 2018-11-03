@@ -4,16 +4,21 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
+	size_t cnt=0;
 	va_list ap;
 	const char *p, *sval;
-	int ival;
+	char fill;
+	int ival,fill_width;
 	double dval;
 	va_start(ap,fmt);
-	for(p=fmt;*p;++p){
+	for(p=fmt;*p!='\0';++p){
 		if(*p!='%'){
 			_putc(*p);
 			continue;
 		}
+		fill_width=0;
+		fill=' ';
+re:;
 		switch(*++p){
 			case 'd':
 				{
@@ -21,19 +26,24 @@ int printf(const char *fmt, ...) {
 				if(ival<0){
 					_putc('-');
 				}
-				size_t i=0;
-				char num[10];
+				int i=0;
+				char num[10000];
 				while(ival>0){
-					num[i]=ival%10;
+					num[i++]=ival%10+'0';
 					ival/=10;
-					++i;
 				}
-				while(i>=0){
-					_putc(num[i]+'0');
-					--i;
+				while(fill_width>i){
+					num[i++]=fill;
+				}
+				if(i==0){
+					_putc('0');
+				}else{
+					while(i>0){
+						_putc(num[--i]);
+					}
+				}
 				}
 				break;
-				}
 			case 'f':
 				{
 				dval=va_arg(ap,double);
@@ -47,16 +57,28 @@ int printf(const char *fmt, ...) {
 				}
 				break;
 			case 's':
-				for(sval=va_arg(ap,char*);*sval;++sval){
+				for(sval=va_arg(ap,char*);*sval!='\0';++sval){
 					_putc(*sval);
 				}
 				break;
 			default:
-				_putc(*p);
+				if(*p==0){
+					fill='0';
+					++p;
+				}
+				fill_width=0;
+				while(*p>='0'&&*p<='9'){
+								fill_width*=10;
+								fill_width+=*p-'0';
+								++p;
+				}
+				--p;
+				goto re;
 				break;
 		}
 	}
-  return 0;
+	va_end(ap);
+  return cnt;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
@@ -101,7 +123,7 @@ int sprintf(char *out, const char *fmt, ...) {
 				double i=1000000;
 				while(i>0.001){
 					int j=(int)dval/i;
-					_putc(j+'0');
+					out[cnt++]=j+'0';
 					dval-=((int)dval/i)*i;
 					i/=10;
 				}

@@ -42,7 +42,9 @@ make_EHelper(iret) {
 }
 
 make_EHelper(in) {
-  TODO();
+	uint32_t pio_read_b(ioaddr_t addr);
+	at=pio_read_b(id_src->val);
+	operand_write(id_dest,&at);
 
   print_asm_template2(in);
 
@@ -52,7 +54,8 @@ make_EHelper(in) {
 }
 
 make_EHelper(out) {
-  TODO();
+	void pio_write_b(ioaddr_t addr, uint32_t data);
+	pio_write_b(id_dest->val,id_src->val);
 
   print_asm_template2(out);
 

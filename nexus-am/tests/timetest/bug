@@ -1,0 +1,4 @@
+[1;31mphysical address(0xffffffff) is out of bound[0m
+nemu: src/memory/memory.c:15: paddr_read: Assertion `addr < (128 * 1024 * 1024)' failed.
+make[1]: *** [run] Aborted (core dumped)
+make: *** [run] Error 2

@@ -56,5 +56,6 @@ make_EHelper(imul1);
 make_EHelper(call_rm);
 make_EHelper(jmp_rm);
 make_EHelper(sbb);
+//For PA2.2
 make_EHelper(in);
-
+make_EHelper(out);
