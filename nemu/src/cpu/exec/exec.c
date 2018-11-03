@@ -87,7 +87,7 @@ opcode_entry opcode_table [512] = {
   /* 0x30 */	EMPTY, IDEX(G2E,xor), EMPTY, IDEX(E2G,xor),
   /* 0x34 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x38 */	IDEXW(G2E,cmp,1), IDEX(G2E,cmp), EMPTY, IDEX(E2G,cmp),
-  /* 0x3c */	EMPTY, IDEX(I2a,cmp), EMPTY, EMPTY,
+  /* 0x3c */	IDEXW(I2a,cmp,1), IDEX(I2a,cmp), EMPTY, EMPTY,
   /* 0x40 */	IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),
   /* 0x44 */	IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),IDEX(r,inc),
   /* 0x48 */	IDEX(r,dec),IDEX(r,dec),IDEX(r,dec),IDEX(r,dec),
@@ -130,8 +130,8 @@ opcode_entry opcode_table [512] = {
   /* 0xdc */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xe0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xe4 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0xe8 */	IDEX(J,call), EMPTY, EMPTY, IDEXW(J,jmp,1),
-  /* 0xec */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0xe8 */	IDEX(J,call), IDEX(J,jmp), EMPTY, IDEXW(J,jmp,1),
+  /* 0xec */	IDEX(in_dx2a,in), EMPTY, EMPTY, EMPTY,
   /* 0xf0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xf4 */	EMPTY, EMPTY, IDEXW(E, gp3, 1), IDEX(E, gp3),
   /* 0xf8 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -186,7 +186,7 @@ opcode_entry opcode_table [512] = {
   /* 0xb0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xb4 */	EMPTY, EMPTY, IDEXW(mov_E2G,movzx,1), IDEXW(mov_E2G,movzx,2),
   /* 0xb8 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0xbc */	EMPTY, EMPTY, EMPTY, IDEXW(mov_E2G,movsx,2),
+  /* 0xbc */	EMPTY, EMPTY, IDEXW(mov_E2G,movsx,1), IDEXW(mov_E2G,movsx,2),
   /* 0xc0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xc4 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xc8 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -249,7 +249,7 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
 
-	printf("\neip:%x->%x\n",ori_eip,decoding.seq_eip);
+	//printf("\neip:%x->%x\n",ori_eip,decoding.seq_eip);
 	int watchregs[]={};
 	int watchaddrs[]={};
 	int i;
@@ -269,6 +269,12 @@ void exec_wrapper(bool print_flag) {
 					printf("%s:%d\n",#f,cpu.f);
 	//print(CF);print(OF);print(ZF);print(SF);
   update_eip();
+	/*if(cpu.eip==0x100100){
+					printf("test\n");
+	}
+	if(cpu.eip==0x10022c){
+					printf("strcmp\t");
+	}*/
 
 #if defined(DIFF_TEST)
   void difftest_step(uint32_t);

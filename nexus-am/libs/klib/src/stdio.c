@@ -4,6 +4,58 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
+	va_list ap;
+	const char *p, *sval;
+	int ival;
+	double dval;
+	va_start(ap,fmt);
+	for(p=fmt;*p;++p){
+		if(*p!='%'){
+			_putc(*p);
+			continue;
+		}
+		switch(*++p){
+			case 'd':
+				{
+				ival=va_arg(ap,int);
+				if(ival<0){
+					_putc('-');
+				}
+				size_t i=0;
+				char num[10];
+				while(ival>0){
+					num[i]=ival%10;
+					ival/=10;
+					++i;
+				}
+				while(i>=0){
+					_putc(num[i]+'0');
+					--i;
+				}
+				break;
+				}
+			case 'f':
+				{
+				dval=va_arg(ap,double);
+				double i=1000000;
+				while(i>0.001){
+					int j=(int)dval/i;
+					_putc(j+'0');
+					dval-=((int)dval/i)*i;
+					i/=10;
+				}
+				}
+				break;
+			case 's':
+				for(sval=va_arg(ap,char*);*sval;++sval){
+					_putc(*sval);
+				}
+				break;
+			default:
+				_putc(*p);
+				break;
+		}
+	}
   return 0;
 }
 
@@ -12,7 +64,62 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  return 0;
+	size_t cnt=0;
+	va_list ap;
+	const char *p, *sval;
+	int ival;
+	double dval;
+	va_start(ap,fmt);
+	for(p=fmt;*p!='\0';++p){
+		if(*p!='%'){
+			out[cnt++]=*p;
+			continue;
+		}
+		switch(*++p){
+			case 'd':
+				{
+				ival=va_arg(ap,int);
+				if(ival<0){
+					out[cnt++]='-';
+				}
+				int i=0;
+				char num[10];
+				while(ival>0){
+					num[i]=ival%10;
+					ival/=10;
+					++i;
+				}
+				while(i>0){
+					--i;
+					out[cnt++]=num[i]+'0';
+				}
+				}
+				break;
+			case 'f':
+				{
+				dval=va_arg(ap,double);
+				double i=1000000;
+				while(i>0.001){
+					int j=(int)dval/i;
+					_putc(j+'0');
+					dval-=((int)dval/i)*i;
+					i/=10;
+				}
+				}
+				break;
+			case 's':
+				for(sval=va_arg(ap,char*);*sval!='\0';++sval){
+					out[cnt++]=*sval;
+				}
+				break;
+			default:
+				out[cnt++]=*p;
+				break;
+		}
+	}
+	va_end(ap);
+  out[cnt]='\0';
+  return cnt;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {

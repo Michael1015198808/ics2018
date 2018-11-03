@@ -1,142 +1,19 @@
-Building goldbach [x86-nemu] with AM_HOME {/home/michael/ics2018/nexus-am}
+Building hello-str [x86-nemu] with AM_HOME {/home/michael/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/michael/ics2018/nexus-am/tests/cputest/build/goldbach-x86-nemu.bin[0m
-[1;34m[src/monitor/diff-test/diff-test.c,44,init_difftest] Differential testing: [1;32mON[0m[0m
-[1;34m[src/monitor/diff-test/diff-test.c,47,init_difftest] The result of every instruction will be compared with /home/michael/ics2018/nemu/tools/qemu-diff/build/qemu-so. This will help you a lot for debugging, but also significantly reduce the performance. If it is not necessary, you can turn it off in include/common.h.[0m
-Connect to QEMU successfully
+[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/michael/ics2018/nexus-am/tests/cputest/build/hello-str-x86-nemu.bin[0m
 [1;34m[src/monitor/monitor.c,33,welcome] Debug: [1;32mOFF[0m[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 15:39:08, Nov  3 2018[0m
+[1;34m[src/monitor/monitor.c,36,welcome] Build time: 21:50:32, Nov  3 2018[0m
 Welcome to NEMU!
 For help, type "help"
+0	0	0	0
+0	0	0	0
+0	0	0	0
+0	0	0	0
+0	0	0	0
+0	0	0	0
+[1;31mnemu: HIT GOOD TRAP[0m at eip = 0x00100043
 
-eip:100000->100005
-
-eax:   0(0x   0)	ebx:   0(0x   0)	ZF should be 1
-  instead of 0
-SF should be 1
-  instead of 0
-
-eip:100005->10000a
-
-eax:   0(0x   0)	ebx:   0(0x   0)	ZF should be 1
-  instead of 0
-SF should be 1
-  instead of 0
-
-eip:10000a->10000f
-
-eax:   0(0x   0)	ebx:   0(0x   0)	CF should be 1
-  instead of 0
-
-eip:10001c->10001d
-
-eax:   0(0x   0)	ebx:   0(0x   0)	CF should be 1
-  instead of 0
-
-eip:10001d->10001f
-
-eax:   0(0x   0)	ebx:   0(0x   0)	
-eip:10001f->100022
-
-eax:   0(0x   0)	ebx:   0(0x   0)	ZF should be 1
-  instead of 0
-SF should be 1
-  instead of 0
-
-eip:100022->100027
-
-eax:   0(0x   0)	ebx:   0(0x   0)	CF should be 1
-  instead of 0
-
-eip:100124->100128
-
-eax:   0(0x   0)	ebx:   0(0x   0)	
-eip:100128->10012b
-
-eax:   0(0x   0)	ebx:   0(0x   0)	ZF should be 1
-  instead of 0
-SF should be 1
-  instead of 0
-
-eip:10012b->10012e
-
-eax:   0(0x   0)	ebx:   0(0x   0)	
-eip:10012e->10012f
-
-eax:   0(0x   0)	ebx:   0(0x   0)	
-eip:10012f->100131
-
-eax:   0(0x   0)	ebx:   0(0x   0)	
-eip:100131->100132
-
-eax:   0(0x   0)	ebx:   0(0x   0)	
-eip:100132->100133
-
-eax:   0(0x   0)	ebx:   0(0x   0)	
-eip:100133->100138
-
-eax:   0(0x   0)	ebx:   4(0x   4)	ZF should be 1
-  instead of 0
-SF should be 1
-  instead of 0
-
-eip:100138->100139
-
-eax:   0(0x   0)	ebx:   4(0x   4)	ZF should be 1
-  instead of 0
-SF should be 1
-  instead of 0
-
-eip:100139->10013e
-
-eax:   0(0x   0)	ebx:   4(0x   4)	
-eip:10008c->10008d
-
-eax:   0(0x   0)	ebx:   4(0x   4)	
-eip:10008d->10008f
-
-eax:   0(0x   0)	ebx:   4(0x   4)	
-eip:10008f->100090
-
-eax:   0(0x   0)	ebx:   4(0x   4)	
-eip:100090->100091
-
-eax:   0(0x   0)	ebx:   4(0x   4)	
-eip:100091->100092
-
-eax:   0(0x   0)	ebx:   4(0x   4)	
-eip:100092->100093
-
-eax:   0(0x   0)	ebx:   4(0x   4)	
-eip:100093->100096
-
-eax:   0(0x   0)	ebx:   4(0x   4)	
-eip:100096->10009b
-
-eax:   0(0x   0)	ebx:   4(0x   4)	ZF should be 1
-  instead of 0
-SF should be 1
-  instead of 0
-
-eip:10009b->10009e
-
-eax:   0(0x   0)	ebx:   4(0x   4)	ZF should be 1
-  instead of 0
-SF should be 1
-  instead of 0
-OF should be 0
-  instead of 1
-subcode14	14
-result1
-
-eip:10009e->1000a0
-
-eax:   0(0x   0)	ebx:   4(0x   4)	eip should be 1048736	(0x1000a0)
-   instead of 1048833	(0x100101)
-OF should be 0
-  instead of 1
-[1;31mnemu: ABORT[0m at eip = 0x00100101
-
- goldbach
+[1;34m[src/monitor/cpu-exec.c,23,monitor_statistic] total guest instructions = 1166[0m
+ hello-str

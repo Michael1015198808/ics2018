@@ -46,7 +46,6 @@ make_EHelper(cmp) {
 	rtl_update_ZFSF(&t2,id_dest->width);
 	rtl_setrelop(RELOP_LTU,&t0,&id_dest->val,&t2);
 	rtl_set_CF(&t0);
-	printf("dest->val%d\n",id_dest->val);
 	if(((id_dest->val) ^ (id_src->val))&(1<<(8*id_dest->width-1))){
 		if((t2^id_dest->val)&(1<<(8*id_dest->width-1))){
 						t3=1;

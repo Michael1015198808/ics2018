@@ -35,7 +35,6 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 						break;
     case CC_LE:
 						*dest=(cpu.SF^cpu.OF)|cpu.ZF;
-						printf("%d\t%d\t%d\t%d\n",cpu.SF,cpu.OF,cpu.ZF,*dest);
 						break;
     default: panic("should not reach here");
     case CC_P: panic("n86 does not have PF");
