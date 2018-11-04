@@ -10,6 +10,7 @@ int printf(const char *fmt, ...) {
 	char fill;
 	int ival,fill_width;
 	double dval;
+	uint32_t uval;
 	va_start(ap,fmt);
 	for(p=fmt;*p!='\0';++p){
 		if(*p!='%'){
@@ -20,11 +21,31 @@ int printf(const char *fmt, ...) {
 		fill=' ';
 re:;
 		switch(*++p){
+			case 'u':
+				uval=va_arg(ap,uint32_t);
+				int i=0;
+				char num[10000];
+				while(uval>0){
+					num[i++]=uval%10+'0';
+					uval/=10;
+				}
+				while(fill_width>i){
+					num[i++]=fill;
+				}
+				if(i==0){
+					_putc('0');
+				}else{
+					while(i>0){
+						_putc(num[--i]);
+					}
+				}
+				break;
 			case 'd':
 				{
 				ival=va_arg(ap,int);
 				if(ival<0){
 					_putc('-');
+					ival=-ival;
 				}
 				int i=0;
 				char num[10000];
@@ -91,6 +112,7 @@ int sprintf(char *out, const char *fmt, ...) {
 	const char *p, *sval;
 	int ival;
 	double dval;
+	//uint32_t uval;
 	va_start(ap,fmt);
 	for(p=fmt;*p!='\0';++p){
 		if(*p!='%'){
@@ -103,6 +125,7 @@ int sprintf(char *out, const char *fmt, ...) {
 				ival=va_arg(ap,int);
 				if(ival<0){
 					out[cnt++]='-';
+					ival=-ival;
 				}
 				int i=0;
 				char num[10];

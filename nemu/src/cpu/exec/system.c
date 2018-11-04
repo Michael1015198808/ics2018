@@ -43,7 +43,22 @@ make_EHelper(iret) {
 
 make_EHelper(in) {
 	uint32_t pio_read_b(ioaddr_t addr);
-	at=pio_read_b(id_src->val);
+	uint32_t pio_read_w(ioaddr_t addr);
+	uint32_t pio_read_l(ioaddr_t addr);
+	//printf("width%d\n",id_dest->width);
+	switch(id_dest->width){
+		case 1:
+			at=pio_read_b(id_src->val);
+			break;
+		case 2:
+			at=pio_read_w(id_src->val);
+			break;
+		case 4:
+			at=pio_read_l(id_src->val);
+			break;
+		default:
+			printf("Something wrong in EHelper(in)\n");
+	}
 	operand_write(id_dest,&at);
 
   print_asm_template2(in);

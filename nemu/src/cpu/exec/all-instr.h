@@ -59,3 +59,4 @@ make_EHelper(sbb);
 //For PA2.2
 make_EHelper(in);
 make_EHelper(out);
+make_EHelper(div);

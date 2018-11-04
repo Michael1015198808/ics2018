@@ -1,18 +1,28 @@
 #include <am.h>
 #include <x86.h>
 #include <amdev.h>
-struct timeval;
-int gettimeofday(timeval *,void*);
+
+#define RTC_PORT 0x48   // Note that this is not the standard
+
 int printf(char*,...);
+static _UptimeReg boot_time;
 
 size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_TIMER_UPTIME: {
-      _UptimeReg *uptime = (_UptimeReg *)buf;
-			gettimeofday(uptime, NULL);
-			printf("%d\t%d\n",uptime->hi,uptime->lo);
-      uptime->hi = 0;
-      uptime->lo += 1;
+			_UptimeReg *uptime = (_UptimeReg *)buf;
+			static uint32_t last_hi=0,last_io=0;
+      uptime->lo = inl(RTC_PORT);
+			if(uptime->lo<last_io){
+							++last_hi;
+			}
+			last_io=uptime->lo;
+			uptime->hi=last_hi;
+			if(uptime->lo<boot_time.lo){
+							uptime->hi--;
+			}
+			uptime->lo-=boot_time.lo;
+			//printf("%u\n",uptime->lo);
       return sizeof(_UptimeReg);
     }
     case _DEVREG_TIMER_DATE: {
@@ -30,6 +40,9 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
 }
 
 void timer_init() {
+				boot_time.hi=boot_time.lo=0;
+				boot_time.lo=inl(RTC_PORT);
+				//Not true initialization
 }
 
 /*
