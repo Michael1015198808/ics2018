@@ -60,10 +60,10 @@ make_EHelper(cltd) {
 
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
-    TODO();
+					cpu.gpr[R_EAX]._32=(uint32_t)(int32_t)(int16_t)cpu.gpr[R_EAX]._16;
   }
   else {
-    TODO();
+					//cpu.gpr[R_EAX]._16=(uint16_t)(int16_t)( int8_t)cpu.gpr[R_EAX]._8[0];
   }
 
   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
@@ -78,6 +78,7 @@ make_EHelper(movsx) {
 }
 
 make_EHelper(movzx) {
+	//printf("%s:%x\n",regsl[id_dest->reg],cpu.ebx);
   id_dest->width = decoding.is_operand_size_16 ? 2 : 4;
   operand_write(id_dest, &id_src->val);
 

@@ -39,6 +39,9 @@ make_EHelper(or) {
 }
 
 make_EHelper(sar) {
+	if(id_dest->width==2){
+					id_dest->val=(int32_t)(int16_t)id_dest->val;
+	}
 	rtl_sar(&t0,&id_dest->val,&id_src->val);
 	rtl_update_ZFSF(&t0,id_dest->width);
 	operand_write(id_dest,&t0);
@@ -81,4 +84,16 @@ make_EHelper(not) {
 	operand_write(id_dest,&t0);
 
   print_asm_template1(not);
+}
+
+make_EHelper(rol) {
+	rtl_shl(&t0,&id_dest->val,&id_src->val);
+	t0|=(id_dest->val)>>(id_dest->width*8-id_src->val);
+	operand_write(id_dest,&t0);
+}
+
+make_EHelper(ror) {
+	rtl_shr(&t0,&id_dest->val,&id_src->val);
+	t0|=(id_dest->val)<<(id_dest->width*8-id_src->val);
+	operand_write(id_dest,&t0);
 }
