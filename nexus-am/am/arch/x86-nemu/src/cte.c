@@ -9,7 +9,15 @@ void vecnull();
 _Context* irq_handle(_Context *tf) {
   _Context *next = tf;
 	int printf(char*,...);
-	printf("ecx:%d\n",tf->ecx);
+	printf("eax:%d\t",tf->eax);
+	printf("ecx:%d\t",tf->ecx);
+	printf("edx:%d\t",tf->edx);
+	printf("ebx:%d\n",tf->ebx);
+	printf("esp:%d\t",tf->esp);
+	printf("ebp:%d\t",tf->ebp);
+	printf("esi:%d\t",tf->esi);
+	printf("edi:%d\n",tf->edi);
+	printf("err:%d\n",tf->err);
   if (user_handler) {
     _Event ev;
     switch (tf->irq) {

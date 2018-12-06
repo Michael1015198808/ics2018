@@ -275,7 +275,7 @@ void exec_wrapper(bool print_flag) {
 	/*if(cpu.eip==0x100100){
 					printf("test\n");
 	}*/
-	if(cpu.eip==0x10082b){
+	if(cpu.eip==0x1008a7){
 					int i;
 					for(i=0;i<8;++i){
 									printf("%s:%4d\t",regsl[i],cpu.gpr[i]._32);
