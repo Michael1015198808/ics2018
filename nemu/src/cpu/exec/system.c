@@ -28,7 +28,7 @@ make_EHelper(mov_cr2r) {
 make_EHelper(int) {
 	rtl_push(&cpu.eflags);
 	rtl_push(&cpu.CS);
-	rtl_push(&cpu.eip);
+	rtl_push(eip);
 void raise_intr(uint8_t,vaddr_t);
 	raise_intr(id_dest->val,cpu.eip);
 
@@ -40,7 +40,9 @@ void raise_intr(uint8_t,vaddr_t);
 }
 
 make_EHelper(iret) {
-  TODO();
+	rtl_pop(eip);
+	rtl_pop(&cpu.CS);
+	rtl_pop(&cpu.eflags);
 
   print_asm("iret");
 }

@@ -69,3 +69,5 @@ make_EHelper(lidt);
 void raise_intr(uint8_t NO, vaddr_t ret_addr);
 make_EHelper(int);
 make_EHelper(pusha);
+make_EHelper(popa);
+make_EHelper(iret);
