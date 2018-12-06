@@ -28,16 +28,10 @@ make_EHelper(pusha) {
 	int i;
 	at=cpu.esp;
 	for(i=0;i<4;++i){
-		printf("%d",cpu.gpr[i]._32);
-		puts(regsl[i]);
 		rtl_push(&cpu.gpr[i]._32);
 	}
-	printf("%d",at);
-	puts(regsl[i]);
 	rtl_push(&at);
 	for(i=5;i<8;++i){
-		printf("%d",cpu.gpr[i]._32);
-		puts(regsl[i]);
 		rtl_push(&cpu.gpr[i]._32);
 	}
 
