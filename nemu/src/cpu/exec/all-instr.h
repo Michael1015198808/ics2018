@@ -64,3 +64,8 @@ make_EHelper(cwtl);
 make_EHelper(ror);
 make_EHelper(rol);
 make_EHelper(imul3);
+//For PA3.1
+make_EHelper(lidt);
+void raise_intr(uint8_t NO, vaddr_t ret_addr);
+make_EHelper(int);
+make_EHelper(pusha);

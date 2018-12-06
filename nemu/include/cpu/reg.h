@@ -36,6 +36,8 @@ typedef union {
 			};
 			rtlreg_t eflags;
 		};
+		rtlreg_t CS;
+		rtlreg_t IDTR;
   };
 
 } CPU_state;

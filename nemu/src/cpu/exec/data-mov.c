@@ -25,7 +25,15 @@ make_EHelper(pop) {
 }
 
 make_EHelper(pusha) {
-  TODO();
+	int i;
+	at=cpu.esp;
+	for(i=0;i<4;++i){
+		rtl_push(&cpu.gpr[i]._32);
+	}
+	rtl_push(&at);
+	for(i=5;i<8;++i){
+		rtl_push(&cpu.gpr[i]._32);
+	}
 
   print_asm("pusha");
 }

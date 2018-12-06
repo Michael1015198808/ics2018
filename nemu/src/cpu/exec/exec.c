@@ -65,10 +65,13 @@ make_group(gp5,
     EX(jmp_rm), EMPTY, EX(push), EMPTY)
 
   /* 0x0f 0x01*/
-make_group(gp7,
-    EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
 
+/*make_group(gp7,
+    EMPTY, EX(lidt), EMPTY, EX(lidt),
+    EMPTY, EX(lidt), EMPTY, EX(lidt))*/
+make_group(gp7,
+    EMPTY, EMPTY, EMPTY, EX(lidt),
+    EMPTY, EMPTY, EMPTY, EMPTY)
 /* TODO: Add more instructions!!! */
 
 opcode_entry opcode_table [512] = {
@@ -96,7 +99,7 @@ opcode_entry opcode_table [512] = {
   /* 0x54 */	IDEX(r,push),IDEX(r,push),IDEX(r,push),IDEX(r,push),
   /* 0x58 */	IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),
   /* 0x5c */	IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),IDEX(r,pop),
-  /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x60 */	EX(pusha), EMPTY, EMPTY, EMPTY,
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
   /* 0x68 */	IDEX(I,push), IDEX(I_E2G,imul3), IDEXW(I,push,1), EMPTY,
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -123,7 +126,7 @@ opcode_entry opcode_table [512] = {
   /* 0xc0 */	IDEXW(gp2_Ib2E, gp2, 1), IDEX(gp2_Ib2E, gp2), EMPTY, EX(ret),
   /* 0xc4 */	EMPTY, EMPTY, IDEXW(mov_I2E, mov, 1), IDEX(mov_I2E, mov),
   /* 0xc8 */	EMPTY, EX(leave), EMPTY, EMPTY,
-  /* 0xcc */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0xcc */	EX(int), IDEXW(I,int,1), EMPTY, EMPTY,
   /* 0xd0 */	IDEXW(gp2_1_E, gp2, 1), IDEX(gp2_1_E, gp2), IDEXW(gp2_cl2E, gp2, 1), IDEX(gp2_cl2E, gp2),
   /* 0xd4 */	EMPTY, EMPTY, EX(nemu_trap), EMPTY,
   /* 0xd8 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -271,10 +274,16 @@ void exec_wrapper(bool print_flag) {
   update_eip();
 	/*if(cpu.eip==0x100100){
 					printf("test\n");
-	}
-	if(cpu.eip==0x10022c){
-					printf("strcmp\t");
 	}*/
+	if(cpu.eip==0x10082b){
+					int i;
+					for(i=0;i<8;++i){
+									printf("%s:%4d\t",regsl[i],cpu.gpr[i]._32);
+									if((i&3)==3){
+													putchar('\n');
+									}
+					}
+	}
 
 #if defined(DIFF_TEST)
   void difftest_step(uint32_t);

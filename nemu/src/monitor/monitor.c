@@ -85,6 +85,8 @@ static inline long load_img() {
 
 static inline void restart() {
 	//Added by Michael, this comment is used to be located by grep -n 'Michael' $(find .)
+	cpu.CS=8;
+	cpu.eflags=0x2;
 	int i;
 	for(i=0;i<8;++i){
 					cpu.gpr[i]._32=0;
