@@ -20,6 +20,8 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
+ void naive_uload(PCB *, const char *);
+  naive_uload(NULL, NULL);
 }
 
 _Context* schedule(_Context *prev) {
