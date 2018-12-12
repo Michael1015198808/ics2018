@@ -253,7 +253,7 @@ void exec_wrapper(bool print_flag) {
 #endif
 
 	//printf("\neip:%x\n",ori_eip);
-	/*int watchregs[]={R_ECX,R_EDX};
+	int watchregs[]={};//R_ESP};
 	int watchaddrs[]={};
 	int i;
 	for(i=0;i<sizeof(watchregs)/4;++i){
@@ -267,7 +267,7 @@ void exec_wrapper(bool print_flag) {
 									puts("");
 					}
 					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],2),vaddr_read(watchaddrs[i],2));
-	}*/
+	}
 #define print(f) \
 					printf("%s:%d\n",#f,cpu.f);
 	//print(CF);print(OF);print(ZF);print(SF);

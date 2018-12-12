@@ -41,7 +41,7 @@ difftest_skip_ref();
 }
 
 make_EHelper(iret) {
-	rtl_pop(eip);
+	rtl_pop(&cpu.eip);
 	rtl_pop(&cpu.CS);
 	rtl_pop(&cpu.eflags);
 
