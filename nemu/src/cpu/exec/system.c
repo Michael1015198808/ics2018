@@ -34,9 +34,10 @@ void raise_intr(uint8_t,vaddr_t);
 
   print_asm("int %s", id_dest->str);
 
-#if defined(DIFF_TEST) && defined(DIFF_TEST_QEMU)
-  difftest_skip_dut();
-#endif
+difftest_skip_ref();
+//#if defined(DIFF_TEST) && defined(DIFF_TEST_QEMU)
+  //difftest_skip_dut();
+//#endif
 }
 
 make_EHelper(iret) {

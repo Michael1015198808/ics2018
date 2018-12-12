@@ -1,5 +1,6 @@
 #include "cpu/exec.h"
 
+void difftest_skip_ref();
 make_EHelper(mov) {
 	//printf("%d",id_src->val);
   operand_write(id_dest, &id_src->val);
@@ -48,6 +49,7 @@ make_EHelper(popa) {
 		rtl_pop(&cpu.gpr[i]._32);
 	}
 
+difftest_skip_ref();
   print_asm("popa");
 }
 
