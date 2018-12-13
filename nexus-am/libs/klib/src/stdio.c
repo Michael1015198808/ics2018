@@ -3,7 +3,6 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 #define printf_instructions 	size_t cnt=0;\
-    output('K');\
 	va_list ap;\
 	int i;\
 	const char *p, *sval;\
