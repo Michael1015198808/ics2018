@@ -1,3 +1,4 @@
+todo="empty(default)"
 NAME = nemu
 INC_DIR += ./include
 BUILD_DIR ?= ./build
@@ -55,7 +56,7 @@ clear:
 	clear
 
 run: $(BINARY)
-	$(call git_commit, "run")
+	$(call git_commit, "run",$(todo))
 	$(NEMU_EXEC)
 
 gdb: $(BINARY)
@@ -68,7 +69,6 @@ clean:
 	$(MAKE) -C tools/qemu-diff clean
 
 log:
-	$(call git_commit, "test")
 	@git log --author=171240518
 
 export STUID=171240518
