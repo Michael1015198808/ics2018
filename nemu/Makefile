@@ -1,4 +1,3 @@
-include Makefile.git
 NAME = nemu
 INC_DIR += ./include
 BUILD_DIR ?= ./build
@@ -12,6 +11,7 @@ endif
 OBJ_DIR ?= $(BUILD_DIR)/obj$(SO)
 BINARY ?= $(BUILD_DIR)/$(NAME)$(SO)
 
+include Makefile.git
 
 .DEFAULT_GOAL = app
 
