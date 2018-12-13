@@ -8,12 +8,12 @@ static _Context *do_event(_Event e, _Context *c) {
         case _EVENT_SYSCALL:
             Log("event%p,%d,%d,%x,%d\n",c,c->GPR1,c->GPR2,c->GPR3,c->GPR4);
             do_syscall(c);
-            Log("Finish writing\n");
             break;
         default:
             panic("Unhandled event ID = %d", e.event);
     }
 
+            Log("Finish writing\n");
     return NULL;
 }
 
