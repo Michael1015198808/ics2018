@@ -5,14 +5,10 @@ int main() {
   write(1, "Hello World!\n", 13);
   int i = 2;
   volatile int j = 0;
-  printf("Hello%d\n",i++);
-  printf("Hello%d\n",i++);
-  return 0;
   while (1) {
     j ++;
     if (j == 10000) {
       //printf("Hello World from Navy-apps for the %dth time!\n", i ++);
-      printf("%dth time!\n", i ++);
       j = 0;
     }
   }
