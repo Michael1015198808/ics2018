@@ -13,6 +13,7 @@ static _Context *do_event(_Event e, _Context *c) {
             panic("Unhandled event ID = %d", e.event);
     }
 
+    Log("Reach");
     return NULL;
 }
 
