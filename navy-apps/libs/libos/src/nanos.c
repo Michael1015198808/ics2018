@@ -43,7 +43,8 @@ void *_sbrk(intptr_t increment){
   //write(1,num,5);
   static void* p_break=&_end;
   void* old_break=p_break;
-  _syscall_(SYS_brk, (intptr_t)p_break+increment,0,0);
+  //_syscall_(SYS_brk, (intptr_t)p_break+increment,0,0);
+  _syscall_(SYS_brk, 0,0,0);
   p_break+=increment;
   //p_break=_syscall_(SYS_brk, p_break+increment,0,0)==0?p_break+increment:p_break;
   return 0;
