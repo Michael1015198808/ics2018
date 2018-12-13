@@ -1,3 +1,4 @@
+include Makefile.git
 NAME = nemu
 INC_DIR += ./include
 BUILD_DIR ?= ./build
@@ -36,7 +37,8 @@ $(OBJ_DIR)/%.o: src/%.c
 
 # Some convinient rules
 
-.PHONY: app run clean
+.PHONY: app run clean test
+
 app: $(BINARY)
 
 override ARGS ?= -l $(BUILD_DIR)/nemu-log.txt
@@ -64,3 +66,10 @@ clean:
 	-rm -rf $(BUILD_DIR)
 	$(MAKE) -C tools/gen-expr clean
 	$(MAKE) -C tools/qemu-diff clean
+
+test:
+	$(call git_commit, "test")
+	@echo hello
+
+export STUID=171240518
+export STUNAME=鄢振宇

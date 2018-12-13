@@ -6,6 +6,9 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
    * That is, use ``NO'' to index the IDT.
    */
 
+	rtl_push(&cpu.eflags);
+	rtl_push(&cpu.CS);
+	rtl_push(&ret_addr);
 
 	rtl_j(
 		(vaddr_read(cpu.IDTR+(NO<<3)+4,4)&0xffff0000)+

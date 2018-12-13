@@ -26,11 +26,8 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
-	rtl_push(&cpu.eflags);
-	rtl_push(&cpu.CS);
-	rtl_push(eip);
 void raise_intr(uint8_t,vaddr_t);
-	raise_intr(id_dest->val,cpu.eip);
+	raise_intr(id_dest->val,decoding.seq_eip);
 
   print_asm("int %s", id_dest->str);
 
@@ -41,9 +38,10 @@ difftest_skip_ref();
 }
 
 make_EHelper(iret) {
-	rtl_pop(&cpu.eip);
+	rtl_pop(&decoding.seq_eip);
 	rtl_pop(&cpu.CS);
 	rtl_pop(&cpu.eflags);
+	printf("%x\t%d\t%d\n",cpu.eip,cpu.CS,cpu.eflags);
 
   print_asm("iret");
 }
