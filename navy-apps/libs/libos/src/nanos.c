@@ -39,7 +39,7 @@ int _write(int fd, void *buf, size_t count){
 extern _end;
 void *_sbrk(intptr_t increment){
   static void* p_break=&_end;
-  _syscall_(SYS_brk, p_break+increment,0,0);
+  p_break=_syscall_(SYS_brk, p_break+increment,0,0)==0?p_break+increment:p_break;
   return p_break;
   //return (void *)-1;
 }
