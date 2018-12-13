@@ -38,12 +38,15 @@ int _write(int fd, void *buf, size_t count){
 
 extern _end;
 void *_sbrk(intptr_t increment){
+  char num[10];
+  sprintf(num,"%d",increment);
+  write(1,num,10);
   static void* p_break=&_end;
   void* old_break=p_break;
   _syscall_(SYS_brk, p_break+increment,0,0);
-  //p_break+=increment;
+  p_break+=increment;
   //p_break=_syscall_(SYS_brk, p_break+increment,0,0)==0?p_break+increment:p_break;
-  return old_break;
+  return 0;
   //return (void *)-1;
 }
 
