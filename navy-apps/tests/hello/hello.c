@@ -4,8 +4,8 @@
 int main() {
   write(1, "Hello World!\n", 13);
   int i = 2;
-  printf("Hello%d\n",i);
-  printf("Hello%d\n",i);
+  printf("Hello%d\n",i++);
+  printf("Hello%d\n",i++);
   return 0;
   volatile int j = 0;
   while (1) {
