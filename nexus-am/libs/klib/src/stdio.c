@@ -62,7 +62,7 @@ re:;\
 					ival=-ival;\
 				}\
 				int i=0;\
-				char num[10000];\
+				char num[50];\
 				while(ival>0){\
 					num[i++]=ival%10+'0';\
 					ival/=10;\
