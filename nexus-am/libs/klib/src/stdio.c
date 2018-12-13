@@ -10,7 +10,7 @@
 	char fill;\
 	int ival,fill_width;\
 	double dval;\
-	uint32_t uval;\
+	uintptr_t uval;\
 	va_start(ap,fmt);\
 	for(p=fmt;*p!='\0';++p){\
 		if(*p!='%'){\
@@ -42,7 +42,7 @@ re:;\
 				break;\
 				case 'x':\
 		    case 'p':\
-				uval=(int32_t)va_arg(ap,void*);\
+				uval=(uintptr_t)va_arg(ap,void*);\
 		   	func_name("0x");\
 				i=8;\
 				while(i>0){\
