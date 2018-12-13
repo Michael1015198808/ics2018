@@ -36,7 +36,7 @@ int _write(int fd, void *buf, size_t count){
   return _syscall_(SYS_write, fd,(intptr_t)buf,count);
 }
 
-//char num[]={"..........\0"};
+char num[10];
 extern int _end;
 void *_sbrk(intptr_t increment){
   //sprintf(num,"%d\n",increment);
