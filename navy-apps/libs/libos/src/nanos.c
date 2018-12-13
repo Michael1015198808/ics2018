@@ -40,7 +40,7 @@ extern int _end;
 void *_sbrk(intptr_t increment){
   char num[]={"..........\0"};
   sprintf(num,"%d\n",increment);
-  write(1,num,10);
+  //write(1,num,10);
   static void* p_break=&_end;
   void* old_break=p_break;
   _syscall_(SYS_brk, (intptr_t)p_break+increment,0,0);
