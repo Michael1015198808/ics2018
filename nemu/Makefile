@@ -1,4 +1,4 @@
-todo="empty(default)"
+try="empty(default)"
 NAME = nemu
 INC_DIR += ./include
 BUILD_DIR ?= ./build
@@ -56,7 +56,7 @@ clear:
 	clear
 
 run: $(BINARY)
-	$(call git_commit, "run",$(todo))
+	$(call git_commit, "run",$(try))
 	$(NEMU_EXEC)
 
 gdb: $(BINARY)
