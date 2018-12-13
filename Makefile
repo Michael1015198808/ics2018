@@ -15,5 +15,5 @@ submit: clean
 
 git:
 	@git add .
-	@git commit
+	@git commit --allow-empty
 .PHONY: default clean submit git
