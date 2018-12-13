@@ -20,6 +20,9 @@ _Context* do_syscall(_Context *c) {
         c->GPRx=i;
       }
       break;
+    case SYS_brk:
+      Log("Call brk\n");
+      break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
