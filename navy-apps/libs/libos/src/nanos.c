@@ -33,17 +33,17 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count){
-  return _syscall_(SYS_write, fd,buf,count);
+  return _syscall_(SYS_write, fd,(intptr_t)buf,count);
 }
 
-extern _end;
+extern int _end;
 void *_sbrk(intptr_t increment){
-  char num={"..........\0"};
+  char num[]={"..........\0"};
   sprintf(num,"%d\n",increment);
   write(1,num,10);
   static void* p_break=&_end;
   void* old_break=p_break;
-  _syscall_(SYS_brk, p_break+increment,0,0);
+  _syscall_(SYS_brk, (intptr_t)p_break+increment,0,0);
   p_break+=increment;
   //p_break=_syscall_(SYS_brk, p_break+increment,0,0)==0?p_break+increment:p_break;
   return 0;
