@@ -39,8 +39,8 @@ int _write(int fd, void *buf, size_t count){
 char num[]={"..........\0"};
 extern int _end;
 void *_sbrk(intptr_t increment){
-  //sprintf(num,"%d\n",increment);
-  //write(1,num,strlen(num));
+  sprintf(num,"%d\n",increment);
+  write(1,num,strlen(num));
   static void* p_break=&_end;
   void* old_break=p_break;
   _syscall_(SYS_brk, (intptr_t)p_break+increment,0,0);
