@@ -37,7 +37,7 @@ $(OBJ_DIR)/%.o: src/%.c
 
 # Some convinient rules
 
-.PHONY: app run clean test
+.PHONY: app run clean log
 
 app: $(BINARY)
 
@@ -67,9 +67,9 @@ clean:
 	$(MAKE) -C tools/gen-expr clean
 	$(MAKE) -C tools/qemu-diff clean
 
-test:
+log:
 	$(call git_commit, "test")
-	@echo hello
+	@git log --author=171240518
 
 export STUID=171240518
 export STUNAME=鄢振宇
