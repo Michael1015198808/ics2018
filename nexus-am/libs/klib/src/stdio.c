@@ -118,7 +118,7 @@ re:;\
 	va_end(ap);
 int printf(const char *fmt, ...) {
 #define func_name(A,...) printf(A, ## __VA_ARGS__);
-#define output(A) _putc(A)
+#define output(A) ++cnt,_putc(A)
 printf_instructions
 #undef output
 #undef func_name
@@ -133,6 +133,7 @@ int sprintf(char *out, const char *fmt, ...) {
 #define func_name(A,...) sprintf(out,A, ## __VA_ARGS__);
 #define output(A) out[cnt++]=A
 printf_instructions
+output('\0');
 #undef output
 #undef func_name
   return cnt;
