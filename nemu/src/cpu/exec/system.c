@@ -38,10 +38,10 @@ difftest_skip_ref();
 }
 
 make_EHelper(iret) {
-    static int i=0;
+    /*static int i=0;
     while(++i<2){
         Log("iret\n");
-    }
+    }*/
 
 	rtl_pop(&decoding.seq_eip);
 	rtl_pop(&cpu.CS);
