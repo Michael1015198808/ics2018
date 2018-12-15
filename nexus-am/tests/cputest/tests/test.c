@@ -1,7 +1,17 @@
-#include "trap.h"
-int main(){
-	int i=13;
-	printf("%05d\n",i);
-	printf("%05d\n",i);
-return 0;
+#include <stdio.h>
+void move(char x, char y,char z,int d) {
+    if (d>0){
+    move(x,z,y,d-1);
+	static int i=0;
+    i=i+1;
+    printf("%d.%c to %c \n",i,x,z);
+    move(y,z,x,d-1);
+}
+}
+main(){
+	char a='a';
+	char b='b';
+	char c='c';
+	move(a,b,c,5);
+	system("pause");
 }
