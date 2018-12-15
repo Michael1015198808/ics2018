@@ -1,16 +1,15 @@
 #include <stdio.h>
-//
-void move(char x, char y,char z,int d) {
-    if (d>0){
-    move(x,z,y,d-1);
-	static int i=0;
-    i=i+1;
-    move(y,z,x,d-1);
+#include <stdlib.h>
+int Fibonacci(int x){
+if (x>3){
+   return Fibonacci(x-3)+2*Fibonacci(x-2);
+   }else return (x-1)/2+1;
 }
-}
-int main(){
-	char a='a';
-	char b='b';
-	char c='c';
-	move(a,b,c,5);
+ 
+    int main(){
+    int i=25,t=25;
+    //while(scanf("%d%d",&i,&t)==2){
+    i=i*Fibonacci(t/5+1);
+    //printf("%d\n",i);}
+    return 0;
 }
