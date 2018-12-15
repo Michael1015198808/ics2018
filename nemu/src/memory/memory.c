@@ -16,6 +16,7 @@ int is_mmio(paddr_t);
 
 uint32_t paddr_read(paddr_t addr, int len) {
 	if(is_mmio(addr)==-1){
+    printf("%x\n",cpu.eip);
   	return pmem_rw(addr, uint32_t) & (~0u >> ((4 - len) << 3));
 	}else{
 		return mmio_read(addr,len,is_mmio(addr));
