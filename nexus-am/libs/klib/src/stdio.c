@@ -3,14 +3,12 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 #define printf_instructions 	size_t cnt=0;\
-	va_list ap;\
 	int i;\
 	const char *p, *sval;\
 	char fill;\
 	int ival,fill_width;\
 	double dval;\
 	uintptr_t uval;\
-	va_start(ap,fmt);\
 	for(p=fmt;*p!='\0';++p){\
 		if(*p!='%'){\
 		    output(*p);\
@@ -119,6 +117,8 @@ re:;\
 int printf(const char *fmt, ...) {
 #define func_name(A,...) printf(A, ## __VA_ARGS__);
 #define output(A) ++cnt,_putc(A)
+va_list ap;
+va_start(ap,fmt);
 printf_instructions
 #undef output
 #undef func_name
@@ -126,10 +126,6 @@ printf_instructions
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  return 0;
-}
-
-int sprintf(char *out, const char *fmt, ...) {
 #define func_name(A,...) sprintf(out,A, ## __VA_ARGS__);
 #define output(A) out[cnt++]=A
 printf_instructions
@@ -139,7 +135,27 @@ output('\0');
   return cnt;
 }
 
+int sprintf(char *out, const char *fmt, ...) {
+#define func_name(A,...) sprintf(out,A, ## __VA_ARGS__);
+#define output(A) out[cnt++]=A
+va_list ap;
+va_start(ap,fmt);
+printf_instructions
+output('\0');
+#undef output
+#undef func_name
+  return cnt;
+}
+
 int snprintf(char *out, size_t n, const char *fmt, ...) {
+#define func_name(A,...) sprintf(out,A, ## __VA_ARGS__);
+#define output(A) if(cnt<n-1){out[cnt++]=A;}else{out[n-1]='\0';return n;}
+va_list ap;
+va_start(ap,fmt);
+printf_instructions
+output('\0');
+#undef output
+#undef func_name
   return 0;
 }
 
