@@ -117,6 +117,8 @@ re:;\
 int printf(const char *fmt, ...) {
 #define func_name(A,...) printf(A, ## __VA_ARGS__);
 #define output(A) ++cnt,_putc(A)
+//_putc('p');
+//_putc('r');
 va_list ap;
 va_start(ap,fmt);
 printf_instructions
