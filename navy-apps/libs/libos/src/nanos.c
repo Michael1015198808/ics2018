@@ -39,8 +39,8 @@ int _write(int fd, void *buf, size_t count){
 char num[40]="贪玩蓝月贪玩蓝月贪玩蓝月";
 extern int _end;
 void *_sbrk(intptr_t increment){
-  sprintf(num,"%x\n",increment);
-  write(1,num,strlen(num));
+  //sprintf(num,"%x\n",increment);
+  //write(1,num,strlen(num));
   static void* p_break=&_end;
   void* old_break=p_break;
   p_break+=increment;
