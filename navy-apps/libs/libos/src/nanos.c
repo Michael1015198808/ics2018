@@ -11,7 +11,6 @@ char num[80]="贪玩蓝月贪玩蓝月贪玩蓝月";
 intptr_t _syscall_(int type, intptr_t a0, intptr_t a1, intptr_t a2){
   int ret = -1;
   asm volatile("int $0x80": "=a"(ret): "a"(type), "b"(a0), "c"(a1), "d"(a2));
-  sprintf(num,"%d\n",ret);
   return ret;
 }
 #elif defined(__ISA_AM_NATIVE__)
@@ -44,7 +43,6 @@ void *_sbrk(intptr_t increment){
   void* old_break=p_break;
   p_break+=increment;
   int test=_syscall_(SYS_brk, (intptr_t)p_break,0,0);
-  write(1,num,strlen(num));
   return old_break;
 }
 
