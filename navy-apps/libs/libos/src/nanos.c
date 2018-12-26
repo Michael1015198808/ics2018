@@ -6,10 +6,12 @@
 #include <time.h>
 #include "syscall.h"
 
+char num[80]="贪玩蓝月贪玩蓝月贪玩蓝月";
 #if defined(__ISA_X86__)
 intptr_t _syscall_(int type, intptr_t a0, intptr_t a1, intptr_t a2){
   int ret = -1;
   asm volatile("int $0x80": "=a"(ret): "a"(type), "b"(a0), "c"(a1), "d"(a2));
+  sprintf(num,"%d,%d,%d,%d\n",ret,type,a0,a1,a2);
   return ret;
 }
 #elif defined(__ISA_AM_NATIVE__)
@@ -36,22 +38,14 @@ int _write(int fd, void *buf, size_t count){
   return _syscall_(SYS_write, fd,(intptr_t)buf,count);
 }
 
-char num[40]="贪玩蓝月贪玩蓝月贪玩蓝月";
 extern int _end;
 void *_sbrk(intptr_t increment){
   static void* p_break=&_end;
   void* old_break=p_break;
-  //sprintf(num,"%p\n",old_break);
-  //write(1,num,strlen(num));
   p_break+=increment;
-  //sprintf(num,"return value:%d\n",old_break);
-  //write(1,num,strlen(num));
   int test=_syscall_(SYS_brk, (intptr_t)p_break,0,0);
-  sprintf(num,"return value:%d\n",test);
   write(1,num,strlen(num));
   return old_break;
-  //p_break=_syscall_(SYS_brk, p_break+increment,0,0)==0?p_break+increment:p_break;
-  //return (void *)-1;
 }
 
 int _read(int fd, void *buf, size_t count) {
