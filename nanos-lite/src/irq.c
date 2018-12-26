@@ -6,8 +6,9 @@ static _Context *do_event(_Event e, _Context *c) {
             printf("一句话即可\n");
             break;
         case _EVENT_SYSCALL:
-            Log("event%p,%d,%d,%x,%d\n",c,c->GPR1,c->GPR2,c->GPR3,c->GPR4);
+            Log("brfore event%p,%d,%d,%x,%d\n",c,c->GPR1,c->GPR2,c->GPR3,c->GPR4);
             do_syscall(c);
+            Log(" after event%p,%d,%d,%x,%d\n",c,c->GPR1,c->GPR2,c->GPR3,c->GPR4);
             break;
         default:
             panic("Unhandled event ID = %d", e.event);
