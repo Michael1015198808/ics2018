@@ -37,11 +37,18 @@ int _write(int fd, void *buf, size_t count){
 }
 
 char num[40]="贪玩蓝月贪玩蓝月贪玩蓝月";
+extern int _end;
 void *_sbrk(intptr_t increment){
-  sprintf(num,"%d\n",increment);
+  static void* p_break=&_end;
+  void* old_break=p_break;
+  //sprintf(num,"%p\n",old_break);
+  //write(1,num,strlen(num));
+  p_break+=increment;
+  int test=_syscall_(SYS_brk, (intptr_t)p_break,0,0);
+  sprintf(num,"%d\n",test);
   write(1,num,strlen(num));
-  return _syscall_(SYS_brk, increment,0,0);
   //p_break=_syscall_(SYS_brk, p_break+increment,0,0)==0?p_break+increment:p_break;
+  return old_break;
   //return (void *)-1;
 }
 
