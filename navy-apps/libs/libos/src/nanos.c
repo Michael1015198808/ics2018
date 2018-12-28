@@ -41,7 +41,7 @@ void *_sbrk(intptr_t increment){
   static void* p_break=&_end;
   void* old_break=p_break;
   p_break+=increment;
-  sprintf((void*)0x5000000,"H\0");
+  sprintf((void*)0x4000000,"H\0");
   //sprintf(num,"%d",increment);
   //_write(1,num,strlen(num));
   _syscall_(SYS_brk, (intptr_t)p_break,0,0);
