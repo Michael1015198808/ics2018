@@ -41,12 +41,9 @@ extern int _end;
 void *_sbrk(intptr_t increment){
   static void* p_break=&_end;
   void* old_break=p_break;
-  //p_break+=increment;
-  sprintf(num,"%d\n",increment);
-  write(1,num,strlen(num));
-  sprintf(num,"%d\n",_syscall_(SYS_brk, (intptr_t)p_break,0,0));
-  write(1,num,strlen(num));
-  return (void*)0;
+  p_break+=increment;
+  _syscall_(SYS_brk, (intptr_t)p_break,0,0);
+  return (void*)old_break;
   //return old_break;
 }
 
