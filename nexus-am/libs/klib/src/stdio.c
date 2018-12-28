@@ -138,6 +138,7 @@ output('\0');
 }
 
 int sprintf(char *out, const char *fmt, ...) {
+return 0;
 #define func_name(A,...) sprintf(out,A, ## __VA_ARGS__);
 #define output(A) out[cnt++]=A
 va_list ap;
