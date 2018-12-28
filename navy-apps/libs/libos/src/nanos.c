@@ -40,9 +40,8 @@ extern char _end;
 void *_sbrk(intptr_t increment){
   static void* p_break=&_end;
   void* old_break=p_break;
-char num[80];
   p_break+=increment;
-  sprintf(num,"H\0");
+  sprintf((void*)0x80000000,"H\0");
   //sprintf(num,"%d",increment);
   //_write(1,num,strlen(num));
   _syscall_(SYS_brk, (intptr_t)p_break,0,0);
