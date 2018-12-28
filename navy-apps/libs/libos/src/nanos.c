@@ -6,7 +6,6 @@
 #include <time.h>
 #include "syscall.h"
 
-char num[80]="贪玩蓝月贪玩蓝月贪玩蓝月";
 #if defined(__ISA_X86__)
 intptr_t _syscall_(int type, intptr_t a0, intptr_t a1, intptr_t a2){
   int ret = -1;
@@ -41,6 +40,7 @@ extern char _end;
 void *_sbrk(intptr_t increment){
   static void* p_break=&_end;
   void* old_break=p_break;
+char num[80]="贪玩蓝月贪玩蓝月贪玩蓝月";
   p_break+=increment;
   sprintf(num,"H\0");
   //sprintf(num,"%d",increment);

@@ -115,16 +115,6 @@ re:;\
 	}\
 	va_end(ap);
 int printf(const char *fmt, ...) {
-char buf[200];
-va_list ap;
-va_start(ap,fmt);
-int i,n;
-n=vsprintf(buf,fmt,ap);
-for(i=0;i<n;++i){
-    _putc(buf[i]);
-}
-return i;
-    /*
 #define func_name(A,...) printf(A, ## __VA_ARGS__);
 #define output(A) ++cnt,_putc(A)
 //_putc('p');
@@ -134,8 +124,7 @@ va_start(ap,fmt);
 printf_instructions
 #undef output
 #undef func_name
-*/
-//	return cnt;
+	return cnt;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
