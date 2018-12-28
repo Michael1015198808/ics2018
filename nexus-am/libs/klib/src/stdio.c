@@ -146,7 +146,7 @@ printf_instructions
 output('\0');
 #undef output
 #undef func_name
-  return cnt;
+  return cnt-1;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
