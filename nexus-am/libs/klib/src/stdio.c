@@ -8,7 +8,6 @@ int printf(const char *fmt, ...) {
     va_start(ap,fmt);
     char buf[200];
     int i,n=vsprintf(buf,fmt,ap);
-    _putc('p');
     for(i=0;i<n;++i){
         _putc(buf[i]);
     }
