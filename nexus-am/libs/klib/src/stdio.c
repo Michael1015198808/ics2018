@@ -16,8 +16,6 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-
-    while(1);
 #define output(A) out[cnt++]=A;
     size_t cnt=0;
     int i=0;
