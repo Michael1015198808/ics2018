@@ -41,13 +41,13 @@ make_EHelper(pusha) {
 
 make_EHelper(popa) {
 	int i;
-	for(i=0;i<4;++i){
-	//for(i=7;i>4;++i){
+	//for(i=0;i<4;++i){
+	for(i=7;i>4;--i){
 		rtl_pop(&cpu.gpr[i]._32);
 	}
 	cpu.esp+=4;
-	for(i=5;i<8;++i){
-	//for(i=3;i>=0;++i){
+	//for(i=5;i<8;++i){
+	for(i=3;i>=0;--i){
 		rtl_pop(&cpu.gpr[i]._32);
 	}
 
