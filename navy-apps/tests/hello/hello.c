@@ -3,8 +3,7 @@
 
 int main() {
   write(1, "Hello World!\n", 13);
-  printf("12345\n");
-  printf("67890\n");
+  printf("1234567890\n");
   printf("abcde\n");
   //printf("Hello World\n");
   return 0;
