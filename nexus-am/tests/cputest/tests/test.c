@@ -1,9 +1,9 @@
 #include "trap.h"
-void re(int a){
-    if(a<=0)return;
-    re(a-(a&1)-1);
+int re(int a){
+    if(a<=0)return 0;
+    return 1+re(a-(a&1)-1);
 }
 int main(){
-    re(5);
+    printf("%d",re(5));
     return 0;
 }
