@@ -1,10 +1,10 @@
 #include "trap.h"
-void recur(int a){
+void re(int a){
     if(a==0)return;
-    recur(a-1);
-    return;
+    re(a-1);
+    re(a-1);
 }
 int main(){
-    recur(9);
+    re(5);
     return 0;
 }
