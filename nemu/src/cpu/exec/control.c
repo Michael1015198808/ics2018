@@ -36,6 +36,7 @@ make_EHelper(call) {
 make_EHelper(ret) {
     Log("cpu.eip%x\ndecoding.is_jmp%d\nreturn\n",cpu.eip,decoding.is_jmp);
 	rtl_pop(eip);
+    Log("cpu.eip%x\ndecoding.is_jmp%d\nreturn\n",cpu.eip,decoding.is_jmp);
 
   print_asm("ret");
 }
