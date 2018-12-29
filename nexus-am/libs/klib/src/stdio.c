@@ -134,6 +134,7 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
+    _putc('i');
     va_list ap;
     va_start(ap,fmt);
     return vsprintf(out,fmt,ap);
