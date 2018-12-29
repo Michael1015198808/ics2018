@@ -34,9 +34,8 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
-    Log("cpu.eip%x\ndecoding.seq_eip%x\nreturn\n",cpu.eip,decoding.seq_eip);
-	rtl_pop(eip);
-    Log("cpu.eip%x\ndecoding.seq_eip%x\nreturn\n",cpu.eip,decoding.seq_eip);
+	rtl_pop(&at);
+    rtl_j(at);
 
   print_asm("ret");
 }
