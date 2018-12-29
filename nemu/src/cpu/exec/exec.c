@@ -246,7 +246,7 @@ void exec_wrapper(bool print_flag) {
   int instr_len = decoding.seq_eip - ori_eip;
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
   strcat(decoding.asm_buf, decoding.assembly);
-  Log_write("%s\t%%esi%x\n", decoding.asm_buf,cpu.esi);
+  Log_write("%s\t%%ebx%x%%esi%x\n", decoding.asm_buf,cpu.ebx,cpu.esi);
   if (print_flag) {
     puts(decoding.asm_buf);
   }
