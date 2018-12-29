@@ -1,5 +1,10 @@
 #include "trap.h"
+void recur(int a){
+    if(a==0)return;
+    recur(a-1);
+    return;
+}
 int main(){
-    printf("Hello from another side");
+    recur(9);
     return 0;
 }
