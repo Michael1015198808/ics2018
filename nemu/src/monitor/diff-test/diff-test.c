@@ -76,13 +76,13 @@ void difftest_step(uint32_t eip) {
 					if(cpu.gpr[i]._32!=ref_r.gpr[i]._32){
 									printf("%s should be %4d\t(0x%x)\n",regsl[i],ref_r.gpr[i]._32,ref_r.gpr[i]._32);
 									printf("   instead of %4d\t(0x%x)\n",cpu.gpr[i]._32,cpu.gpr[i]._32);
-									//nemu_state=NEMU_ABORT;
+									nemu_state=NEMU_ABORT;
 					}
 	}
 	if(cpu.eip!=ref_r.eip){
 					printf("eip should be %4d\t(0x%x)\n",ref_r.eip,ref_r.eip);
 					printf("   instead of %4d\t(0x%x)\n",cpu.eip,cpu.eip);
-					//nemu_state=NEMU_ABORT;
+					nemu_state=NEMU_ABORT;
 	}
 #define check(f) \
 	if(cpu.f!=ref_r.f){\
