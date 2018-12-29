@@ -40,10 +40,11 @@ extern char _end;
 void *_sbrk(intptr_t increment){
   static void* p_break=&_end;
   void* old_break=p_break;
-  char num[40];
+  //char num[40];
   p_break+=increment;
   //sprintf(num,"%d",increment);
   //_write(1,num,strlen(num));
+  return (void*)-1;
   _syscall_(SYS_brk, (intptr_t)p_break,0,0);
   return (void*)old_break;
   //return old_break;
