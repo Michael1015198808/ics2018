@@ -16,6 +16,8 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
+
+    while(1);
 #define output(A) out[cnt++]=A;
     size_t cnt=0;
     int i=0;
@@ -134,7 +136,6 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-    while(1);
     va_list ap;
     va_start(ap,fmt);
  #define output(A) if(cnt<n){out[cnt++]=A;}else{out[n-1]='\0';return n;}
