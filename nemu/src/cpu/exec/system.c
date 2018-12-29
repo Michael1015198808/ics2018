@@ -42,7 +42,8 @@ make_EHelper(iret) {
         Log("iret\n");
     }*/
 
-	rtl_pop(&decoding.seq_eip);
+	rtl_pop(&at);
+    rtl_j(at);
 	rtl_pop(&cpu.CS);
 	rtl_pop(&cpu.eflags);
 
