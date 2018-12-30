@@ -6,8 +6,8 @@
 static uintptr_t loader(PCB *pcb, const char *filename) {
   size_t get_ramdisk_size();
   size_t size=get_ramdisk_size();
-  int _open(const char *, int, mode_t);
-  int file_no=_open(filename,0,0);
+  int fs_open(const char *, int, mode_t);
+  int file_no=fs_open(filename,0,0);
   Log("File no.%d\n",file_no);
   size_t ramdisk_read(void*, size_t, size_t);
   ramdisk_read((void*)DEFAULT_ENTRY,0,size);
