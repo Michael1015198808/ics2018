@@ -1,5 +1,6 @@
 #include "common.h"
 #include "syscall.h"
+
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -11,6 +12,7 @@ _Context* do_syscall(_Context *c) {
   switch (a[0]) {
     case SYS_exit:_halt(c->GPRx);printf("Should have exited\n");break;
     case SYS_yield:_yield();break;
+    case SYS_open:c->GPRx=fs_open((char*)c->GPR2,c->GPR3,c->GPR4);break;
     case SYS_write:
       if(a[1]==1||a[1]==2){
         int i;

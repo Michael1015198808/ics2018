@@ -23,5 +23,9 @@ enum {
   SYS_times,
   SYS_gettimeofday
 };
-
+size_t fs_open(const char*,int,int);
+size_t fs_read(int,void*,int);
+size_t fs_write(int,void*,int);
+int fs_close(int);
+size_t fs_filesz(int);
 #endif
