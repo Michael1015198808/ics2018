@@ -54,6 +54,10 @@ void init_device() {
     printf("WIDTH:%d\nHEIGHT:%d\n",width,height);
     uint32_t i=0xffffffff;
     draw_rect(&i,0,0,50,50);
+  draw_rect(&i,0,10,50,50);
+  draw_rect(&i,0,20,50,50);
+  draw_rect(&i,0,30,50,50);
+  draw_rect(&i,0,40,50,50);
     while(1);
 
   // TODO: print the string to array `dispinfo` with the format
