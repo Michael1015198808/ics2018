@@ -34,13 +34,14 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  uint32_t test_color=0xffffffff;
   printf("Write\n");
   int i, x, y;
   offset>>=2;
   y = offset / width;
   x = offset - y * width;
   for (i = 0; i < len; ++i) {
-    draw_rect(((uint32_t*)buf), x, y, 1, 1);
+    draw_rect(&test_color, x, y, 1, 1);
     ++x;
     if (x==width){x=0;++y;if(y==height){y=0;}}
   }
@@ -52,13 +53,12 @@ void init_device() {
   _ioe_init();
   sprintf(dispinfo,"WIDTH:%d\nHEIGHT:%d\n",width=screen_width(),height=screen_height());
     printf("WIDTH:%d\nHEIGHT:%d\n",width,height);
-    uint32_t i=0xffffffff;
-    draw_rect(&i,0,0,1,1);
+    /*draw_rect(&i,0,0,1,1);
   draw_rect(&i,0,10,1,1);
   draw_rect(&i,0,20,1,1);
   draw_rect(&i,0,30,1,1);
   draw_rect(&i,0,40,1,1);
-    while(1);
+    while(1);*/
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
