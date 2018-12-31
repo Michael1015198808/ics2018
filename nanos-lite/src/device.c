@@ -28,13 +28,13 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-    while(1);
   printf("Write\n");
   int i, x, y, w = screen_width(), h = screen_height();
+  offset>>=2;
   y = offset / w;
   x = offset - y * w;
   for (i = 0; i < len; ++i) {
-    draw_rect(((uint32_t*)buf) + i, x, y, 1, 1);
+    draw_rect(((uint32_t*)buf), x, y, 1, 1);
     ++x;
     if (x==w){x=0;++y;if(y==h){y=0;}}
   }
