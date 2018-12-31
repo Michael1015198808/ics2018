@@ -1,6 +1,8 @@
 #include "common.h"
 #include <amdev.h>
 
+static int width=0;
+static int height=0;
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   int i;
   for(i=0;i<len;++i){
@@ -29,14 +31,14 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   printf("Write\n");
-  int i, x, y, w = screen_width(), h = screen_height();
+  int i, x, y;
   offset>>=2;
-  y = offset / w;
-  x = offset - y * w;
+  y = offset / width;
+  x = offset - y * width;
   for (i = 0; i < len; ++i) {
     draw_rect(((uint32_t*)buf), x, y, 1, 1);
     ++x;
-    if (x==w){x=0;++y;if(y==h){y=0;}}
+    if (x==width){x=0;++y;if(y==height){y=0;}}
   }
   return 0;
 }
@@ -44,7 +46,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 void init_device() {
   Log("Initializing devices...");
   _ioe_init();
-  sprintf(dispinfo,"WIDTH:%d\nHEIGHT:%d\n",screen_width(),screen_height());
+  sprintf(dispinfo,"WIDTH:%d\nHEIGHT:%d\n",width=screen_width(),height=screen_height());
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
