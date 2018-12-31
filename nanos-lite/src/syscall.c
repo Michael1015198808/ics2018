@@ -14,15 +14,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_yield:_yield();break;
     case SYS_open:c->GPRx=fs_open((char*)c->GPR2,c->GPR3,c->GPR4);break;
     case SYS_read:c->GPRx=fs_read(c->GPR2,(void*)c->GPR3,c->GPR4);break;
-    case SYS_write:
-      if(a[1]==1||a[1]==2){
-        int i;
-        for(i=0;i<a[3];++i){
-          _putc(*((char*)a[2]+i));
-        }
-        c->GPRx=i;
-      }
-      break;
+    case SYS_write:c->GPRx=fs_write(c->GPR2,(void*)c->GPR3,c->GPR4);break;
     case SYS_lseek:c->GPRx=fs_lseek(c->GPR2,c->GPR3,c->GPR4);break;
     case SYS_brk:
       c->GPRx=0;//Success

@@ -64,7 +64,15 @@ size_t fs_filesz(int fd){
     }
 }
 size_t fs_write(int fd, const void *buf, size_t len){
-    return file_table[fd].write(buf,file_table[fd].open_offset,len);
+    if(fd==1||fd==2) {
+        int i;
+        for (i = 0; i < len; ++i) {
+            _putc(*(char*)(buf + i));
+        }
+        return i;
+    }else{
+        return file_table[fd].write(buf,file_table[fd].open_offset,len);
+    }
 }
 size_t fs_lseek(int fd, size_t offset, int whence){
     switch(whence){
