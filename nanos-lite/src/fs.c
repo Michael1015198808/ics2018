@@ -9,7 +9,7 @@ typedef struct {
   size_t disk_offset;
   ReadFn read;
   WriteFn write;
-    size_t open_offset;
+  size_t open_offset;
 } Finfo;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
@@ -49,6 +49,11 @@ int fs_open(const char *pathname, int flags, int mode){
     return i;
 }
 size_t fs_read(int fd, void *buf, size_t len){
+    static int i=0;
+    if(i==0){
+        i=1;
+        printf("%d\n",get_ramdisk_size());
+    }
     printf("Read from %d\n",file_table[fd].open_offset+file_table[fd].disk_offset);
     if(file_table[fd].read==NULL){
         int ret=ramdisk_read(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
