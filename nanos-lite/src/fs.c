@@ -68,6 +68,10 @@ size_t fs_write(int fd, const void *buf, size_t len){
         }
         return i;
     }else{
+        int i;
+        for (i = 0; i < len; ++i) {
+            _putc(*(char*)(buf + i));
+        }
         WriteFn write=file_table[fd].write== NULL ? (WriteFn)ramdisk_write: file_table[fd].write;
         if (file_table[fd].open_offset + len > file_table[fd].size) {
             len = file_table[fd].size- file_table[fd].open_offset;
