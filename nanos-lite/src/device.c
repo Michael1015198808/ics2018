@@ -53,12 +53,13 @@ void init_device() {
   _ioe_init();
   sprintf(dispinfo,"WIDTH:%d\nHEIGHT:%d\n",width=screen_width(),height=screen_height());
     printf("WIDTH:%d\nHEIGHT:%d\n",width,height);
-    /*draw_rect(&i,0,0,1,1);
-  draw_rect(&i,0,10,1,1);
-  draw_rect(&i,0,20,1,1);
-  draw_rect(&i,0,30,1,1);
-  draw_rect(&i,0,40,1,1);
-    while(1);*/
+    uint32_t i=0xffffffff;
+    draw_rect(&i,0,0,1,1);
+  draw_rect(&i,0,10,5,1);
+  draw_rect(&i,0,20,10,1);
+  draw_rect(&i,0,30,15,1);
+  draw_rect(&i,0,40,20,1);
+    while(1);
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
