@@ -49,6 +49,7 @@ int fs_open(const char *pathname, int flags, int mode){
     return i;
 }
 size_t fs_read(int fd, void *buf, size_t len){
+    printf("Read from %d\n",file_table[fd].open_offset+file_table[fd].disk_offset);
     if(file_table[fd].read==NULL){
         int ret=ramdisk_read(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
         file_table[fd].open_offset+=len;
