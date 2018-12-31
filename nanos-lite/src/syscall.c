@@ -13,6 +13,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_exit:_halt(c->GPRx);printf("Should have exited\n");break;
     case SYS_yield:_yield();break;
     case SYS_open:c->GPRx=fs_open((char*)c->GPR2,c->GPR3,c->GPR4);break;
+    case SYS_read:c->GPRx=fs_read(c->GPR2,(void*)c->GPR3,c->GPR4);break;
     case SYS_write:
       if(a[1]==1||a[1]==2){
         int i;
@@ -22,11 +23,8 @@ _Context* do_syscall(_Context *c) {
         c->GPRx=i;
       }
       break;
-    case SYS_lseek:
-      c->GPRx=fs_lseek(c->GPR2,c->GPR3,c->GPR4);
-      break;
+    case SYS_lseek:c->GPRx=fs_lseek(c->GPR2,c->GPR3,c->GPR4);break;
     case SYS_brk:
-      //Log("Call brk\n");
       c->GPRx=0;//Success
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
