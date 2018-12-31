@@ -26,15 +26,22 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
-  {"stdin", 0, 0, invalid_read, invalid_write},
-  {"stdout", 0, 0, invalid_read, invalid_write},
-  {"stderr", 0, 0, invalid_read, invalid_write},
+        {"stdin", 0, 0, invalid_read, invalid_write},
+        {"stdout", 0, 0, invalid_read, serial_write},
+        {"stderr", 0, 0, invalid_read, serial_write},
+        {"/dev/fb", 0, 0, invalid_read, fb_write},
+        {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
+
 #include "files.h"
 };
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
 void init_fs() {
+    assert(!strcmp(file_table[3].name,"/dev/fb"));
+    int screen_height();
+    int screen_width();
+    file_table[3].size=screen_height()*screen_width()*(32/8);//RFB+Alpha=32bits
   // TODO: initialize the size of /dev/fb
 }
 int fs_open(const char *pathname, int flags, int mode){
@@ -60,22 +67,14 @@ size_t fs_read(int fd, void *buf, size_t len) {
 size_t fs_filesz(int fd){
     return file_table[fd].size;
 }
-size_t fs_write(int fd, const void *buf, size_t len){
-    if(fd==1||fd==2) {
-        int i;
-        for (i = 0; i < len; ++i) {
-            _putc(*(char*)(buf + i));
-        }
-        return i;
-    }else{
-        WriteFn write=file_table[fd].write== NULL ? (WriteFn)ramdisk_write: file_table[fd].write;
-        if (file_table[fd].open_offset + len > file_table[fd].size) {
-            len = file_table[fd].size- file_table[fd].open_offset;
-        }
-        int ret=write(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
-        file_table[fd].open_offset+=len;
-        return ret;
+size_t fs_write(int fd, const void *buf, size_t len) {
+    WriteFn write = file_table[fd].write == NULL ? (WriteFn) ramdisk_write : file_table[fd].write;
+    if (file_table[fd].open_offset + len > file_table[fd].size) {
+        len = file_table[fd].size - file_table[fd].open_offset;
     }
+    int ret = write(buf, file_table[fd].open_offset + file_table[fd].disk_offset, len);
+    file_table[fd].open_offset += len;
+    return ret;
 }
 size_t fs_lseek(int fd, size_t offset, int whence){
     switch(whence){

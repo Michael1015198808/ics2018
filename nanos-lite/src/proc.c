@@ -21,7 +21,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
  void naive_uload(PCB *, const char *);
-  naive_uload(NULL, "/bin/text");
+  naive_uload(NULL, "/bin/bmptest");
 }
 
 _Context* schedule(_Context *prev) {

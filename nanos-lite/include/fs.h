@@ -7,8 +7,12 @@
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
 #endif
 size_t get_ramdisk_size(void);
-size_t ramdisk_read(void*, int, size_t);
+//writing functions
 size_t ramdisk_write(void*, int, size_t);
-size_t fs_read(int, void*, size_t);
+size_t serial_write(const void*,size_t,size_t);
+size_t fb_write(const void*,size_t,size_t);
 
+//reading functions
+size_t ramdisk_read(void*, size_t, size_t);
+size_t dispinfo_read(void*, size_t, size_t);
 #endif
