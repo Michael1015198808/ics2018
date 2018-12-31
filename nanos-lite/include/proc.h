@@ -4,6 +4,10 @@
 #include "common.h"
 #include "memory.h"
 
+int fs_open(const char *, int, size_t);
+size_t get_ramdisk_size(void);
+size_t fs_filesz(int);
+size_t fs_read(int, void*, size_t);
 #define STACK_SIZE (8 * PGSIZE)
 
 typedef union {

@@ -4,13 +4,10 @@
 #define DEFAULT_ENTRY 0x4000000
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  size_t get_ramdisk_size();
-  size_t size=get_ramdisk_size();
-  int fs_open(const char *, int, mode_t);
   int file_no=fs_open(filename,0,0);
-  Log("File no.%d\n",file_no);
-  size_t ramdisk_read(void*, size_t, size_t);
-  ramdisk_read((void*)DEFAULT_ENTRY,0,size);
+  size_t size=fs_filesz(file_no);
+  Log("File no.%d\tsize%dbytes\n",file_no,size);
+  fs_read(file_no,(void*)DEFAULT_ENTRY,size);
   return DEFAULT_ENTRY;
 }
 
