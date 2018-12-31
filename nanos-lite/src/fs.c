@@ -49,7 +49,7 @@ int fs_open(const char *pathname, int flags, int mode){
     return i;
 }
 size_t fs_read(int fd, void *buf, size_t len) {
-    ReadFn read = (void*)file_table[fd].read == NULL ? (ReadFn)ramdisk_read : file_table[fd].read;
+    ReadFn read = file_table[fd].read == NULL ? (ReadFn)ramdisk_read : file_table[fd].read;
     if (file_table[fd].disk_offset + len > file_table[fd].size) {
         len = file_table[fd].size- file_table[fd].open_offset;
     }
@@ -68,15 +68,11 @@ size_t fs_write(int fd, const void *buf, size_t len){
         }
         return i;
     }else{
-        int i;
-        for (i = 0; i < len; ++i) {
-            _putc(*(char*)(buf + i));
-        }
         WriteFn write=file_table[fd].write== NULL ? (WriteFn)ramdisk_write: file_table[fd].write;
         if (file_table[fd].open_offset + len > file_table[fd].size) {
             len = file_table[fd].size- file_table[fd].open_offset;
         }
-        int ret=write(buf,file_table[fd].open_offset,len);
+        int ret=write(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
         file_table[fd].open_offset+=len;
         return ret;
     }
