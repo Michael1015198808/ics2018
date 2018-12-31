@@ -48,28 +48,17 @@ int fs_open(const char *pathname, int flags, int mode){
     file_table[i].open_offset=0;
     return i;
 }
-size_t fs_read(int fd, void *buf, size_t len){
-    if(file_table[fd].read==NULL){
-        size_t RAMDISK_SIZE=get_ramdisk_size();
-        if(file_table[fd].open_offset+file_table[fd].disk_offset+len>RAMDISK_SIZE){
-            len=RAMDISK_SIZE-file_table[fd].open_offset-file_table[fd].disk_offset;
-        }
-        int ret=ramdisk_read(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
-        file_table[fd].open_offset+=len;
-        return ret;
-    }else{
-        int ret=file_table[fd].read(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
-        file_table[fd].open_offset+=len;
-        return ret;
+size_t fs_read(int fd, void *buf, size_t len) {
+    ReadFn read = (void*)file_table[fd].read == NULL ? (ReadFn)ramdisk_read : file_table[fd].read;
+    if (file_table[fd].disk_offset + len > file_table[fd].size) {
+        len = file_table[fd].size- file_table[fd].open_offset;
     }
+    int ret = read(buf, file_table[fd].open_offset + file_table[fd].disk_offset, len);
+    file_table[fd].open_offset += len;
+    return ret;
 }
 size_t fs_filesz(int fd){
-    if(fd==NR_FILES-1){
-        size_t RAMDISK_SIZE=get_ramdisk_size();
-        return RAMDISK_SIZE;
-    }else{
-        return file_table[fd+1].disk_offset-file_table[fd].disk_offset;
-    }
+    return file_table[fd].size;
 }
 size_t fs_write(int fd, const void *buf, size_t len){
     if(fd==1||fd==2) {
@@ -79,7 +68,11 @@ size_t fs_write(int fd, const void *buf, size_t len){
         }
         return i;
     }else{
-        int ret=file_table[fd].write(buf,file_table[fd].open_offset,len);
+        WriteFn write=file_table[fd].write== NULL ? (WriteFn)ramdisk_write: file_table[fd].write;
+        if (file_table[fd].open_offset + len > file_table[fd].size) {
+            len = file_table[fd].size- file_table[fd].open_offset;
+        }
+        int ret=write(buf,file_table[fd].open_offset,len);
         file_table[fd].open_offset+=len;
         return ret;
     }
