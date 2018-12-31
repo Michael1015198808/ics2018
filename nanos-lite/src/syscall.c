@@ -10,17 +10,33 @@ _Context* do_syscall(_Context *c) {
   //Log("_call%p,%d,%d,%x,%d\n",c,c->GPR1,c->GPR2,c->GPR3,c->GPR4);
 
   switch (a[0]) {
-    case SYS_exit:_halt(c->GPRx);printf("Should have exited\n");break;
-    case SYS_yield:_yield();break;
-    case SYS_open:c->GPRx=fs_open((char*)c->GPR2,c->GPR3,c->GPR4);break;
-    case SYS_read:c->GPRx=fs_read(c->GPR2,(void*)c->GPR3,c->GPR4);break;
-    case SYS_write:c->GPRx=fs_write(c->GPR2,(void*)c->GPR3,c->GPR4);break;
-    case SYS_close:c->GPRx=fs_close(c->GPR2);break;
-    case SYS_lseek:c->GPRx=fs_lseek(c->GPR2,c->GPR3,c->GPR4);break;
+    case SYS_exit:
+      _halt(c->GPRx);
+          printf("Should have exited\n");
+          break;
+    case SYS_yield:
+      _yield();
+          break;
+    case SYS_open:
+      c->GPRx = fs_open((char *) c->GPR2, c->GPR3, c->GPR4);
+          break;
+    case SYS_read:
+      c->GPRx = fs_read(c->GPR2, (void *) c->GPR3, c->GPR4);
+          break;
+    case SYS_write:
+      c->GPRx = fs_write(c->GPR2, (void *) c->GPR3, c->GPR4);
+          break;
+    case SYS_close:
+      c->GPRx = fs_close(c->GPR2);
+          break;
+    case SYS_lseek:
+      c->GPRx = fs_lseek(c->GPR2, c->GPR3, c->GPR4);
+          break;
     case SYS_brk:
-      c->GPRx=0;//Success
-      break;
-    default: panic("Unhandled syscall ID = %d", a[0]);
+      c->GPRx = 0;//Success
+          break;
+    default:
+      panic("Unhandled syscall ID = %d", a[0]);
   }
 
   return NULL;
