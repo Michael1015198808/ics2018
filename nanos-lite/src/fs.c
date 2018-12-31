@@ -52,10 +52,6 @@ size_t fs_read(int fd, void *buf, size_t len){
     printf("Read from %d-%d\n",file_table[fd].open_offset+file_table[fd].disk_offset,file_table[fd].open_offset+file_table[fd].disk_offset+len);
     if(file_table[fd].read==NULL){
         int ret=ramdisk_read(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
-        int i;
-        for(i=0;i<len;++i){
-            _putc(*(char*)(buf+i));
-        }
         file_table[fd].open_offset+=len;
         return ret;
     }else{
