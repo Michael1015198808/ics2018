@@ -22,6 +22,9 @@ _Context* do_syscall(_Context *c) {
         c->GPRx=i;
       }
       break;
+    case SYS_lseek:
+      c->GPRx=fs_lseek(c->GPR2,c->GPR3,c->GPR4);
+      break;
     case SYS_brk:
       //Log("Call brk\n");
       c->GPRx=0;//Success

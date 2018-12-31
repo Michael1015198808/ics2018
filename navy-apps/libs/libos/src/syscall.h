@@ -28,4 +28,5 @@ size_t fs_read(int,void*,int);
 size_t fs_write(int,void*,int);
 int fs_close(int);
 size_t fs_filesz(int);
+size_t fs_lseek(int,size_t,int);
 #endif
