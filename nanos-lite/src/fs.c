@@ -51,11 +51,11 @@ int fs_open(const char *pathname, int flags, int mode){
 size_t fs_read(int fd, void *buf, size_t len){
     printf("Read from %d-%d\n",file_table[fd].open_offset+file_table[fd].disk_offset,file_table[fd].open_offset+file_table[fd].disk_offset+len);
     if(file_table[fd].read==NULL){
-        int ret=ramdisk_read(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
-        int i;
-        for(i=0;i<10;++i){
-            _putc(*(char*)(buf+i));
+        size_t RAMDISK_SIZE=get_ramdisk_size();
+        if(file_table[fd].open_offset+file_table[fd].disk_offset+len>RAMDISK_SIZE){
+            len=RAMDISK_SIZE-file_table[fd].open_offset-file_table[fd].disk_offset;
         }
+        int ret=ramdisk_read(buf,file_table[fd].open_offset+file_table[fd].disk_offset,len);
         file_table[fd].open_offset+=len;
         return ret;
     }else{
