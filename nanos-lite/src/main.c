@@ -1,11 +1,5 @@
 #include "common.h"
 
-void init_mm(void);
-void init_ramdisk(void);
-void init_device(void);
-void init_irq(void);
-void init_fs(void);
-void init_proc(void);
 
 int main() {
 #ifdef HAS_VME

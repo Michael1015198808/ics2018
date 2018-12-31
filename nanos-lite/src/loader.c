@@ -7,6 +7,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   int file_no=fs_open(filename,0,0);
   size_t size=fs_filesz(file_no);
   fs_read(file_no,(void*)DEFAULT_ENTRY,size);
+  Log("Program start\n");
   return DEFAULT_ENTRY;
 }
 

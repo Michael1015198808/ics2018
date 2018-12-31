@@ -38,7 +38,7 @@ static Finfo file_table[] __attribute__((used)) = {
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
 void init_fs() {
-    while(1);
+
     assert(!strcmp(file_table[3].name,"/dev/fb"));
     int screen_height();
     int screen_width();
