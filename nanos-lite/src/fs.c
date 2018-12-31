@@ -44,8 +44,8 @@ int fs_open(const char *pathname, int flags, int mode){
             break;
         }
     }
-    printf("%d\n",i);
     assert(i<NR_FILES);
+    file_table[i].open_offset=0;
     return i;
 }
 size_t fs_read(int fd, void *buf, size_t len){
@@ -92,4 +92,4 @@ size_t fs_lseek(int fd, size_t offset, int whence){
             assert(0);
     }
 }
-int fs_close(int fd){return 0;}
+int fs_close(int fd){return file_table[fd].open_offset=0;}
