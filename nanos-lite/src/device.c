@@ -4,15 +4,11 @@
 static int width=0;
 static int height=0;
 size_t serial_write(const void *buf, size_t offset, size_t len) {
-  /*int i;
+  int i;
   for(i=0;i<len;++i){
     _putc(*(char*)(buf+i));
-  }*/
-  _putc('a');
-  _putc('b');
-  _putc('c');
-  return len;
-  //return i;
+  }
+  return i;
 }
 
 #define NAME(key) \
