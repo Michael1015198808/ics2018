@@ -43,7 +43,8 @@ void init_fs() {
     int screen_height();
     int screen_width();
     file_table[3].size=screen_height()*screen_width()*(32/8);//RFB+Alpha=32bits
-    printf("%s's size is %d\n",file_table[3].name,file_table[3].size);
+    printf("%s's size is %d*%d=%d\n",file_table[3].name,screen_height(),screen_width(),file_table[3].size);
+    while(1);
   // TODO: initialize the size of /dev/fb
 }
 int fs_open(const char *pathname, int flags, int mode){
