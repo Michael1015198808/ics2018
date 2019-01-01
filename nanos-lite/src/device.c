@@ -34,14 +34,12 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  uint32_t test_color=0xffffffff;
-  printf("Write to VGA!\n");
   int i, x, y;
   offset>>=2;
   y = offset / width;
   x = offset - y * width;
   for (i = 0; i < len; ++i) {
-    draw_rect(&test_color, x, y, 1, 1);
+    draw_rect((uint32_t*)buf, x, y, 1, 1);
     ++x;
     if (x==width){x=0;++y;if(y==height){y=0;}}
   }

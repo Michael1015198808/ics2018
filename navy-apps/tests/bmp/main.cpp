@@ -10,16 +10,16 @@ int main() {
   NDL_LoadBitmap(bmp, "/share/pictures/projectn.bmp");
   //puts("Hello2");
   assert(bmp->pixels);
-  puts("Hello3");
-  printf("%d,%d\n",bmp->w,bmp->h);
+  //puts("Hello3");
+  //printf("%d,%d\n",bmp->w,bmp->h);
   NDL_OpenDisplay(bmp->w, bmp->h);
-  puts("Hello4");
+  //puts("Hello4");
   NDL_DrawRect(bmp->pixels, 0, 0, bmp->w, bmp->h);
-  puts("Hello5");
+  //puts("Hello5");
   NDL_Render();
-  puts("Hello6");
+  //puts("Hello6");
   NDL_CloseDisplay();
-  puts("Hello7");
+  //puts("Hello7");
   while (1);
   return 0;
 }
