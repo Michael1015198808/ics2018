@@ -26,8 +26,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 static char dispinfo[128] __attribute__((used));
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  if(len+offset>120){
-    len=120-offset;
+  if(len+offset>128){
+    len=128-offset;
   }
   memcpy(buf, dispinfo + offset, len);
   return len;
@@ -35,7 +35,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   uint32_t test_color=0xffffffff;
-  printf("Write\n");
+  printf("Write to VGA!\n");
   int i, x, y;
   offset>>=2;
   y = offset / width;
