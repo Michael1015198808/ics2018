@@ -80,6 +80,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
     return ret;
 }
 size_t fs_lseek(int fd, size_t offset, int whence){
+    size_t old_offset=file_table[fd].open_offset;
     switch(whence){
         case SEEK_SET:
             file_table[fd].open_offset=offset;
@@ -93,6 +94,10 @@ size_t fs_lseek(int fd, size_t offset, int whence){
         default:
             assert(0);
     }
-    return 0;
+    if(file_table[fd].open_offset>file_table[fd].size){
+        file_table[fd].open_offset=old_offset;
+        return -1;
+    }
+    return file_table[fd].open_offset;
 }
 int fs_close(int fd){return 0;}
