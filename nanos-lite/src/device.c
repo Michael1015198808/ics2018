@@ -43,7 +43,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
     ++x;
     if (x==width){x=0;++y;if(y==height){y=0;}}
   }
-  return 0;
+  return i;
 }
 
 void init_device() {
