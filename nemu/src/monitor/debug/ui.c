@@ -141,6 +141,7 @@ static int cmd_load(char *args){
 #define PMEM_SIZE (128 * 1024 * 1024)
 	CPU_state temp;
 	printf("load%ld/%ld\n",fread(&temp,1,sizeof(CPU_state),fp),sizeof(CPU_state));
+	printf("eax=%d\n",temp.eax);
 	int i;
 	for(i=0;i<(sizeof(PMEM_SIZE)/sizeof(uint32_t));++i){
 		cpu.gpr[i]._32=temp.gpr[i]._32;
