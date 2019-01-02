@@ -143,7 +143,7 @@ static int cmd_load(char *args){
 	//assert(fread(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 	fseek(fp,PMEM_SIZE,SEEK_SET);
 #undef PMEM_SIZE
-	printf("load%ld/%ld\n",fread(&cpu,1,sizeof(CPU_state),fp),sizeof(CPU_state));
+	printf("load%ld/%ld\n",fread(guest_to_host(0),1,sizeof(CPU_state),fp),sizeof(CPU_state));
 	return 0;
 }
 
