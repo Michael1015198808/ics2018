@@ -2,9 +2,9 @@
 #include "all-instr.h"
 bool attach=
 #if defined(DIFF_TEST)
-false;
+        true;
 #else
-true;
+        false;
 #endif
 typedef struct {
   DHelper decode;
