@@ -252,6 +252,7 @@ void exec_wrapper(bool print_flag) {
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
   strcat(decoding.asm_buf, decoding.assembly);
   //Log_write("%s\n%%eax%x\t%%ebx%x\t%%esi%x\t%%esp%x\n", decoding.asm_buf,cpu.eax,cpu.ebx,cpu.esi,cpu.esp);
+  Log_write("%s\n", decoding.asm_buf);
   if (print_flag) {
     puts(decoding.asm_buf);
   }
