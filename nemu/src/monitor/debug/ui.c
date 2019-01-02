@@ -10,7 +10,7 @@
 
 void cpu_exec(uint64_t);
 extern bool attach;
-static char nemu_cmd_line[]="(nemu difftest:ON))";
+static char nemu_cmd_line[20]="(nemu difftest:ON)";
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -112,7 +112,7 @@ static int cmd_d(char *args){
 }
 static int cmd_detach(char *args) {
     attach=false;
-    sprintf(nemu_cmd_line+13,"OFF");
+    sprintf(nemu_cmd_line+13,"OFF)");
     puts("Detach successfully!");
     return 0;
 }
