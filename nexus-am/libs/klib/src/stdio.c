@@ -34,7 +34,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 }
 //Added my Michael
 //Should work as a assistant.
-static int vsnprintf(char *out, size_t n, const char *fmt, va_list ap){
+int vsnprintf(char *out, size_t n, const char *fmt, va_list ap){
 #define output(A) if(cnt<n-1){out[cnt++]=A;}else{va_end(ap);out[cnt]='\0';return cnt;}
     size_t cnt=0;
     int i=0;
@@ -66,7 +66,7 @@ static int vsnprintf(char *out, size_t n, const char *fmt, va_list ap){
             }
             switch (*p) {
                 case 'c':
-                    cval=va_arg(ap,char);
+                    cval=va_arg(ap,int);
                     output(cval);
                     break;
                 case 'u':
