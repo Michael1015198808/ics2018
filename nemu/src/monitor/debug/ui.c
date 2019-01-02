@@ -130,8 +130,8 @@ static int cmd_attach(char *args) {
 static int cmd_save(char *args){
     FILE *fp=fopen(args,"w+");
 #define PMEM_SIZE (128 * 1024 * 1024)
-	printf("write%ld\n",fwrite(&cpu,1,sizeof(CPU_state),fp));
-    printf("write%ld\n",fwrite(guest_to_host(0),1,PMEM_SIZE,fp));
+	assert(fwrite(&cpu,1,sizeof(CPU_state),fp)== sizeof(CPU_state));
+    assert(fwrite(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 #undef PMEM_SIZE
     assert(fclose(fp)==0);
     return 0;
