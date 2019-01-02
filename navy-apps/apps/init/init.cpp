@@ -70,15 +70,14 @@ int main(int argc, char *argv[], char *envp[]) {
       !freopen("/dev/tty", "w", stdout) ||
       !freopen("/dev/tty", "w", stderr)) {
     // the OS does not meet the spec
-    printf("Reach here\n");
-    while(1);
     exit(1);
   }
 
+    printf("Reach here\n");
+    fflush(stdout);
+    while(1);
   open_display();
 
-    printf("Reach here\n");
-    while(1);
   evtdev = fopen("/dev/events", "r");
   font = new Font(font_fname);
   NDL_LoadBitmap(&logo, "/share/pictures/projectn.bmp");
