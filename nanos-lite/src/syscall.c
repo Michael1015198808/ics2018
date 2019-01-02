@@ -12,7 +12,7 @@ _Context* do_syscall(_Context *c) {
   switch (a[0]) {
     case SYS_exit:
       //_halt(c->GPRx);
-      naive_uload(NULL, "/etc/init");//Only for PA3.3
+      naive_uload(NULL, "/bin/init");//Only for PA3.3
           printf("Should have exited\n");
           break;
     case SYS_yield:
