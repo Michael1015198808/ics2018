@@ -111,10 +111,12 @@ static int cmd_d(char *args){
 }
 static int cmd_detach(char *args) {
     attach=false;
+    puts("Detach successfully!");
     return 0;
 }
 static int cmd_attach(char *args) {
 	attach=true;
+	puts("attach successfully!");
 	return 0;
 }
 static struct {
