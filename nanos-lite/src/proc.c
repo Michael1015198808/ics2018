@@ -21,7 +21,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
  void naive_uload(PCB *, const char *);
-  naive_uload(NULL, "/bin/init");
+  naive_uload(NULL, "/etc/init");
 }
 
 _Context* schedule(_Context *prev) {
