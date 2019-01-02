@@ -140,13 +140,13 @@ static void open_display() {
 
   fclose(dispinfo);
 
-  while(1);
   if (W == 0 || H == 0) {
     fprintf(stderr, "[IGN] Invalid display information.\n");
     return;
   }
 
   NDL_OpenDisplay(W, H);
+  while(1);
 }
 
 static void clear_display(void) {
