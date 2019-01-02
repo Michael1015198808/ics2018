@@ -123,6 +123,7 @@ int main(int argc, char *argv[], char *envp[]) {
 }
 
 static void open_display() {
+  NDL_OpenDisplay(400, 300);while(1);
   FILE *dispinfo = fopen("/proc/dispinfo", "r");
 
   if (!dispinfo) {
@@ -147,7 +148,6 @@ static void open_display() {
   }
 
   //NDL_OpenDisplay(W, H);
-  NDL_OpenDisplay(400, 300);
   while(1);
 }
 
