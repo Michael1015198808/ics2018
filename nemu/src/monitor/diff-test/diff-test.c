@@ -89,7 +89,7 @@ void difftest_step(uint32_t eip) {
 					printf("%s should be %d\n",#f,ref_r.f);\
 					printf("  instead of %d\n",cpu.f);\
 	}
-	//check(CF);check(ZF);check(SF);check(OF);
+	check(CF);check(ZF);check(SF);check(OF);
     ref_difftest_setregs(&cpu);
 }
 void difftest_attach(void) {
