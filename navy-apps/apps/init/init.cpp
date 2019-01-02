@@ -73,7 +73,8 @@ int main(int argc, char *argv[], char *envp[]) {
     while(1);
     exit(1);
   }
-
+NDL_OpenDisplay(400,300);
+  while(1);
   open_display();
 
   evtdev = fopen("/dev/events", "r");
