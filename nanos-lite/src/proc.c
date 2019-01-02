@@ -21,7 +21,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
  void naive_uload(PCB *, const char *);
-  naive_uload(NULL, "/bin/events");
+  naive_uload(NULL, "/bin/pal");
 }
 
 _Context* schedule(_Context *prev) {
