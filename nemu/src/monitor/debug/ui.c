@@ -114,12 +114,14 @@ static int cmd_d(char *args){
 	return 0;
 }
 static int cmd_detach(char *args) {
+	if(attach==false)return 0;//Just to speed up
     attach=false;
     sprintf(nemu_cmd_line+15,"OFF)");
     puts("Detach successfully!");
     return 0;
 }
 static int cmd_attach(char *args) {
+	if(attach==true)return 0;//Just to speed up
 	attach=true;
 	sprintf(nemu_cmd_line+15,"ON)");
 	void difftest_attach(void);
@@ -134,6 +136,7 @@ static int cmd_save(char *args){
     assert(fwrite(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 #undef PMEM_SIZE
     assert(fclose(fp)==0);
+	printf("Save successfully!\n");
     return 0;
 }
 static int cmd_load(char *args){
@@ -143,6 +146,12 @@ static int cmd_load(char *args){
 	assert(fread(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 #undef PMEM_SIZE
 	assert(fclose(fp)==0);
+	printf("Load successfully!\n");
+	if(attach==true){
+		void difftest_attach(void);
+		difftest_attach();
+		puts("auto attach successfully!");
+	}
 	return 0;
 }
 
