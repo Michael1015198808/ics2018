@@ -16,7 +16,7 @@
 
 const char *font_fname = "/share/fonts/Courier-7.bdf";
 
-static int W = 0, H = 0;
+int W = 0, H = 0;
 FILE *evtdev;
 static Font *font;
 
@@ -146,7 +146,8 @@ static void open_display() {
     return;
   }
 
-  NDL_OpenDisplay(W, H);
+  //NDL_OpenDisplay(W, H);
+  NDL_OpenDisplay(400, 300);
   while(1);
 }
 
