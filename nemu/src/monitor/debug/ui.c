@@ -130,20 +130,19 @@ static int cmd_attach(char *args) {
 static int cmd_save(char *args){
     FILE *fp=fopen(args,"w+");
 #define PMEM_SIZE (128 * 1024 * 1024)
+	printf("write%ld\n",fwrite(&cpu,1,sizeof(CPU_state),fp));
     printf("write%ld\n",fwrite(guest_to_host(0),1,PMEM_SIZE,fp));
-    fseek(fp,PMEM_SIZE,SEEK_SET);
 #undef PMEM_SIZE
-    printf("write%ld\n",fwrite(&cpu,1,sizeof(CPU_state),fp));
     return 0;
 }
 static int cmd_load(char *args){
 	FILE *fp=fopen(args,"r");
 #define PMEM_SIZE (128 * 1024 * 1024)
+	printf("load%ld/%ld\n",fread(guest_to_host(0),1,sizeof(CPU_state),fp),sizeof(CPU_state));
+	memcpy(&cpu,guest_to_host(0), sizeof(CPU_state));
 	printf("read%ld\n",fread(guest_to_host(0),1,PMEM_SIZE,fp));
 	//assert(fread(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
-	fseek(fp,PMEM_SIZE,SEEK_SET);
 #undef PMEM_SIZE
-	printf("load%ld/%ld\n",fread(guest_to_host(0),1,sizeof(CPU_state),fp),sizeof(CPU_state));
 	return 0;
 }
 
