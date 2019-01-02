@@ -73,7 +73,7 @@ int main(int argc, char *argv[], char *envp[]) {
     exit(1);
   }
 
-    printf("Reach here\n");
+    fprintf(stdout,"Reach here\n");
   open_display();
 
   evtdev = fopen("/dev/events", "r");
