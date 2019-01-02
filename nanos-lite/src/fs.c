@@ -46,7 +46,7 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
 int fs_open(const char *pathname, int flags, int mode){
-    printf("File %s ",pathname);
+    //printf("File %s ",pathname);
     int i=0;
     for(i=0;i<NR_FILES;++i){
         if(!strcmp(file_table[i].name,pathname)){
@@ -54,7 +54,7 @@ int fs_open(const char *pathname, int flags, int mode){
         }
     }
     assert(i<NR_FILES);
-    printf("no.%d\n",i);
+    //printf("no.%d\n",i);
     file_table[i].open_offset=0;
     return i;
 }
