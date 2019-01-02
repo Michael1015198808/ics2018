@@ -37,6 +37,7 @@ _Context* do_syscall(_Context *c) {
       c->GPRx = 0;//Success
           break;
     case SYS_execve:
+      Log("Execute %s",(char*)c->GPR2);
       naive_uload(NULL, (char*)c->GPR2);
           break;
     default:
