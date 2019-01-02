@@ -127,6 +127,23 @@ static int cmd_attach(char *args) {
 	puts("attach successfully!");
 	return 0;
 }
+static int cmd_save(char *args){
+    FILE *fp=fopen(args,"w+");
+#define PMEM_SIZE (128 * 1024 * 1024)
+    fwrite(guest_to_host(0),1,PMEM_SIZE,fp);
+#undef PMEM_SIZE
+    fwrite(&cpu,1,sizeof(CPU_state),fp);
+    return 0;
+}
+static int cmd_load(char *args){
+	FILE *fp=fopen(args,"r");
+#define PMEM_SIZE (128 * 1024 * 1024)
+	assert(fread(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
+#undef PMEM_SIZE
+	assert(fread(&cpu,1,sizeof(CPU_state),fp)==sizeof(CPU_state));
+	return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -142,7 +159,9 @@ static struct {
 		{"w",      "Set a watchpoint.",                                 cmd_w},
 		{"x",      "Print the number at assigned address",              cmd_x},
 		{"detach", "Cancel Diff-test mode",                             cmd_detach},
-		{"attach", "Restart difftest mode",                             cmd_attach}
+		{"attach", "Restart difftest mode",                             cmd_attach},
+		{"save",   "Save nemu's current state",                         cmd_save},
+		{"load",   "Load nemu's state from a file",                     cmd_load}
 		/* TODO: Add more commands */
 
 };
