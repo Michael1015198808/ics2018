@@ -133,6 +133,7 @@ static int cmd_save(char *args){
 	printf("write%ld\n",fwrite(&cpu,1,sizeof(CPU_state),fp));
     printf("write%ld\n",fwrite(guest_to_host(0),1,PMEM_SIZE,fp));
 #undef PMEM_SIZE
+    assert(fclose(fp)==0);
     return 0;
 }
 static int cmd_load(char *args){
@@ -148,6 +149,7 @@ static int cmd_load(char *args){
 	printf("read%ld\n",fread(guest_to_host(0),1,PMEM_SIZE,fp));
 	//assert(fread(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 #undef PMEM_SIZE
+	assert(fclose(fp)==0);
 	return 0;
 }
 
