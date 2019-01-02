@@ -69,8 +69,6 @@ int main(int argc, char *argv[], char *envp[]) {
       !freopen("/dev/tty", "w", stdout) ||
       !freopen("/dev/tty", "w", stderr)) {
     // the OS does not meet the spec
-    printf("Open files failed\n");
-    while(1);
     exit(1);
   }
 
