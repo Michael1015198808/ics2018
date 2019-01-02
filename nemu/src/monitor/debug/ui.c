@@ -122,6 +122,10 @@ static int cmd_detach(char *args) {
 static int cmd_attach(char *args) {
 	attach=true;
 	sprintf(nemu_cmd_line+14,"ON)");
+	void init_difftest(char*,long);
+	init_difftest((void*)0,0x7c00-0);
+#define PMEM_SIZE (128 * 1024 * 1024)
+	init_difftest((void*)0x100000,PMEM_SIZE-0x100000);
 	puts("attach successfully!");
 	return 0;
 }
