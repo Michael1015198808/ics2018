@@ -138,8 +138,13 @@ static int cmd_save(char *args){
 static int cmd_load(char *args){
 	FILE *fp=fopen(args,"r");
 #define PMEM_SIZE (128 * 1024 * 1024)
-	printf("load%ld/%ld\n",fread(guest_to_host(0),1,sizeof(CPU_state),fp),sizeof(CPU_state));
-	memcpy(&cpu,guest_to_host(0), sizeof(CPU_state));
+	CPU_state temp;
+	printf("load%ld/%ld\n",fread(&temp,1,sizeof(CPU_state),fp),sizeof(CPU_state));
+	int i;
+	for(i=0;i<sizeof(PMEM_SIZE);++i){
+		cpu.gpr[i]._32=temp.gpr[i]._32;
+		assert(cpu.gpr[i]._32==temp.gpr[i]._32);
+	}
 	printf("read%ld\n",fread(guest_to_host(0),1,PMEM_SIZE,fp));
 	//assert(fread(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 #undef PMEM_SIZE
