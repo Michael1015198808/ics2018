@@ -37,7 +37,10 @@ typedef union {
 			rtlreg_t eflags;
 		};
 		rtlreg_t CS;
-		rtlreg_t IDTR;
+		struct{
+		    uint16_t size;
+		    uint32_t offset;
+		}IDTR;
   };
 
 } CPU_state;

@@ -4,7 +4,8 @@ void difftest_skip_ref();
 void difftest_skip_dut();
 
 make_EHelper(lidt) {
-	cpu.IDTR=id_dest->val;
+	cpu.IDTR.size= vaddr_read(id_dest->addr,2);
+	cpu.IDTR.offset= vaddr_read(id_dest->addr+2,4);
 
   print_asm_template1(lidt);
 }
