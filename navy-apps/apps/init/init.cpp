@@ -138,7 +138,6 @@ static void open_display() {
     if (strcmp(key, "WIDTH") == 0) sscanf(value, "%d", &W);
     if (strcmp(key, "HEIGHT") == 0) sscanf(value, "%d", &H);
   }
-  NDL_OpenDisplay(400, 300);while(1);
 
   fclose(dispinfo);
 
@@ -147,7 +146,7 @@ static void open_display() {
     return;
   }
 
-  //NDL_OpenDisplay(W, H);
+  NDL_OpenDisplay(W, H);
   while(1);
 }
 
