@@ -73,6 +73,8 @@ int main(int argc, char *argv[], char *envp[]) {
     while(1);
     exit(1);
   }
+    printf("Reach here\n");
+    while(1);
 
   open_display();
 
