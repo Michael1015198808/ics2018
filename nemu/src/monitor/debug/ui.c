@@ -134,6 +134,10 @@ static int cmd_save(char *args){
     printf("write%ld\n",fwrite(guest_to_host(0),1,PMEM_SIZE,fp));
 #undef PMEM_SIZE
     assert(fclose(fp)==0);
+	fp=fopen(args,"r");
+	CPU_state temp;
+	printf("load%ld/%ld\n",fread(&temp,1,sizeof(CPU_state),fp),sizeof(CPU_state));
+	printf("eax=%d\n",temp.eax);
     return 0;
 }
 static int cmd_load(char *args){
@@ -141,6 +145,7 @@ static int cmd_load(char *args){
 #define PMEM_SIZE (128 * 1024 * 1024)
 	CPU_state temp;
 	printf("load%ld/%ld\n",fread(&temp,1,sizeof(CPU_state),fp),sizeof(CPU_state));
+	printf("eax=%d\n",temp.eax);
 	int i;
 	for(i=0;i<(sizeof(PMEM_SIZE)/sizeof(uint32_t));++i){
 		cpu.gpr[i]._32=temp.gpr[i]._32;
