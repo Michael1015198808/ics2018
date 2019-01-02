@@ -145,10 +145,9 @@ static void open_display() {
     return;
   }
   fprintf(stdout, "%d*%d\n",W,H);
-  exit(0);
+  while(1);
 
   NDL_OpenDisplay(W, H);
-  while(1);
 }
 
 static void clear_display(void) {
