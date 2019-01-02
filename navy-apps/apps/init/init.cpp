@@ -73,7 +73,6 @@ int main(int argc, char *argv[], char *envp[]) {
     exit(1);
   }
 
-    fprintf(stdout,"Reach here\n");
   open_display();
 
   evtdev = fopen("/dev/events", "r");
@@ -141,6 +140,7 @@ static void open_display() {
 
   fclose(dispinfo);
 
+  while(1);
   if (W == 0 || H == 0) {
     fprintf(stderr, "[IGN] Invalid display information.\n");
     return;
