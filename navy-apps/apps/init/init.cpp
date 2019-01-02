@@ -144,10 +144,9 @@ static void open_display() {
     fprintf(stderr, "[IGN] Invalid display information.\n");
     return;
   }
-  fprintf(stdout, "%d*%d\n",W,H);
-  while(1);
 
   NDL_OpenDisplay(W, H);
+  while(1);
 }
 
 static void clear_display(void) {
