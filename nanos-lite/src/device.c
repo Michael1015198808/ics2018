@@ -21,11 +21,10 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
     int key=read_key();
-    printf("read\n");
     if(key==0){
       return snprintf(buf,len, "t %d\n",0);
     }else{
-      return snprintf(buf,len, "k%c %s\n",key&0x8000?'U':'D',keyname[key&0x7fff]);
+      return snprintf(buf,len, "k%c %s\n",key&0x8000?'u':'d',keyname[key&0x7fff]);
     }
 }
 
