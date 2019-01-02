@@ -147,7 +147,6 @@ static void open_display() {
   }
 
   NDL_OpenDisplay(W, H);
-  while(1);
 }
 
 static void clear_display(void) {
