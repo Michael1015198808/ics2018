@@ -115,13 +115,13 @@ static int cmd_d(char *args){
 }
 static int cmd_detach(char *args) {
     attach=false;
-    sprintf(nemu_cmd_line+14,"OFF)");
+    sprintf(nemu_cmd_line+15,"OFF)");
     puts("Detach successfully!");
     return 0;
 }
 static int cmd_attach(char *args) {
 	attach=true;
-	sprintf(nemu_cmd_line+14,"ON)");
+	sprintf(nemu_cmd_line+15,"ON)");
 	void difftest_attach(void);
 	difftest_attach();
 	puts("attach successfully!");
