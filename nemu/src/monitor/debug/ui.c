@@ -9,6 +9,7 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+extern bool attach;
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -108,21 +109,31 @@ static int cmd_d(char *args){
 	free_wp_by_int(i);
 	return 0;
 }
+static int cmd_detach(char *args) {
+    attach=false;
+    return 0;
+}
+static int cmd_attach(char *args) {
+	attach=true;
+	return 0;
+}
 static struct {
   char *name;
   char *description;
   int (*handler) (char *);
 } cmd_table [] = {
-  { "c", "Continue the execution of the program", cmd_c},
-	{ "d", "Delete a watchpoint by its number", cmd_d},
-  { "help", "Display informations about all supported commands", cmd_help},
-	{ "info", "Print info of registers or watchpoints", cmd_info},
-	{ "p", "calculate the value", cmd_p},
-  { "q", "Exit NEMU", cmd_q},
-  { "si", "Step N instruction(s) exactly.", cmd_si},
-	{ "w", "Set a watchpoint.", cmd_w},
-	{ "x", "Print the number at assigned address", cmd_x},
-  /* TODO: Add more commands */
+		{"c",      "Continue the execution of the program",             cmd_c},
+		{"d",      "Delete a watchpoint by its number",                 cmd_d},
+		{"help",   "Display informations about all supported commands", cmd_help},
+		{"info",   "Print info of registers or watchpoints",            cmd_info},
+		{"p",      "calculate the value",                               cmd_p},
+		{"q",      "Exit NEMU",                                         cmd_q},
+		{"si",     "Step N instruction(s) exactly.",                    cmd_si},
+		{"w",      "Set a watchpoint.",                                 cmd_w},
+		{"x",      "Print the number at assigned address",              cmd_x},
+		{"detach", "Cancel Diff-test mode",                             cmd_detach},
+		{"attach", "Restart difftest mode",                             cmd_attach}
+		/* TODO: Add more commands */
 
 };
 

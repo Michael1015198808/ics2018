@@ -1,6 +1,11 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
-
+bool attach=
+#if defined(DIFF_TEST)
+false;
+#else
+true;
+#endif
 typedef struct {
   DHelper decode;
   EHelper execute;
@@ -287,6 +292,9 @@ void exec_wrapper(bool print_flag) {
 
 #if defined(DIFF_TEST)
   void difftest_step(uint32_t);
-  difftest_step(ori_eip);
+
+  if(attach){
+    difftest_step(ori_eip);
+  }
 #endif
 }
