@@ -1,6 +1,6 @@
 #include "common.h"
 #include "syscall.h"
-
+void naive_uload(void*, const char *);
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -11,7 +11,8 @@ _Context* do_syscall(_Context *c) {
 
   switch (a[0]) {
     case SYS_exit:
-      _halt(c->GPRx);
+      //_halt(c->GPRx);
+      naive_uload(NULL, "/bin/init");//Only for PA3.3
           printf("Should have exited\n");
           break;
     case SYS_yield:
@@ -34,6 +35,9 @@ _Context* do_syscall(_Context *c) {
           break;
     case SYS_brk:
       c->GPRx = 0;//Success
+          break;
+    case SYS_execve:
+      naive_uload(NULL, (char*)c->GPR2);
           break;
     default:
       panic("Unhandled syscall ID = %d", a[0]);
