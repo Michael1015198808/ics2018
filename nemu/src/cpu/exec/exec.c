@@ -295,7 +295,6 @@ void exec_wrapper(bool print_flag) {
 
   if(attach){
     difftest_step(ori_eip);
-    puts("Difftest passed");
   }
 #endif
 }
