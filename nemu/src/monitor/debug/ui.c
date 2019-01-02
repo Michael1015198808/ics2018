@@ -131,6 +131,7 @@ static int cmd_attach(char *args) {
 }
 static int cmd_save(char *args){
     FILE *fp=fopen(args,"w+");
+    assert(fp!=NULL);
 #define PMEM_SIZE (128 * 1024 * 1024)
 	assert(fwrite(&cpu,1,sizeof(CPU_state),fp)== sizeof(CPU_state));
     assert(fwrite(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
@@ -141,6 +142,7 @@ static int cmd_save(char *args){
 }
 static int cmd_load(char *args){
 	FILE *fp=fopen(args,"r");
+	assert(fp!=NULL);
 	assert(fread(&cpu,1,sizeof(CPU_state),fp)==sizeof(CPU_state));
 #define PMEM_SIZE (128 * 1024 * 1024)
 	assert(fread(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
