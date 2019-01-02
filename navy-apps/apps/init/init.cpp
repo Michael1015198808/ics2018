@@ -74,8 +74,6 @@ int main(int argc, char *argv[], char *envp[]) {
   }
 
     printf("Reach here\n");
-    fflush(stdout);
-    while(1);
   open_display();
 
   evtdev = fopen("/dev/events", "r");
