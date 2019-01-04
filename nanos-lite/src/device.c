@@ -44,7 +44,9 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   y = offset / width;
   x = offset - y * width;
   for(i=0;i<len/4;++i){
-    draw_rect((uint32_t*)buf+i,x,y,width-x,1);
+    int to_print=width-x;
+    if(width-x>len/4-i)to_print=len/4-i;
+    draw_rect((uint32_t*)buf+i,x,y,to_print,1);
     i+=width-x;
     x=0;++y;
   }
