@@ -122,7 +122,7 @@ static int cmd_attach(char *args) {
 	sprintf(nemu_cmd_line+15,"ON)");
 	void difftest_attach(void);
 #ifndef DIFF_TEST
-	printf("diff-test is not defined!\n");return -1;
+	printf("diff-test is not defined!\n");return 0;
 #endif
 	difftest_attach();
 	puts("attach successfully!");
