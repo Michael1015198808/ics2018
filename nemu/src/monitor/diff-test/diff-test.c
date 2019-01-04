@@ -104,6 +104,7 @@ void difftest_attach(void) {
 #define PMEM_SIZE (128 * 1024 * 1024)
     ref_difftest_memcpy_from_dut(0x100000, guest_to_host(0x100000), PMEM_SIZE-0x100000);
 #undef PMEM_SIZE
+    /*
     char _lidt[]={0x0f,0x7e,0x00};
     ref_difftest_memcpy_from_dut(0x7e00, &cpu.IDTR.size, 2);
     ref_difftest_memcpy_from_dut(0x7e02, &cpu.IDTR.offset, 4);
@@ -114,6 +115,7 @@ void difftest_attach(void) {
     ref_difftest_setregs(&cpu);
     ref_difftest_exec(1);
     cpu.eip=temp;
+     */
     ref_difftest_setregs(&cpu);
 }
 
