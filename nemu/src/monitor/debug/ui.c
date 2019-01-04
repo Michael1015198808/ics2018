@@ -121,8 +121,9 @@ static int cmd_attach(char *args) {
 	attach=true;
 	sprintf(nemu_cmd_line+15,"ON)");
 	void difftest_attach(void);
-	printf("%p\n",difftest_attach);
-	//if(difftest_attach==NULL){printf("diff-test is not defined!\n");return -1;}
+#ifndef DIFF_TEST
+	printf("diff-test is not defined!\n");return -1;
+#endif
 	difftest_attach();
 	puts("attach successfully!");
 	return 0;
