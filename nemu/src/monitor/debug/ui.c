@@ -137,7 +137,7 @@ static int cmd_save(char *args){
 #define PMEM_SIZE (128 * 1024 * 1024)
     assert(fwrite(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 #undef PMEM_SIZE
-	assert(fwrite(&nemu_state,1,sizeof(nemu_state),fp)==nemu_state);
+	assert(fwrite(&nemu_state,1,sizeof(nemu_state),fp)==sizeof(nemu_state));
     assert(fclose(fp)==0);
 	printf("Save successfully!\n");
     return 0;
