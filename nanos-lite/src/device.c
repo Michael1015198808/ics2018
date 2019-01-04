@@ -39,19 +39,15 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  int i, x, y,true_len=len>>2;
+  int i, x, y;
   offset>>=2;
   y = offset / width;
   x = offset - y * width;
-  for(i=0;i<true_len;++i){
-      if(i+width-x>true_len)break;
+  for(i=0;i<len/4;++i){
     draw_rect((uint32_t*)buf,x,y,width-x,1);
-    //buf+=width-x;
     i+=width-x;
     x=0;++y;
   }
-  draw_rect((uint32_t*)buf,x,y,true_len-(i<<2),1);
-  i=len;
   /*for (i = 0; i < len; ++i) {
     draw_rect((uint32_t*)buf+i, x, y, 1, 1);
     ++x;
