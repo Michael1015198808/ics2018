@@ -13,6 +13,7 @@ bool gdb_si(void);
 void gdb_exit(void);
 
 void difftest_memcpy_from_dut(paddr_t dest, void *src, size_t n) {
+    puts("Test");
   bool ok = gdb_memcpy_to_qemu(dest, src, n);
   assert(ok == 1);
 }
