@@ -74,7 +74,7 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args){
 	int i=1;
-	if(sscanf(args,"%d",&i)!=1)i=1;
+	printf("%d\n",sscanf(args,"%d",&i));
 	cpu_exec(i);
 	return 0;
 }

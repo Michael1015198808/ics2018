@@ -19,7 +19,6 @@ void init_difftest(char *ref_so_file, long img_size) {
 #ifndef DIFF_TEST
   return;
 #endif
-  printf("Hello!");
 
   assert(ref_so_file != NULL);
 
