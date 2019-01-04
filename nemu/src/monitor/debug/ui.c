@@ -73,12 +73,8 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args){
-	int i;
-	if(args==NULL){
-					i=1;
-	}else{
-					sscanf(args,"%d",&i);
-	}
+	int i=1;
+	if(sscanf(args,"%d",&i)!=1)i=1;
 	cpu_exec(i);
 	return 0;
 }
@@ -137,6 +133,7 @@ static int cmd_save(char *args){
 #define PMEM_SIZE (128 * 1024 * 1024)
     assert(fwrite(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 #undef PMEM_SIZE
+	assert(fwrite(&nemu_state,1,sizeof(nemu_state),fp)==nemu_state);
     assert(fclose(fp)==0);
 	printf("Save successfully!\n");
     return 0;
@@ -149,6 +146,7 @@ static int cmd_load(char *args){
 #define PMEM_SIZE (128 * 1024 * 1024)
 	assert(fread(guest_to_host(0),1,PMEM_SIZE,fp)==PMEM_SIZE);
 #undef PMEM_SIZE
+	assert(fread(&nemu_state,1,sizeof(nemu_state),fp)==sizeof(nemu_state));
 	assert(fclose(fp)==0);
 	printf("Load successfully!\n");
 	if(attach==true){
