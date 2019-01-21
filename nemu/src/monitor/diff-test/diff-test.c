@@ -93,12 +93,9 @@ void difftest_step(uint32_t eip) {
     ref_difftest_setregs(&cpu);
 }
 void difftest_attach(void) {
-/*
 #ifndef DIFF_TEST
   return;
-#endif
-*/
-
+#else
     //ref_difftest_init();
     ref_difftest_memcpy_from_dut(0, guest_to_host(0), 0x7c00);
 #define PMEM_SIZE (128 * 1024 * 1024)
@@ -128,5 +125,6 @@ void difftest_attach(void) {
     ref_difftest_exec(1);
     cpu.eip=temp;
     ref_difftest_setregs(&cpu);
+#endif
 }
 
