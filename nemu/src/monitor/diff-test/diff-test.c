@@ -102,7 +102,7 @@ void difftest_attach(void) {
     ref_difftest_memcpy_from_dut(0x100000, guest_to_host(0x100000), PMEM_SIZE-0x100000);
     //ref_difftest_memcpy_from_dut(0x40991a8, guest_to_host(0x40991a8), 4);
 #undef PMEM_SIZE
-    char _lidt[]={0x0f,0x01,0x00,0x7e,0x00,0x00};//The instruction to set idt
+    char _lidt[]={0x0f,0x01,0x18};//The instructions to set idt
     ref_difftest_memcpy_from_dut(0x7e00, &cpu.IDTR.size, 2);
     ref_difftest_memcpy_from_dut(0x7e02, &cpu.IDTR.offset, 4);
     //Use two sentences to avoid 对齐
@@ -119,11 +119,11 @@ void difftest_attach(void) {
     ref_difftest_memcpy_from_dut((uintptr_t)&test ,(void*)0x7e02, 4);
     printf("%x\n",test);*/
     ref_difftest_memcpy_from_dut(0x7e40, _lidt, sizeof(_lidt));
-    uint32_t temp=cpu.eip;
-    cpu.eip=0x7e40;
+    uint32_t old_eip=cpu.eip,old_eax=cpu.eax;
+    cpu.eip=0x7e40;cpu.eax=0x7e00;
     ref_difftest_setregs(&cpu);
     ref_difftest_exec(1);
-    cpu.eip=temp;
+    cpu.eip=old_eip;cpu.eax=old_eax;
     ref_difftest_setregs(&cpu);
 #endif
 }
