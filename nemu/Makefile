@@ -71,5 +71,4 @@ clean:
 log:
 	@git log --author=171240518
 
-export STUID=171240518
-export STUNAME=鄢振宇
+compile: $(BINARY)

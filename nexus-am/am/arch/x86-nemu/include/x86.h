@@ -84,7 +84,7 @@ typedef struct GateDesc {
 } GateDesc;
 
 #define GATE(type, cs, entry, dpl) (GateDesc)         \
-{  (uint32_t)(entry) & 0xffff, (0), 0, 0, (type), 0, (dpl), \
+{  (uint32_t)(entry) & 0xffff, (cs), 0, 0, (type), 0, (dpl), \
   1, (uint32_t)(entry) >> 16 }
 
 static inline uint32_t get_cr0(void) {
