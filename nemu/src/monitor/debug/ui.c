@@ -129,6 +129,8 @@ static int cmd_attach(char *args) {
 	sprintf(nemu_cmd_line+15,"ON)");
 	void difftest_attach(void);
 	difftest_attach();
+    void difftest_skip_clear();
+    difftest_skip_clear();
 	puts("attach successfully!");
 #endif
 	return 0;

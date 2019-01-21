@@ -14,6 +14,7 @@ static bool is_skip_dut;
 
 void difftest_skip_ref() { is_skip_ref = true; }
 void difftest_skip_dut() { is_skip_dut = true; }
+void difftest_skip_clear() { is_skip_dut = is_skip_ref = false; }
 
 void init_difftest(char *ref_so_file, long img_size) {
 #ifndef DIFF_TEST
