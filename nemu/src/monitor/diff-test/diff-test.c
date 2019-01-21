@@ -56,7 +56,6 @@ void difftest_step(uint32_t eip) {
   CPU_state ref_r;
 
   if (is_skip_dut) {
-    Log("Skip");
     is_skip_dut = false;
     return;
   }
