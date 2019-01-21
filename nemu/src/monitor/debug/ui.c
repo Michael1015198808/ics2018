@@ -110,20 +110,24 @@ static int cmd_d(char *args){
 	return 0;
 }
 static int cmd_detach(char *args) {
+#ifndef DIFF_TEST
+	printf("diff-test is not defined!\n");
+#else
 	if(attach==false)return 0;//Just to speed up
     attach=false;
     sprintf(nemu_cmd_line+15,"OFF)");
     puts("Detach successfully!");
+#endif
     return 0;
 }
 static int cmd_attach(char *args) {
+#ifndef DIFF_TEST
+	printf("diff-test is not defined!\n");
+#else
 	if(attach==true)return 0;//Just to speed up
 	attach=true;
 	sprintf(nemu_cmd_line+15,"ON)");
 	void difftest_attach(void);
-#ifndef DIFF_TEST
-	printf("diff-test is not defined!\n");
-#else
 	difftest_attach();
 	puts("attach successfully!");
 #endif
