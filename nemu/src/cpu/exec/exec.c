@@ -234,10 +234,6 @@ static inline void update_eip(void) {
 
 void exec_wrapper(bool print_flag) {
   vaddr_t ori_eip = cpu.eip;
-	/*if(ori_eip==0x100065){
-					cpu.eip=0x100068;
-					return;
-	}*/
 
 #ifdef DEBUG
   decoding.p = decoding.asm_buf;
@@ -251,15 +247,13 @@ void exec_wrapper(bool print_flag) {
   int instr_len = decoding.seq_eip - ori_eip;
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
   strcat(decoding.asm_buf, decoding.assembly);
-  //Log_write("%s\n%%eax%x\t%%ebx%x\t%%esi%x\t%%esp%x\n", decoding.asm_buf,cpu.eax,cpu.ebx,cpu.esi,cpu.esp);
   Log_write("%s\n", decoding.asm_buf);
   if (print_flag) {
     puts(decoding.asm_buf);
   }
 #endif
 
-	//printf("\neip:%x\n",ori_eip);
-	int watchregs[]={};//R_ESP};
+	int watchregs[]={};
 	int watchaddrs[]={};
 	int i;
 	for(i=0;i<sizeof(watchregs)/4;++i){
@@ -278,18 +272,6 @@ void exec_wrapper(bool print_flag) {
 					printf("%s:%d\n",#f,cpu.f);
 	//print(CF);print(OF);print(ZF);print(SF);
   update_eip();
-	/*if(cpu.eip==0x100100){
-					printf("test\n");
-	}*/
-	/*if(cpu.eip==0x1008a7){
-					int i;
-					for(i=0;i<8;++i){
-									printf("%s:%4d\t",regsl[i],cpu.gpr[i]._32);
-									if((i&3)==3){
-													putchar('\n');
-									}
-					}
-	}*/
 
 #if defined(DIFF_TEST)
   void difftest_step(uint32_t);
