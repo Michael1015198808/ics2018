@@ -21,13 +21,16 @@ void hello_fun(void *arg) {
 
 void init_proc() {
  void naive_uload(PCB *, const char *);
+ Log("init_proc");
  context_kload(pcb,(void*)hello_fun);
+ Log("kload finished");
  switch_boot_pcb();
+ Log("Switch boot pcb finished");
   naive_uload(NULL, "/bin/init");
 }
 
 _Context* schedule(_Context *prev) {
-    //Log("schedule start");
+    Log("schedule start");
     current->cp=prev;
     current=pcb;
     Log("schedule return");
