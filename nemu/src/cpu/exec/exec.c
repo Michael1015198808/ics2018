@@ -284,7 +284,7 @@ void exec_wrapper(bool print_flag) {
       Log("0x%d",cpu.esp);
       int i;
       for(i=0;i<10;++i){
-          Log("%x",vaddr_read(cpu.esp-(i<<2),4));
+          Log("%x",vaddr_read(cpu.esp+(i<<2),4));
       }
   }
 }
