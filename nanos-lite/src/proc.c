@@ -21,7 +21,7 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
- context_kload(pcb,(void*)hello_fun);
+ context_kload(&pcb[0],(void*)hello_fun);
  switch_boot_pcb();
   //naive_uload(NULL, "/bin/init");
 }
@@ -29,7 +29,7 @@ void init_proc() {
 _Context* schedule(_Context *prev) {
     Log("schedule start");
     current->cp=prev;
-    current=pcb;
+    current=&pcb[0];
     Log("schedule return");
     return current->cp;
 }
