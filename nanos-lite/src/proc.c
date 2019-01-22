@@ -22,15 +22,12 @@ void hello_fun(void *arg) {
 
 void init_proc() {
  context_kload(&pcb[0],(void*)hello_fun);
- context_kload(&pcb[1],(void*)hello_fun);
  switch_boot_pcb();
   //naive_uload(NULL, "/bin/init");
 }
 
 _Context* schedule(_Context *prev) {
-    static int double_hello=0;
     current->cp=prev;
-    current=&pcb[double_hello];
-    double_hello^=1;
+    current=&pcb[0];
     return current->cp;
 }
