@@ -8,7 +8,7 @@ static _Context *do_event(_Event e, _Context *c) {
             temp=(uintptr_t)schedule(c);
             int i;
             for(i=-40;i<40;++i){
-                if(((_Context*)((void*)c+i))->esp==0x31628)break;
+                if(((_Context*)((void*)c+i))->esp-0x31628<16)break;
             }
             Log("i:%d",i);
             Log("esp:%x",((_Context*)((void*)c+i))->esp);
