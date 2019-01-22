@@ -33,6 +33,7 @@ _Context* schedule(_Context *prev) {
     assert(pcb->cp->eip==(uintptr_t)hello_fun);
     current->cp=prev;
     current=&pcb[0];
+    Log("test");
     assert(pcb->cp->eip==(uintptr_t)hello_fun);
     return current->cp;
 }
