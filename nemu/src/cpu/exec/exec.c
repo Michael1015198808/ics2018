@@ -281,6 +281,6 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
   if(cpu.eip==0x1010fb){
-      Log("%d",cpu.esp);
+      Log("0x%d",cpu.esp);
   }
 }
