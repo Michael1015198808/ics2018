@@ -19,4 +19,5 @@ void init_device(void);
 void init_irq(void);
 void init_fs(void);
 void init_proc(void);
+_Context* schedule(_Context*);
 #endif

@@ -21,9 +21,13 @@ void hello_fun(void *arg) {
 
 void init_proc() {
  void naive_uload(PCB *, const char *);
+ context_kload(pcb,(void*)hello_fun);
+ switch_boot_pcb();
   naive_uload(NULL, "/bin/init");
 }
 
 _Context* schedule(_Context *prev) {
-  return NULL;
+    current->cp=prev;
+    current=pcb;
+    return current->cp;
 }
