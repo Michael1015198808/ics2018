@@ -1,5 +1,6 @@
 #include "proc.h"
 
+void naive_uload(PCB *, const char *);
 #define MAX_NR_PROC 4
 
 static PCB pcb[MAX_NR_PROC] __attribute__((used));
@@ -20,13 +21,12 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
- void naive_uload(PCB *, const char *);
  Log("init_proc");
  context_kload(pcb,(void*)hello_fun);
  Log("kload finished");
  switch_boot_pcb();
  Log("Switch boot pcb finished");
-  naive_uload(NULL, "/bin/init");
+  //naive_uload(NULL, "/bin/init");
 }
 
 _Context* schedule(_Context *prev) {
