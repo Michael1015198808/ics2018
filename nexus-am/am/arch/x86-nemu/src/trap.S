@@ -12,7 +12,7 @@ asm_trap:
   pushl %esp
   call irq_handle
 
-  movl %eax, %esp
+  movl 16(%eax), %esp
 
   addl $4, %esp
 
