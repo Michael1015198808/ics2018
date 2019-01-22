@@ -280,4 +280,7 @@ void exec_wrapper(bool print_flag) {
     difftest_step(ori_eip);
   }
 #endif
+  if(cpu.eip==0x1010fb){
+      Log("%d",cpu.esp);
+  }
 }
