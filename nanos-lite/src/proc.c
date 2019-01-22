@@ -21,11 +21,8 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
- Log("init_proc");
  context_kload(pcb,(void*)hello_fun);
- Log("kload finished");
  switch_boot_pcb();
- Log("Switch boot pcb finished");
   //naive_uload(NULL, "/bin/init");
 }
 
