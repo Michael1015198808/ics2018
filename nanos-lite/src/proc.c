@@ -27,7 +27,9 @@ void init_proc() {
 }
 
 _Context* schedule(_Context *prev) {
+    Log("schedule start");
     current->cp=prev;
     current=pcb;
+    Log("schedule return");
     return current->cp;
 }
