@@ -5,6 +5,7 @@ static _Context *do_event(_Event e, _Context *c) {
         case _EVENT_YIELD:
             schedule(c);
             printf("一句话即可\n");
+            Log("%x\n",c->eip);
             return c;
             break;
         case _EVENT_SYSCALL:
