@@ -27,7 +27,11 @@ void init_proc() {
 }
 
 _Context* schedule(_Context *prev) {
+    static int hello_times=10;
     current->cp=prev;
     current=&pcb[0];
+    if(--hello_times==0){
+        current=&pcb_boot;
+    }
     return current->cp;
 }
