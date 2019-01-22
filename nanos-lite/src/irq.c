@@ -1,20 +1,10 @@
 #include "common.h"
 _Context* do_syscall(_Context*);
-static uintptr_t temp;//Just for test
 static _Context *do_event(_Event e, _Context *c) {
     switch (e.event) {
         case _EVENT_YIELD:
             printf("一句话即可\n");
-            temp=(uintptr_t)schedule(c);
-            int i;
-            for(i=-40;i<40;++i){
-                if(((_Context*)((void*)c+i))->esp-0x31628<16)break;
-            }
-            Log("i:%d",i);
-            Log("esp:%x",((_Context*)((void*)c+i))->esp);
-            Log("eip:%x",((_Context*)temp)->eip);
-            Log("esp:%x",((_Context*)temp)->esp);
-            return (_Context*)temp;
+            return schedule(c);
             break;
         case _EVENT_SYSCALL:
             //Log("syscall%d,%d,%x,%d",c->GPR1,c->GPR2,c->GPR3,c->GPR4);
