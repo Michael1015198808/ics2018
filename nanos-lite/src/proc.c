@@ -30,6 +30,7 @@ void init_proc() {
 }
 
 _Context* schedule(_Context *prev) {
+    assert(pcb->cp->eip==(uintptr_t)hello_fun);
     current->cp=prev;
     current=&pcb[0];
     return current->cp;
