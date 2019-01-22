@@ -34,6 +34,6 @@ _Context* schedule(_Context *prev) {
     current->cp=prev;
     current=&pcb[0];
     Log("test");
-    assert(pcb->cp->eip==(uintptr_t)hello_fun);
+    assert(current->cp->eip==(uintptr_t)hello_fun);
     return current->cp;
 }
