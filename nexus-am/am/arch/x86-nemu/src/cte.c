@@ -30,6 +30,7 @@ _Context *irq_handle(_Context *tf) {
         }
     }
 
+    while((uintptr_t)next!=0x00100260);
     return next;
 }
 
