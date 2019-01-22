@@ -6,7 +6,11 @@ static _Context *do_event(_Event e, _Context *c) {
         case _EVENT_YIELD:
             printf("一句话即可\n");
             temp=(uintptr_t)schedule(c);
-            Log("esp:%x",((_Context*)((void*)c+8))->esp);
+            int i;
+            for(i=-40;i<40;++i){
+                if(((_Context*)((void*)c+i))->esp==0x31628)break;
+            }
+            Log("esp:%x",((_Context*)((void*)c+i))->esp);
             Log("eip:%x",((_Context*)temp)->eip);
             Log("esp:%x",((_Context*)temp)->esp);
             return (_Context*)temp;
