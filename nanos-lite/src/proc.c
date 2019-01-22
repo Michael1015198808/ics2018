@@ -25,6 +25,7 @@ void init_proc() {
  Log("hello_fun's addr:%x",hello_fun);
  assert(pcb->cp->eip==(uintptr_t)hello_fun);
  switch_boot_pcb();
+ assert(pcb->cp->eip==(uintptr_t)hello_fun);
   //naive_uload(NULL, "/bin/init");
 }
 
