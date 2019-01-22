@@ -9,6 +9,7 @@ void vecnull();
 
 _Context *irq_handle(_Context *tf) {
     _Context *next = tf;
+    while(next!=NULL);
     if (user_handler) {
         _Event ev={0};
         switch (tf->irq) {
