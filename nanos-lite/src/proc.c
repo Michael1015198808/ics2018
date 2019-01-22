@@ -22,14 +22,13 @@ void hello_fun(void *arg) {
 
 void init_proc() {
  context_kload(&pcb[0],(void*)hello_fun);
+ Log("hello_fun's addr:%x",hello_fun);
  switch_boot_pcb();
   //naive_uload(NULL, "/bin/init");
 }
 
 _Context* schedule(_Context *prev) {
-    Log("schedule start");
     current->cp=prev;
     current=&pcb[0];
-    Log("schedule return");
     return current->cp;
 }
