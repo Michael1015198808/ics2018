@@ -26,6 +26,7 @@ void context_kload(PCB *pcb, void *entry) {
 
 void context_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);
+  Log("%x",(uintptr_t)entry);
 
   _Area stack;
   stack.start = pcb->stack;
