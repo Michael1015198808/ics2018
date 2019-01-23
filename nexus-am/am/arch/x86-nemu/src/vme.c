@@ -81,9 +81,13 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
 
-  ustack.end -= sizeof(uintptr_t);
-  uintptr_t ret=(uintptr_t)ustack.end;
-  *(uintptr_t*)ret=0;
+  void* new_end = ustack.end - 4 * sizeof(uintptr_t);//argc,argv,envp,ret_addr
+  new_end =(void*)(
+          ((uintptr_t)new_end)&-16  );//栈帧对齐
+  while(ustack.end!=new_end){
+      ustack.end-=sizeof(uintptr_t);
+      *(uintptr_t*)ustack.end=0;
+  }
 //_kcontext
   _Context *c=(_Context*)(ustack.end)-1;
 
@@ -93,7 +97,7 @@ _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *
 //_kcontext
 
   c->edi=0;
-  c->cs=8;
+  c->cs=8;//For diff-test
 
   return c;
 }
