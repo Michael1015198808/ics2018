@@ -56,7 +56,7 @@ clear:
 	clear
 
 run: $(BINARY)
-	$(call git_commit, "run\\ntry to "$(try) )
+	$(call git_commit, "run\\ntest "$(try) )
 	$(NEMU_EXEC)
 
 gdb: $(BINARY)
