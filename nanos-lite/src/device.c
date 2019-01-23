@@ -4,6 +4,7 @@
 static int width=0;
 static int height=0;
 size_t serial_write(const void *buf, size_t offset, size_t len) {
+  VISIT_SLOW();
   int i;
   for(i=0;i<len;++i){
     _putc(*(char*)(buf+i));
@@ -20,6 +21,7 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t offset, size_t len) {
+    VISIT_SLOW();
     int key=read_key();
     if(key==0){
       return snprintf(buf,len, "t %d\n",uptime());
@@ -39,6 +41,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  VISIT_SLOW();
   int i, x, y;
   offset>>=2;
   y = offset / width;
