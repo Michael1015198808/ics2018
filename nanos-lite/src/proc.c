@@ -22,12 +22,11 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   switch_boot_pcb();
-  context_kload(&pcb[0],(void*)hello_fun);
   context_uload(&pcb[1], "/bin/init");
+  context_kload(&pcb[0],(void*)hello_fun);
 }
 
 _Context* schedule(_Context *prev) {
-    Log("Schedule");
     current->cp=prev;
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
     return current->cp;
