@@ -93,8 +93,7 @@ _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *
 //_kcontext
 
   c->edi=0;
-  c->esi=ret;
-  c->edx=ret;
+  c->cs=8;
 
   return c;
 }
