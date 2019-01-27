@@ -48,12 +48,12 @@ static inline paddr_t page_translate(vaddr_t va){
     return va;
 }
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  if(CROSS_PAGE){
-      printf("Cross page!\n");
-      assert(0);
-  }else{
+  //if(CROSS_PAGE){
+      //printf("Cross page!\n");
+      //assert(0);
+  //}else{
     return paddr_read(page_translate(addr), len);
-  }
+  //}
 }
 
 void vaddr_write(vaddr_t addr, uint32_t data, int len) {
