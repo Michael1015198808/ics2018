@@ -33,11 +33,12 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 #define pow2(_num) (1<<(_num))
 #define CROSS_PAGE (((addr+len-1)&pow2(12))<len-1)
 #define voffset (va-0x8000000)
-static inline paddr_t page_translate(vaddr_t va){
 #define pde ((uint32_t*)(uintptr_t)cpu.CR3)
 #define pde_idx ((voffset>>22)&-(pow2(32-10)))
 #define pte ((uint32_t*)(uintptr_t)(pde[pde_idx]&-(pow2(12))))
 #define pte_idx ((voffset>>12)&(-pow2(32-10)))
+static inline paddr_t page_translate(vaddr_t va){
+  Log("translate");
   paddr_t pa=pte[pte_idx]+(va&(pow2(12)-1));
   printf("%d->%d\n",va,pa);
   return pa;
