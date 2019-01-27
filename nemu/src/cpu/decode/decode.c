@@ -332,3 +332,10 @@ void operand_write(Operand *op, rtlreg_t* src) {
   else if (op->type == OP_TYPE_MEM) { rtl_sm(&op->addr, src, op->width); }
   else { assert(0); }
 }
+
+make_DHelper(R2CR){
+    read_ModR_M(eip, id_dest, true, id_src, true);
+}
+make_DHelper(CR2R){
+    read_ModR_M(eip, id_src, true, id_dest, true);
+}
