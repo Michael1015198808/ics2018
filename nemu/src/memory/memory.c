@@ -38,30 +38,37 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 #define pte ((uint32_t*)(uintptr_t)(pde[pde_idx]&-(pow2(12))))
 #define pte_idx ((voffset>>12)&(-pow2(32-10)))
 static inline paddr_t page_translate(vaddr_t va){
-  /*Log("translate");
+  Log("translate");
   Log("%d",cpu.CR3);
   Log("%d",pde[pde_idx]);
   Log("%d",pte[pte_idx]);
   paddr_t pa=pte[pte_idx]+(va&(pow2(12)-1));
   printf("%d->%d\n",va,pa);
-  return pa;*/
-    return va;
+  return pa;
 }
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  //if(CROSS_PAGE){
-      //printf("Cross page!\n");
-      //assert(0);
-  //}else{
-    return paddr_read(page_translate(addr), len);
-  //}
+  if(cpu.CR3&1){
+    if(CROSS_PAGE){
+      printf("Cross page!\n");
+      assert(0);
+    }else{
+      return paddr_read(page_translate(addr), len);
+    }
+  }else{
+      return paddr_read(addr, len);
+  }
 }
 
 void vaddr_write(vaddr_t addr, uint32_t data, int len) {
-  if(CROSS_PAGE){
+  if(cpu.CR3&1){
+    if(CROSS_PAGE){
       printf("Cross page!\n");
       assert(0);
+    }else{
+      paddr_write(page_translate(addr), data, len);
+    }
   }else{
-    paddr_write(page_translate(addr), data, len);
+    paddr_write(addr, data, len);
   }
 }
 
