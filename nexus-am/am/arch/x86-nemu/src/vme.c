@@ -87,6 +87,8 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
         pde[pde_idx]=(uint32_t)pgalloc_usr(1) | PTE_P;
     }
     pte[pte_idx]=(((uint32_t)pa)&-(pow2(12)))|PTE_P;
+    int printf(char*,...);
+    printf("map:%d->%d",(uintptr_t)va,(uintptr_t)pa);
   return 0;
 }
 
