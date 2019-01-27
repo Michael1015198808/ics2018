@@ -75,15 +75,31 @@ void _switch(_Context *c) {
   cur_as = c->prot;
 }
 
+#define pow2(_num) (1<<(_num))
 int _map(_Protect *p, void *va, void *pa, int mode) {
+//#define prot ((PDE)(mode))
+#define voffset (va-(p->area.start))
+#define pde ((PDE*)(p->ptr))
+#define pde_idx ((voffset>>22)&-(pow2(32-10)))
+#define pte ((PTE*)(pde[pde_idx]&-(pow2(12))))
+#define pte_idx ((voffset>>12)&-(pow2(32-10)))
+    if(!pde[pde_idx]&PTE_P){
+        pde[pde_idx]=(uint32_t)pgalloc_usr(1) | PTE_P;
+    }
+    pte[pte_idx]=(((uint32_t)pa)&-(pow2(12)))|PTE_P;
   return 0;
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
 
-  void* new_end = ustack.end - 4 * sizeof(uintptr_t);//argc,argv,envp,ret_addr
-  new_end =(void*)(
-          ((uintptr_t)new_end)&-16  );//栈帧对齐
+  void* new_end = ustack.end - 4 * sizeof(uintptr_t);//argc,
+                                                     //argv,
+                                                     //envp,
+                                                     //ret_addr
+                                                     //4 in total
+  new_end =(void*)
+          (((uintptr_t)new_end) & (-16));//栈帧对齐
+
   while(ustack.end!=new_end){
       ustack.end-=sizeof(uintptr_t);
       *(uintptr_t*)ustack.end=0;

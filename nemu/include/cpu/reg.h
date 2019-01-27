@@ -41,6 +41,10 @@ typedef union {
 		    uint16_t size;
 		    uint32_t offset;
 		}IDTR;
+        struct{
+            uint32_t PG:1;
+        }CR0;
+        uint32_t CR3;
   };
 
 } CPU_state;
