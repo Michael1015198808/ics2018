@@ -38,13 +38,14 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 #define pte ((uint32_t*)(uintptr_t)(pde[pde_idx]&-(pow2(12))))
 #define pte_idx ((voffset>>12)&(-pow2(32-10)))
 static inline paddr_t page_translate(vaddr_t va){
-  Log("translate");
+  /*Log("translate");
   Log("%d",cpu.CR3);
   Log("%d",pde[pde_idx]);
   Log("%d",pte[pte_idx]);
   paddr_t pa=pte[pte_idx]+(va&(pow2(12)-1));
   printf("%d->%d\n",va,pa);
-  return pa;
+  return pa;*/
+    return va;
 }
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if(CROSS_PAGE){
