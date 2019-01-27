@@ -72,5 +72,5 @@ make_EHelper(pusha);
 make_EHelper(popa);
 make_EHelper(iret);
 //For PA4.2
-make_EHelper(mov_CR2r);
-make_EHelper(mov_r2CR);
+make_EHelper(mov_cr2r);
+make_EHelper(mov_r2cr);
