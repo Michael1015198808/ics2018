@@ -78,7 +78,7 @@ void _switch(_Context *c) {
 #define pow2(_num) (1<<(_num))
 int _map(_Protect *p, void *va, void *pa, int mode) {
 //#define prot ((PDE)(mode))
-#define voffset (va-(p->area.start))
+#define voffset (va-((void*)0))
 #define pde ((PDE*)(p->ptr))
 #define pde_idx ((voffset>>22)&-(pow2(32-10)))
 #define pte ((PTE*)(pde[pde_idx]&-(pow2(12))))
