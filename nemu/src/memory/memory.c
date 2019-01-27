@@ -38,7 +38,9 @@ static inline paddr_t page_translate(vaddr_t va){
 #define pde_idx ((voffset>>22)&-(pow2(32-10)))
 #define pte ((uint32_t*)(uintptr_t)(pde[pde_idx]&-(pow2(12))))
 #define pte_idx ((voffset>>12)&(-pow2(32-10)))
-  return pte[pte_idx]+(va&(pow2(12)-1));
+  paddr_t pa=pte[pte_idx]+(va&(pow2(12)-1));
+  printf("%d->%d\n",va,pa);
+  return pa;
 }
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if(CROSS_PAGE){
