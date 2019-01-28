@@ -44,10 +44,7 @@ typedef union {
         union{
             uint32_t cr[4];
             struct{
-                union{
-                    uint32_t GP:1;
-                    uint32_t CR0;
-                };
+                uint32_t CR0;
                 uint32_t :32,:32;
                 uint32_t CR3;
             };
