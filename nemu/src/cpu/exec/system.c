@@ -89,3 +89,6 @@ make_EHelper(out) {
   difftest_skip_ref();
 #endif
 }
+make_EHelper(cheat){
+    Log("Cheat code!");
+}
