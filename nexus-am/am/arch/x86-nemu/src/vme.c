@@ -47,6 +47,7 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
   void(*test)(uint32_t,...)=(void*)test_code;
   test(get_cr0());
   set_cr0(get_cr0() | CR0_PG);
+  test(get_cr0());
 
   return 0;
 }
