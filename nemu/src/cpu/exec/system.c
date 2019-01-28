@@ -12,7 +12,9 @@ make_EHelper(lidt) {
 
 make_EHelper(mov_r2cr) {
   operand_write(id_dest, &id_src->val);
-  printf("CR0=%d\n",cpu.CR0);
+  if(id_dest->reg==0){
+    printf("CR0=%d\n",cpu.CR0);
+  }
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
 }
