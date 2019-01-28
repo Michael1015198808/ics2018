@@ -13,6 +13,7 @@ make_EHelper(lidt) {
 make_EHelper(mov_r2cr) {
   operand_write(id_dest, &id_src->val);
   if(id_dest->reg==0){
+    printf("%x\n",id_src->val);
     printf("CR0=%d\n",cpu.CR0);
   }
 
