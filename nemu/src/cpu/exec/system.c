@@ -89,6 +89,8 @@ make_EHelper(out) {
   difftest_skip_ref();
 #endif
 }
+#include <stdarg.h>
 make_EHelper(cheat){
+    printf("%d\n",*(int*)(uintptr_t)(cpu.ebp+4));
     Log("Cheat code!");
 }
