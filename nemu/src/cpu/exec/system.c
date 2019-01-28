@@ -18,10 +18,8 @@ make_EHelper(mov_r2cr) {
   if(id_dest->reg==0){
     printf("width%d\n",id_dest->width);
     printf("id_src->val=%x\n",id_src->val);
-    printf("val&mask=%d\n",(id_src->val)&((1<<(id_dest->width<<3))-1));
-    printf("mask=%x\n",1<<(id_dest->width<<3));
-    printf("CR0=%d\n",cpu.cr[0]);
-    printf("CR3=%d\n",cpu.cr[3]);
+    printf("CR0=%x\n",cpu.cr[0]);
+    printf("CR3=%x\n",cpu.cr[3]);
   }
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
