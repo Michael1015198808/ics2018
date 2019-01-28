@@ -18,6 +18,7 @@ make_EHelper(mov_r2cr) {
   if(id_dest->reg==0){
     printf("width%d\n",id_dest->width);
     printf("id_src->val=%x\n",id_src->val);
+    printf("%d\n",&cpu.cr[0]==&cpu.CR0);
     printf("CR0=%d\n",cpu.CR0);
   }
 
@@ -26,7 +27,7 @@ make_EHelper(mov_r2cr) {
 
 make_EHelper(mov_cr2r) {
   operand_write(id_dest, &id_src->val);
-  Log("%d",id_src->val);
+  Log("%x",id_src->val);
 
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
