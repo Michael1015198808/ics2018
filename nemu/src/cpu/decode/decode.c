@@ -338,6 +338,7 @@ make_DHelper(R2CR){
   ModR_M m;m.val = instr_fetch(eip, 1);
   id_dest->type = OP_TYPE_CREG;
   id_dest->reg=m.reg;
+  Log("%d",m.reg);
 
   id_src->type=OP_TYPE_REG;
   id_src->reg = m.R_M;
