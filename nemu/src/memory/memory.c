@@ -47,7 +47,7 @@ static inline paddr_t page_translate(vaddr_t va){
   return pa;
 }
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  if(cpu.CR3&1){
+  if(cpu.GP){
     if(CROSS_PAGE){
       printf("Cross page!\n");
       assert(0);
@@ -60,7 +60,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, uint32_t data, int len) {
-  if(cpu.CR3&1){
+  if(cpu.GP){
     if(CROSS_PAGE){
       printf("Cross page!\n");
       assert(0);

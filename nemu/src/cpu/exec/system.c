@@ -11,17 +11,7 @@ make_EHelper(lidt) {
 }
 
 make_EHelper(mov_r2cr) {
-  if(id_dest->reg==0){
-    printf("CR0=%x\n",cpu.cr[0]);
-    printf("CR3=%x\n",cpu.cr[3]);
-  }
   operand_write(id_dest, &id_src->val);
-  if(id_dest->reg==0){
-    printf("width%d\n",id_dest->width);
-    printf("id_src->val=%x\n",id_src->val);
-    printf("CR0=%x\n",cpu.cr[0]);
-    printf("CR3=%x\n",cpu.cr[3]);
-  }
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
 }
