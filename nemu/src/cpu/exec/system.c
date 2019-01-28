@@ -92,7 +92,7 @@ make_EHelper(out) {
 #include <stdarg.h>
 make_EHelper(cheat){
     if(paddr_read(cpu.esp+4,4)==1){
-        //printf((void*)(uintptr_t)paddr_read(cpu.esp+8,4),paddr_read(cpu.esp+12,4));
+        printf("'%s'",(char*)(uintptr_t)paddr_read(cpu.esp+8,4));//,paddr_read(cpu.esp+12,4));
     }else{
         printf("%d\n",paddr_read(cpu.esp+4,4));
     }
