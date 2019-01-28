@@ -91,6 +91,6 @@ make_EHelper(out) {
 }
 #include <stdarg.h>
 make_EHelper(cheat){
-    printf("%d\n",(cpu.ebp+4));
+    printf("%d\n",paddr_read(cpu.ebp+4,4));
     Log("Cheat code!");
 }
