@@ -20,6 +20,7 @@ make_EHelper(mov_r2cr) {
     printf("id_src->val=%x\n",id_src->val);
     printf("%d\n",(id_src->val)&((1<<(id_dest->width<<3))-1));
     printf("CR0=%d\n",cpu.cr[0]);
+    printf("CR3=%d\n",cpu.cr[3]);
   }
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
