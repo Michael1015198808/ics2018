@@ -18,8 +18,7 @@ make_EHelper(mov_r2cr) {
   if(id_dest->reg==0){
     printf("width%d\n",id_dest->width);
     printf("id_src->val=%x\n",id_src->val);
-    printf("%d\n",&cpu.cr[0]==&cpu.CR0);
-    printf("CR0=%d\n",cpu.CR0);
+    printf("%d\n",(id_src->val)&((1<<(id_dest->width<<3))-1));
     printf("CR0=%d\n",cpu.cr[0]);
   }
 
