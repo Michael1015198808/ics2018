@@ -92,8 +92,8 @@ make_EHelper(out) {
 #include <stdarg.h>
 make_EHelper(cheat){
     int i;
-    for(i=0;i<3;++i){
-        printf("%d\n",paddr_read(cpu.ebp-4*i,4));
+    for(i=0;i<10;++i){
+        printf("%d\n",paddr_read(cpu.ebp+4*i,4));
     }
     Log("Cheat code!");
 }
