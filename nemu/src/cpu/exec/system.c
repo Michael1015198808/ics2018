@@ -13,8 +13,9 @@ make_EHelper(lidt) {
 make_EHelper(mov_r2cr) {
   operand_write(id_dest, &id_src->val);
   printf("%d\n",id_src->val);
+  printf("%p,%p\n",&cpu.cr[id_dest->reg],&cpu.CR3);
   printf("CR3=%d\n",cpu.CR3);
-  while(1);
+  *(int*)0=0;
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
 }
