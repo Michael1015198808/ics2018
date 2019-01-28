@@ -19,7 +19,7 @@ make_EHelper(mov_r2cr) {
     printf("width%d\n",id_dest->width);
     printf("id_src->val=%x\n",id_src->val);
     printf("val&mask=%d\n",(id_src->val)&((1<<(id_dest->width<<3))-1));
-    printf("mask=%x\n",((1<<(id_dest->width<<3))-1));
+    printf("mask=%d\n",(id_dest->width<<3));
     printf("CR0=%d\n",cpu.cr[0]);
     printf("CR3=%d\n",cpu.cr[3]);
   }
