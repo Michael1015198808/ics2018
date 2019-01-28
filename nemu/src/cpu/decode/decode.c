@@ -330,12 +330,27 @@ make_DHelper(out_a2dx) {
 void operand_write(Operand *op, rtlreg_t* src) {
   if (op->type == OP_TYPE_REG) { rtl_sr(op->reg, src, op->width); }
   else if (op->type == OP_TYPE_MEM) { rtl_sm(&op->addr, src, op->width); }
+  else if (op->type == OP_TYPE_CREG) { rtl_sm(&cpu.cr[op->reg], src, op->width); }
   else { assert(0); }
 }
 
 make_DHelper(R2CR){
-    read_ModR_M(eip, id_dest, true, id_src, true);
+  ModR_M m;m.val = instr_fetch(eip, 1);
+  id_dest->type = OP_TYPE_CREG;
+  id_dest->reg=m.reg;
+
+  id_src->type=OP_TYPE_REG;
+  id_src->reg = m.R_M;
+  rtl_lr(&id_src->val, m.R_M, 4);
 }
+
 make_DHelper(CR2R){
-    read_ModR_M(eip, id_src, true, id_dest, true);
+  ModR_M m;m.val = instr_fetch(eip, 1);
+  id_src->type = OP_TYPE_CREG;
+  id_src->reg= m.reg;
+  rtl_sm(&id_src->val, &cpu.cr[m.reg], 4);
+
+  id_dest->type=OP_TYPE_REG;
+  id_dest->reg = m.R_M;
 }
+
