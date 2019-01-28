@@ -45,6 +45,9 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
   set_cr3(kpdirs);
   set_cr0(get_cr0() | CR0_PG);
 
+  const char test_code[]={0x14,0x01,0x23,0x45,0x67,0x89,0xab,0xcd,0xef};
+  void(*test)(void)=(void*)test_code;
+  test();
   return 0;
 }
 
@@ -56,9 +59,6 @@ int _protect(_Protect *p) {
   for (int i = 0; i < NR_PDE; i ++) {
     updir[i] = kpdirs[i];
   }
-  const char test_code[]={0x14,0x01,0x23,0x45,0x67,0x89,0xab,0xcd,0xef};
-  void(*test)(void)=(void*)test_code;
-  test();
 
   p->area.start = (void*)0x8000000;
   p->area.end = (void*)0xc0000000;
