@@ -353,5 +353,6 @@ make_DHelper(CR2R){
 
   id_dest->type=OP_TYPE_REG;
   id_dest->reg = m.R_M;
+  id_dest->width=4;
 }
 

@@ -11,6 +11,9 @@ make_EHelper(lidt) {
 }
 
 make_EHelper(mov_r2cr) {
+  if(id_dest->reg==0){
+    printf("CR0=%d\n",cpu.CR0);
+  }
   operand_write(id_dest, &id_src->val);
   if(id_dest->reg==0){
     printf("%d,",id_dest->type==OP_TYPE_CREG);
