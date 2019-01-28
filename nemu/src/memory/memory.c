@@ -41,6 +41,7 @@ static inline paddr_t page_translate(vaddr_t va){
   Log("translate");
   Log("%x",va);
   Log("%x",cpu.CR3);
+  Log("%x",va>>22);
   Log("%x",pde_idx);
   Log("%x",pde[pde_idx]);
   Log("%x",pte[pte_idx]);
