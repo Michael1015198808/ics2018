@@ -78,21 +78,17 @@ union{ \
 static inline paddr_t page_translate(vaddr_t addr){
   declare_va;declare_pde;declare_pte;
 
-  va.val=addr; //1010dc
-               //1d690000,1d69000
-               //1d49001,1d49404
-               //1010dc
+  va.val=addr;
 
   PDE.val=
       join_read(cpu.CR3>>12,va.dir<<2);
-  //assert(PDE.present);
+  assert(PDE.present);
 
   PTE.val=
       join_read(PDE.page_frame,va.page<<2);
-  //assert(PTE.present);
+  assert(PTE.present);
 
   paddr_t pa=addr_join(PTE.page_frame,va.offset);
-  assert(addr==pa);//temp test
  *(int*)0=0;
   return pa;
 }
