@@ -28,6 +28,7 @@ void init_proc() {
 
 _Context* schedule(_Context *prev) {
     current->cp=prev;
-    current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    static uint8_t cnt=0;
+    current = (++cnt==0 ? &pcb[1] : &pcb[0]);
     return current->cp;
 }
