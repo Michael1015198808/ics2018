@@ -49,7 +49,7 @@ static inline paddr_t page_translate(vaddr_t addr){
       uint32_t val;
   } va;
   va.val=addr;
-  Log("%8x",addr);
+  Log("%8x,%8x",addr,cpu.CR3);
   Log("%8lx,%8x",pde,addr_join(cpu.CR3,va.dir));
   Log("%8x,%8x",addr_join(cpu.CR3,va.dir),paddr_read(addr_join(cpu.CR3,va.dir),4));
   Log("%8x",pte);
