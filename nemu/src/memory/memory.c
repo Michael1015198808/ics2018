@@ -57,10 +57,9 @@ static inline paddr_t page_translate(vaddr_t addr){
   *(int*)0=0;
   return pa;
 }
-#define GP CR0&0x80000000
 #define CROSS_PAGE (((addr+len-1)&pow2(12))<len-1)
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  if(cpu.GP){
+  if((cpu.CR0&0x80000000)){
     if(CROSS_PAGE){
       printf("Cross page!\n");
       assert(0);
@@ -73,7 +72,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, uint32_t data, int len) {
-  if(cpu.GP){
+  if((cpu.CR0&0x80000000)){
     if(CROSS_PAGE){
       printf("Cross page!\n");
       assert(0);
