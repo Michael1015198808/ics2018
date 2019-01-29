@@ -92,8 +92,7 @@ make_EHelper(out) {
   difftest_skip_ref();
 #endif
 }
-#include <stdarg.h>
+
 make_EHelper(cheat){
-    printf("%x\n",paddr_read(cpu.esp+4,4));
     Log("Cheat code!");
 }
