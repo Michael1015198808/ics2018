@@ -13,7 +13,6 @@ make_EHelper(lidt) {
 make_EHelper(mov_r2cr) {
   operand_write(id_dest, &id_src->val);
     Log("%x,%x",cpu.CR0,cpu.CR3);
-    Log("%d",id_dest->reg);
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
 }
