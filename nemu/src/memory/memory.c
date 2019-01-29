@@ -34,7 +34,7 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 #define addr_join(_A,_B)\
     ((\
       ((uint32_t)_A)&\
-      (~0xfff))\
+      (-pow2(12)))\
       +(_B<<2))
 #define pde (((uintptr_t)cpu.CR3&-pow2(12)))
 #define pte (paddr_read(addr_join(cpu.CR3,va.dir),4))
@@ -50,7 +50,7 @@ static inline paddr_t page_translate(vaddr_t addr){
   } va;
   va.val=addr;
   Log("%8x",addr);
-  Log("%8lx",pde);
+  Log("%8lx,%8x",pde,addr_join(cpu.CR3,va.dir));
   Log("%8x",pte);
   Log("%8x",pa);
   *(int*)0=0;
