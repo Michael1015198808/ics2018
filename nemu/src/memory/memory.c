@@ -51,6 +51,7 @@ static inline paddr_t page_translate(vaddr_t addr){
       uint32_t val;
   } va;
   va.val=addr;
+  Log("va %x",addr);
   Log("pde%lx,%x",pde,pde_tab);
   Log("pte%x,%x",pte,pte_tab);
   Log("pa %x",pa);
