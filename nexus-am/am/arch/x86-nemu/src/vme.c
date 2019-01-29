@@ -42,15 +42,11 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
     }
   }
 
-  volatile const char test_code[]={0xf1,0xc3};
-  void(*test)(uint32_t,...)=(void*)test_code;
+  //volatile const char test_code[]={0xf1,0xc3};
+  //void(*test)(uint32_t,...)=(void*)test_code;
 
   set_cr3(kpdirs);
-  test((uint32_t)kpdirs);
-  set_cr0(1);
-  test((uint32_t)kpdirs);
   set_cr0(get_cr0() | CR0_PG);
-  test((uint32_t)kpdirs);
 
   return 0;
 }
