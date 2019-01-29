@@ -37,9 +37,22 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 #define pde_idx ((voffset>>22)&-(pow2(32-10)))
 #define pte ((uint32_t*)(uintptr_t)(pde[pde_idx]&-(pow2(12))))
 #define pte_idx ((voffset>>12)&(-pow2(32-10)))
-static inline paddr_t page_translate(vaddr_t va){
+static inline paddr_t page_translate(vaddr_t addr){
+  union{
+      struct{
+          uint32_t offset:12;
+          uint32_t page:10;
+          uint32_t dir:10;
+      };
+      uint32_t val;
+  } va;
+  va.val=addr;
+  Log("%x",addr);
+  Log("%x",va.offset);
+  Log("%x",va.page);
+  Log("%x",va.dir);
+  /*
   Log("translate");
-  Log("%x",va);
   Log("%x",cpu.CR3);
   Log("%x",va>>22);
   Log("%x",pde_idx);
@@ -47,8 +60,9 @@ static inline paddr_t page_translate(vaddr_t va){
   Log("%x",pde[pde_idx]);
   Log("%x",pte[pte_idx]);
   paddr_t pa=pte[pte_idx]+(va&(pow2(12)-1));
-  printf("%d->%d\n",va,pa);
-  return pa;
+  printf("%d->%d\n",va,pa);*/
+  *(int*)0=0;
+  return va.offset;//Just for testing
 }
 #define GP CR0&0x80000000
 uint32_t vaddr_read(vaddr_t addr, int len) {
