@@ -32,10 +32,8 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 }
 #define pow2(_num) (1<<(_num))
 #define CROSS_PAGE (((addr+len-1)&pow2(12))<len-1)
-#define voffset (va-0)
 #define pde ((uint32_t*)((uintptr_t)cpu.CR3&-pow2(12)))
-#define pde_idx ((voffset>>22)&-(pow2(32-10)))
-#define pte ((uint32_t*)(uintptr_t)(pde[pde_idx]&-(pow2(12))))
+#define pte paddr_read(addr_join(cpu.CR3,va.dir),4)
 #define pte_idx ((voffset>>12)&(-pow2(32-10)))
 #define addr_join(_A,_B) ((_A&(~0xfff))+(_B<<2))
 static inline paddr_t page_translate(vaddr_t addr){
@@ -51,8 +49,7 @@ static inline paddr_t page_translate(vaddr_t addr){
   Log("%8x",addr);
   Log("%x,%x,%x",va.dir,va.page,va.offset);
   Log("%8x",addr_join(cpu.CR3,va.dir));
-  Log("%8x",paddr_read(addr_join(cpu.CR3,va.dir),4));
-  Log("%8x",*(uint32_t*)(uintptr_t)addr_join(cpu.CR3,va.dir));
+  Log("%8x",paddr_read(addr_join(pte,va.page),4));
   /*
   Log("translate");
   Log("%x",cpu.CR3);
