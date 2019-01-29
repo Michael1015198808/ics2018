@@ -18,6 +18,7 @@ make_EHelper(mov_r2cr) {
 }
 
 make_EHelper(mov_cr2r) {
+    Log("%x",id_src->val);
   operand_write(id_dest, &id_src->val);
     Log("%x,%x",cpu.CR0,cpu.CR3);
 
