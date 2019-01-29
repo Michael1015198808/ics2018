@@ -31,14 +31,16 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 	}
 }
 #define pow2(_num) (1<<(_num))
-#define addr_join(_A,_B)\
-    ((\
-      ((uint32_t)_A)&\
-      (-pow2(12)))\
+#define addr_join(_A,_B) \
+    (( \
+      ((uint32_t)_A)& \
+      (-pow2(12))) \
       +(_B<<2))
 #define pde (((uintptr_t)cpu.CR3&-pow2(12)))
-#define pte (paddr_read(addr_join(cpu.CR3,va.dir),4))
-#define pa ((pte&(~0xfff))+va.offset)
+#define pde_tab addr_join(pde,va.dir)
+#define pte (paddr_read(pde_tab,4))
+#define pte_tab addr_join(pte,va.page)
+#define pa ((paddr_read(pte_tab,4)&~0xfff)+va.offset)
 static inline paddr_t page_translate(vaddr_t addr){
   union{
       struct{
@@ -49,11 +51,9 @@ static inline paddr_t page_translate(vaddr_t addr){
       uint32_t val;
   } va;
   va.val=addr;
-  Log("%8x,%8x",addr,cpu.CR3);
-  Log("%8lx,%8x",pde,addr_join(cpu.CR3,va.dir));
-  Log("%8x,%8x",addr_join(cpu.CR3,va.dir),paddr_read(addr_join(cpu.CR3,va.dir),4));
-  Log("%8x",pte);
-  Log("%8x",pa);
+  Log("pde%lx,%x",pde,pde_tab);
+  Log("pte%x,%x",pte,pte_tab);
+  Log("pa %x",pa);
   *(int*)0=0;
   return pa;
 }
