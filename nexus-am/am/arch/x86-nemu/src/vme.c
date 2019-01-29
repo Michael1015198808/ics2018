@@ -47,7 +47,7 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
 
   set_cr3(kpdirs);
   test((uint32_t)kpdirs);
-  get_cr0();
+  set_cr0(1);
   test((uint32_t)kpdirs);
   set_cr0(get_cr0() | CR0_PG);
   test((uint32_t)kpdirs);
