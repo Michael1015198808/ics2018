@@ -31,10 +31,14 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 	}
 }
 #define pow2(_num) (1<<(_num))
-#define CROSS_PAGE (((addr+len-1)&pow2(12))<len-1)
-#define pde ((uint32_t*)((uintptr_t)cpu.CR3&-pow2(12)))
-#define pte paddr_read(addr_join(cpu.CR3,va.dir),4)
-#define addr_join(_A,_B) ((_A&(~0xfff))+(_B<<2))
+#define addr_join(_A,_B)\
+    ((\
+      ((uint32_t)_A)&\
+      (~0xfff))\
+      +(_B<<2))
+#define pde (((uintptr_t)cpu.CR3&-pow2(12)))
+#define pte (paddr_read(addr_join(cpu.CR3,va.dir),4))
+#define pa (paddr_read((pte&(~0xfff))+va.offset,4))
 static inline paddr_t page_translate(vaddr_t addr){
   union{
       struct{
@@ -45,24 +49,10 @@ static inline paddr_t page_translate(vaddr_t addr){
       uint32_t val;
   } va;
   va.val=addr;
-  Log("%8x",addr);
-  Log("%x,%x,%x",va.dir,va.page,va.offset);
-  Log("%8x",addr_join(cpu.CR3,va.dir));
-  Log("%8x",paddr_read(addr_join(pte,va.page),4));
-  /*
-  Log("translate");
-  Log("%x",cpu.CR3);
-  Log("%x",va>>22);
-  Log("%x",pde_idx);
-  Log("%x",*pde);
-  Log("%x",pde[pde_idx]);
-  Log("%x",pte[pte_idx]);
-  paddr_t pa=pte[pte_idx]+(va&(pow2(12)-1));
-  printf("%d->%d\n",va,pa);*/
-  *(int*)0=0;
-  return va.offset;//Just for testing
+  return pa;
 }
 #define GP CR0&0x80000000
+#define CROSS_PAGE (((addr+len-1)&pow2(12))<len-1)
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if(cpu.GP){
     if(CROSS_PAGE){
