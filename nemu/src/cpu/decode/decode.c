@@ -352,10 +352,7 @@ make_DHelper(CR2R){
   ModR_M m;m.val = instr_fetch(eip, 1);
   id_src->type = OP_TYPE_CREG;
   id_src->reg= m.reg;
-  Log("CR0:%x\tm.reg%x\t",cpu.CR0,m.reg);
-  Log("id_src->val:%x\t%x",id_src->val,cpu.cr[0]);
   id_src->val=cpu.cr[m.reg];
-  Log("id_src->val:%x\t%x",id_src->val,cpu.cr[0]);
 
   id_dest->type=OP_TYPE_REG;
   id_dest->reg = m.R_M;
