@@ -34,7 +34,6 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 #define CROSS_PAGE (((addr+len-1)&pow2(12))<len-1)
 #define pde ((uint32_t*)((uintptr_t)cpu.CR3&-pow2(12)))
 #define pte paddr_read(addr_join(cpu.CR3,va.dir),4)
-#define pte_idx ((voffset>>12)&(-pow2(32-10)))
 #define addr_join(_A,_B) ((_A&(~0xfff))+(_B<<2))
 static inline paddr_t page_translate(vaddr_t addr){
   union{
