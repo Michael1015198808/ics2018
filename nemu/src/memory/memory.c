@@ -89,7 +89,6 @@ static inline paddr_t page_translate(vaddr_t addr){
   assert(PTE.present);
 
   paddr_t pa=addr_join(PTE.page_frame,va.offset);
- *(int*)0=0;
   return pa;
 }
 #define CROSS_PAGE (((addr+len-1)&pow2(12))<len-1)
