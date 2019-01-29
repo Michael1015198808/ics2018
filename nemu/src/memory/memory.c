@@ -99,8 +99,8 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     if(CROSS_PAGE){
         //Log("Cross page!");
         //assert(0);
-        uint32_t pass_page_len=((addr+len-1)&(pow2(12)-1));
-        Log("va:%x,len:%d,in:%d,value:%d",addr,len,in_page_len,bit_join(
+        uint32_t pass_page_len=((addr+len)&(pow2(12)-1));
+        Log("va:%x,len:%d,in:%d,value:%x",addr,len,in_page_len,bit_join(
                 paddr_read(
                     page_translate(addr),
                     in_page_len),
