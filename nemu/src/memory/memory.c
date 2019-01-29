@@ -91,12 +91,18 @@ static inline paddr_t page_translate(vaddr_t addr){
   paddr_t pa=addr_join(PTE.page_frame,va.offset);
   return pa;
 }
-#define CROSS_PAGE (((addr+len-1)&pow2(12))<len-1)
+#define CROSS_PAGE (((addr+len-1)&(pow2(12)-1))<len-1)
+#define bit_join(_A,_B,_C) (((_A)<<((_C)<<3))+(_C))
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if((cpu.CR0&0x80000000)){
     if(CROSS_PAGE){
-      printf("Cross page!\n");
-      assert(0);
+        Log("Cross page!");
+        assert(0);
+        /*uint32_t pass_page_len=((addr+len-1)&pow2(12));
+        bit_join(
+                paddr_read(page_traslate(addr),len-pass_page_len),
+                len-pass_page_len,
+                paddr_read(page_translate(addr&pow2(12))));*/
     }else{
       return paddr_read(page_translate(addr), len);
     }
