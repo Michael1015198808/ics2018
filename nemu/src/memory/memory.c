@@ -82,11 +82,11 @@ static inline paddr_t page_translate(vaddr_t addr){
 
   PDE.val=
       join_read(cpu.CR3>>12,va.dir);
-  assert(PDE.present);
+  //assert(PDE.present);
 
   PTE.val=
       join_read(PDE.page_frame,va.page);
-  assert(PTE.present);
+  //assert(PTE.present);
 
   paddr_t pa=join_read(PTE.page_frame,va.offset);
   assert(addr==pa);//temp test
