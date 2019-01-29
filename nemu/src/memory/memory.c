@@ -49,6 +49,7 @@ static inline paddr_t page_translate(vaddr_t addr){
       uint32_t val;
   } va;
   va.val=addr;
+  Log("%x->%x",addr,pa);
   return pa;
 }
 #define GP CR0&0x80000000
