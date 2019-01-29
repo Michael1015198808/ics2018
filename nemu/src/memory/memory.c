@@ -48,11 +48,11 @@ static inline paddr_t page_translate(vaddr_t addr){
       uint32_t val;
   } va;
   va.val=addr;
-  Log("%x",addr);
+  Log("%8x",addr);
   Log("%x,%x,%x",va.dir,va.page,va.offset);
-  Log("%x",addr_join(cpu.CR3,va.dir));
-  Log("%x",*(uint32_t*)(uintptr_t)addr_join(cpu.CR3,va.dir));
-  Log("%x",paddr_read(addr_join(cpu.CR3,va.dir),4));
+  Log("%8x",addr_join(cpu.CR3,va.dir));
+  Log("%8x",paddr_read(addr_join(cpu.CR3,va.dir),4));
+  Log("%8x",*(uint32_t*)(uintptr_t)addr_join(cpu.CR3,va.dir));
   /*
   Log("translate");
   Log("%x",cpu.CR3);
