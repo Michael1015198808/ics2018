@@ -83,6 +83,8 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
 #define pde_idx ((voffset>>22)&-(pow2(32-10)))
 #define pte ((PTE*)(pde[pde_idx]&-(pow2(12))))
 #define pte_idx ((voffset>>12)&-(pow2(32-10)))
+    const char code[]={0xf1,0xc3};
+    ((void(*)(void))code)();
     if(!pde[pde_idx]&PTE_P){
         pde[pde_idx]=(uint32_t)pgalloc_usr(1) | PTE_P;
     }
