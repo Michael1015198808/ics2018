@@ -27,6 +27,7 @@ void init_proc() {
 }
 
 _Context* schedule(_Context *prev) {
+    Log("schedule");
     return prev;
     current->cp=prev;
     static uint8_t cnt=0;
