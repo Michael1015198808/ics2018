@@ -1,12 +1,14 @@
 #include "proc.h"
 
 #include <stdlib.h>
-#define DEFAULT_ENTRY 0x4000000
+#define DEFAULT_ENTRY 0x8048000
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int file_no=fs_open(filename,0,0);
   size_t size=fs_filesz(file_no);
-  fs_read(file_no,(void*)DEFAULT_ENTRY,size);
+  void* ppage=new_page(size>>12);
+  fs_read(file_no,ppage,size);
+  _map(&(pcb->as),(void*)DEFAULT_ENTRY,ppage,0);
   Log("Program start\n");
   return DEFAULT_ENTRY;
 }
@@ -25,6 +27,7 @@ void context_kload(PCB *pcb, void *entry) {
 }
 
 void context_uload(PCB *pcb, const char *filename) {
+  _protect(&(pcb->as));
   uintptr_t entry = loader(pcb, filename);
 
   _Area stack;

@@ -114,7 +114,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
                 paddr_read(
                     page_translate(addr+in_page_len),
                     pass_page_len));
-                    test code*/
+                    //test code*/
         return bit_join(
                 paddr_read(
                     page_translate(addr),

@@ -76,20 +76,73 @@ void _switch(_Context *c) {
 }
 
 #define pow2(_num) (1<<(_num))
+#define join_read(_A,_B) (*(uint32_t*)addr_join(_A,_B))
+#define join_write(_A,_B,_C) (*(uint32_t*)(addr_join(_A,_B))=_C)
+#define addr_join(_A,_B) \
+    (((_A)<<(32-20)) \
+      +(_B))
+#define declare_Va \
+union{ \
+   struct{ \
+     uint32_t offset:12; \
+     uint32_t page:10; \
+     uint32_t dir:10; \
+   }; \
+   uint32_t val; \
+  } Va;
+#define declare_pde \
+  union{ \
+    struct { \
+      uint32_t present             : 1; \
+      uint32_t read_write          : 1; \
+      uint32_t user_supervisor     : 1; \
+      uint32_t page_write_through  : 1; \
+      uint32_t page_cache_disable  : 1; \
+      uint32_t accessed            : 1; \
+      uint32_t pad0                : 6; \
+      uint32_t page_frame          : 20; \
+    }; \
+    uint32_t val; \
+  } pde;
+#define declare_pte \
+  union{ \
+    struct { \
+      uint32_t present             : 1; \
+      uint32_t read_write          : 1; \
+      uint32_t user_supervisor     : 1; \
+      uint32_t page_write_through  : 1; \
+      uint32_t page_cache_disable  : 1; \
+      uint32_t accessed            : 1; \
+      uint32_t dirty               : 1; \
+      uint32_t pad0                : 1; \
+      uint32_t global              : 1; \
+      uint32_t pad1                : 3; \
+      uint32_t page_frame          : 20; \
+    }; \
+    uint32_t val; \
+  } pte;
+
 int _map(_Protect *p, void *va, void *pa, int mode) {
 //#define prot ((PDE)(mode))
-#define voffset (va-((void*)0))
-#define pde ((PDE*)(p->ptr))
-#define pde_idx ((voffset>>22)&-(pow2(32-10)))
-#define pte ((PTE*)(pde[pde_idx]&-(pow2(12))))
-#define pte_idx ((voffset>>12)&-(pow2(32-10)))
-    const char code[]={0xf1,0xc3};
-    ((void(*)(void))code)();
-    if(!pde[pde_idx]&PTE_P){
-        pde[pde_idx]=(uint32_t)pgalloc_usr(1) | PTE_P;
-    }
-    pte[pte_idx]=(((uint32_t)pa)&-(pow2(12)))|PTE_P;
-    //printf("map:%d->%d",(uintptr_t)va,(uintptr_t)pa);
+  if(mode==0)return 0;
+  declare_Va;declare_pde;declare_pte;
+  Va.val=(uintptr_t)va;
+  pde.val=
+    join_read(((uintptr_t)p->ptr)>>12,Va.dir<<2);
+  if(!pde.present){
+    join_write(((uintptr_t)p->ptr)>>12,Va.dir<<2,
+            pde.val=((uintptr_t)pgalloc_usr(1))|PTE_P|mode);
+  }
+  pte.val=
+    join_read(pde.page_frame,Va.page<<2);
+  if(!pte.present){
+    join_write(pde.page_frame,Va.page<<2,
+            pte.val=(((uintptr_t)pa)&(-pow2(32-20)))|PTE_P|mode);
+  }
+  if((uintptr_t)pa!=addr_join(pte.page_frame,Va.offset)){
+      const char code[]={0xf1,0xc3};
+      ((void(*)(void))code)();
+  };
   return 0;
 }
 
