@@ -82,7 +82,8 @@ static inline paddr_t page_translate(vaddr_t addr){
 
   PDE.val=
       join_read(cpu.CR3>>12,va.dir<<2);
-  Assert(PDE.present,"0x%8x",addr);
+  Assert(PDE.present,"0x%08x",addr);
+  Log("0x%08x",addr);
 
   PTE.val=
       join_read(PDE.page_frame,va.page<<2);
