@@ -124,9 +124,9 @@ union{ \
 
 int _map(_Protect *p, void *va, void *pa, int mode) {
 //#define prot ((PDE)(mode))
+  if(mode==0)return 0;
   const char code[]={0xf1,0xc3};
   ((void(*)(void*))code)(va);
-  if(mode==0)return 0;
   declare_Va;declare_pde;declare_pte;
   Va.val=(uintptr_t)va;
   pde.val=

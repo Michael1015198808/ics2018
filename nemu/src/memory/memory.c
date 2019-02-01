@@ -76,7 +76,7 @@ union{ \
     (((_A)<<(32-20)) \
       +(_B))
 static inline paddr_t page_translate(vaddr_t addr){
-  declare_va;declare_pde;declare_pte;
+  declare_va;declare_pde;declare_pte;//Macros
 
   va.val=addr;
 

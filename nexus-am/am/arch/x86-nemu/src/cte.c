@@ -8,8 +8,8 @@ void vecsys();
 void vecnull();
 
 _Context *irq_handle(_Context *tf) {
-    //void get_cur_as(_Context*);
-    //get_cur_as(tf);
+    void get_cur_as(_Context*);
+    get_cur_as(tf);
     _Context *next = tf;
     //while(next==NULL);
     if (user_handler) {
@@ -33,8 +33,8 @@ _Context *irq_handle(_Context *tf) {
     }
 
 
-    //void _switch(_Context*);
-    //_switch(next);
+    void _switch(_Context*);
+    _switch(next);
     return next;
 }
 
@@ -49,8 +49,6 @@ int _cte_init(_Context *(*handler)(_Event, _Context *)) {
     // -------------------- system call --------------------------
     idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectrap, DPL_KERN);
     idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys, DPL_KERN);
-    /*int printf(char*,...);
-    printf("vectrap%p\n",vectrap);*/
 
     set_idt(idt, sizeof(idt));
 
