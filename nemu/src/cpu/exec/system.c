@@ -91,5 +91,5 @@ make_EHelper(out) {
 }
 
 make_EHelper(cheat){
-    Log("Cheat code!");
+    Log("map:%x",paddr_read(cpu.esp+4,4));
 }
