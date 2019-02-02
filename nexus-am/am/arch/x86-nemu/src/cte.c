@@ -34,7 +34,7 @@ _Context *irq_handle(_Context *tf) {
 
 
     void _switch(_Context*);
-    //_switch(next);
+    _switch(next);
     return next;
 }
 
