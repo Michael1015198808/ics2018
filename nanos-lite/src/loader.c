@@ -11,7 +11,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   int i;
   for(i=0;i<size/PGSIZE;++i){
     _map(&(pcb->as),(void*)DEFAULT_ENTRY+PGSIZE*i,ppage+PGSIZE*i,1);
-    //Log("0x%8x",);
+    Log("0x%8x",DEFAULT_ENTRY+PGSIZE*i);
   }
   Log("Program start\n");
   return DEFAULT_ENTRY;
