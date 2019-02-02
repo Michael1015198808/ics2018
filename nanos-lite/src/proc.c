@@ -28,7 +28,7 @@ void init_proc() {
 
 _Context* schedule(_Context *prev) {
     Log("schedule");
-    return prev;
+    return NULL;
     current->cp=prev;
     static uint8_t cnt=0;
     current = (++cnt==0 ? &pcb[1] : &pcb[0]);
