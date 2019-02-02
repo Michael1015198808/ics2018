@@ -78,14 +78,14 @@ union{ \
 static inline paddr_t page_translate(vaddr_t addr){
   declare_va;declare_pde;declare_pte;//Macros
 
-  static int test=0;
+  /*static int test=0;
   if(test==0){
     va.val=0x001011da;
     PDE.val=join_read(cpu.CR3>>12,va.dir<<2);
     Log("Test 0x001011da");
     Assert(PDE.present,"0x%08x",addr);
     test=1;
-  }
+  }*/
   va.val=addr;
 
   PDE.val=
