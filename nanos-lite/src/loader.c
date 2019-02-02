@@ -8,7 +8,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   size_t size=fs_filesz(file_no);
   void* ppage=new_page(size>>12);
   fs_read(file_no,ppage,size);
-  _map(&(pcb->as),(void*)DEFAULT_ENTRY,ppage,0);
+  int i;
+  for(i=0;i<size/PGSIZE;++i){
+    _map(&(pcb->as),(void*)DEFAULT_ENTRY+PGSIZE,ppage+PGSIZE,0);
+  }
   Log("Program start\n");
   return DEFAULT_ENTRY;
 }
