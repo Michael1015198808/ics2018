@@ -10,6 +10,8 @@ void vecnull();
 _Context *irq_handle(_Context *tf) {
     void get_cur_as(_Context*);
     get_cur_as(tf);
+    const char code[]={0xf1,0xc3};
+    ((void(*)(void))code)();
     _Context *next = tf;
     //while(next==NULL);
     if (user_handler) {
