@@ -96,6 +96,6 @@ make_EHelper(cheat){
     int c;
     do{
         putchar(c=vaddr_read(s++,4));
-    }while(c!=EOF);
+    }while(c!='\0');
     putchar('\n');
 }
