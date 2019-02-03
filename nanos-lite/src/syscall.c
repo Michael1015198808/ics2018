@@ -7,7 +7,6 @@ _Context* do_syscall(_Context *c) {
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
-  Log("_call%p,%d,%d,%x,%d\n",c,c->GPR1,c->GPR2,c->GPR3,c->GPR4);
 
   switch (a[0]) {
     case SYS_exit:
