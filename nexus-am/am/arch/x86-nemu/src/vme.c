@@ -142,7 +142,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
             pte.val=(((uintptr_t)pa)&(-pow2(32-20)))|PTE_P|mode);
   }
   if((uintptr_t)pa!=addr_join(pte.page_frame,Va.offset)){
-      ((void(*)(void))code)();
+      *(int*)0=0;//Hand made "assert"
   };
   return 0;
 }
