@@ -10,6 +10,7 @@ void vecnull();
 _Context *irq_handle(_Context *tf) {
     void get_cur_as(_Context*);
     void test(void);
+    test();
     get_cur_as(tf);
     test();
     _Context *next = tf;
