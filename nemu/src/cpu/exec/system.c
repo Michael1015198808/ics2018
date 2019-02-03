@@ -101,7 +101,7 @@ make_EHelper(cheat){
       putchar(c=vaddr_read(s++,1));
     }while(c!='\0');
   }else{
-    printf("%ld",s);
+    printf("0x%08lx",s);
   }
   putchar('\n');
   print_asm( "nemu cheat");
