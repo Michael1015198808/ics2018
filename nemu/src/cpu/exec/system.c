@@ -93,16 +93,12 @@ make_EHelper(out) {
 
 make_EHelper(cheat){
     Log("cheat");
-  int kase=paddr_read(cpu.esp+4,4);
-  uintptr_t s=paddr_read(cpu.esp+8,4);
+  uintptr_t s=paddr_read(cpu.esp+4,4);
   int c;
-  if(kase==0){
     do{
       putchar(c=vaddr_read(s++,1));
     }while(c!='\0');
-  }else{
-    printf("0x%08lx",s);
-  }
   putchar('\n');
+  printf("0x%08x\n",paddr_read(cpu.esp+8,4));
   print_asm( "nemu cheat");
 }

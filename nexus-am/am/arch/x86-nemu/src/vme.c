@@ -141,7 +141,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
   }
   if((uintptr_t)pa!=addr_join(pte.page_frame,Va.offset)){
       const char code[]={0xf1,0xc3};
-      ((void(*)(int,...))code)(0,"map fails");
+      ((void(*)(char*))code)("map fails");
   };
   return 0;
 }
