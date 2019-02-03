@@ -98,7 +98,6 @@ make_EHelper(cheat){
     do{
       putchar(c=vaddr_read(s++,1));
     }while(c!='\0');
-  putchar('\n');
   printf("0x%08x\n",paddr_read(cpu.esp+8,4));
   print_asm( "nemu cheat");
 }
