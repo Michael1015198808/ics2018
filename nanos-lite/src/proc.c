@@ -28,11 +28,6 @@ void init_proc() {
 
 _Context* schedule(_Context *prev) {
     Log("schedule");
-    static void* test_ptr=NULL;
-    if(test_ptr==NULL){
-        test_ptr=pcb->cp->prot->ptr;
-        Log("0x%08x",test_ptr);
-    }
     Log("0x%08x",pcb->cp->prot->ptr);
     Log("0x%08x->0x%08x",prev,pcb[0].cp);
     if(prev==pcb[0].cp){
@@ -43,4 +38,9 @@ _Context* schedule(_Context *prev) {
     static uint8_t cnt=0;
     current = (++cnt==0 ? &pcb[1] : &pcb[0]);
     return current->cp;
+}
+void test(void){
+    static void* test_ptr=NULL;
+    if(test_ptr==NULL)test_ptr=pcb[0].cp->prot->ptr;
+    assert(test_ptr==pcb->cp->prot->ptr);
 }
