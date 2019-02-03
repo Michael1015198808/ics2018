@@ -10,12 +10,12 @@ extern _Protect *cur_as;
 _Context *irq_handle(_Context *tf) {
     void get_cur_as(_Context*);
     void test(void);
-    //const char code[]={0xf1,0xc3};
-    //((void(*)(char*,uintptr_t))code)("cur_as",(uintptr_t)cur_as);
-    //if(cur_as!=NULL)((void(*)(char*,uintptr_t))code)("cur_as->ptr",(uintptr_t)cur_as->ptr);
+    const char code[]={0xf1,0xc3};
+    ((void(*)(char*,uintptr_t))code)("cur_as",(uintptr_t)cur_as);
+    if(cur_as!=NULL)((void(*)(char*,uintptr_t))code)("cur_as->ptr",(uintptr_t)cur_as->ptr);
     get_cur_as(tf);
-    //((void(*)(char*,uintptr_t))code)("tf->prot",(uintptr_t)tf->prot);
-    //if(tf->prot!=NULL)((void(*)(char*,uintptr_t))code)("tf->prot->ptr",(uintptr_t)tf->prot->ptr);
+    ((void(*)(char*,uintptr_t))code)("tf->prot",(uintptr_t)tf->prot);
+    if(tf->prot!=NULL)((void(*)(char*,uintptr_t))code)("tf->prot->ptr",(uintptr_t)tf->prot->ptr);
     _Context *next = tf;
     if (user_handler) {
         _Event ev={0};
@@ -36,8 +36,8 @@ _Context *irq_handle(_Context *tf) {
             next = tf;
         }
     }
-    //((void(*)(char*,uintptr_t))code)("next",(uintptr_t)next);
-    //if(next->prot!=NULL)((void(*)(char*,uintptr_t))code)("next->prot->ptr",(uintptr_t)next->prot->ptr);
+    ((void(*)(char*,uintptr_t))code)("next",(uintptr_t)next);
+    if(next->prot!=NULL)((void(*)(char*,uintptr_t))code)("next->prot->ptr",(uintptr_t)next->prot->ptr);
 
 
     void _switch(_Context*);
