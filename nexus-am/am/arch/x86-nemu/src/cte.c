@@ -10,9 +10,8 @@ extern _Protect *cur_as;
 _Context *irq_handle(_Context *tf) {
     void get_cur_as(_Context*);
     void test(void);
-    int printf(char*,...);
     const char code[]={0xf1,0xc3};
-    ((void(*)(void))code)();
+    ((void(*)(int,uintptr_t))code)(1,(uintptr_t)cur_as);
     get_cur_as(tf);
     test();
     _Context *next = tf;
