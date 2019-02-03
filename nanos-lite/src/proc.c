@@ -40,6 +40,11 @@ _Context* schedule(_Context *prev) {
 }
 void test(void){
     static void* test_ptr=NULL;
+    static int cnt=0;
+    ++cnt;
     if(test_ptr==NULL)test_ptr=pcb[0].cp->prot->ptr;
-    assert(test_ptr==pcb->cp->prot->ptr);
+    if(test_ptr!=pcb->cp->prot->ptr){
+        Log("%d",cnt);
+        assert(0);
+    }
 }
