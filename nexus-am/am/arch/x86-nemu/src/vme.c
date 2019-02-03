@@ -68,7 +68,7 @@ void _unprotect(_Protect *p) {
 static _Protect *cur_as = NULL;
 void get_cur_as(_Context *c) {
     const char code[]={0xf1,0xc3};
-    ((void(*)(uintptr_t))code)((uintptr_t)cur_as);
+    ((void(*)(void))code)();
   c->prot = cur_as;
 }
 
