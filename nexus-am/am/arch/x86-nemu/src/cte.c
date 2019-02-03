@@ -15,7 +15,7 @@ _Context *irq_handle(_Context *tf) {
     if(cur_as!=NULL)((void(*)(int,uintptr_t))code)(1,(uintptr_t)cur_as->ptr);
     get_cur_as(tf);
     ((void(*)(int,uintptr_t))code)(1,(uintptr_t)tf->prot);
-    //test();
+    test();
     _Context *next = tf;
     //while(next==NULL);
     if (user_handler) {
