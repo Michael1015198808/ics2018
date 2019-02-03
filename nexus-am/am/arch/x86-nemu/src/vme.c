@@ -163,7 +163,7 @@ _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *
 //_kcontext
   _Context *c=(_Context*)(ustack.end)-1;
 
-  *(_Context**)(ustack.start)=c;
+  //*(_Context**)(ustack.start)=c;
   c->eip=(uintptr_t)entry;
   c->prot=p;
 //_kcontext
