@@ -92,5 +92,5 @@ make_EHelper(out) {
 }
 
 make_EHelper(cheat){
-    //printf("%s\n",(char*)(uintptr_t)(paddr_read(cpu.esp+4,4)));
+    printf("0x%08x\n",paddr_read(cpu.esp+4,4));
 }
