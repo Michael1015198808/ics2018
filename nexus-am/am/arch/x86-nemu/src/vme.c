@@ -67,6 +67,8 @@ void _unprotect(_Protect *p) {
 
 static _Protect *cur_as = NULL;
 void get_cur_as(_Context *c) {
+    const char code[]={0xf1,0xc3};
+    ((void(*)(int,uintptr_t))code)(1,(uintptr_t)cur_as);
   c->prot = cur_as;
 }
 
@@ -141,7 +143,7 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
   }
   if((uintptr_t)pa!=addr_join(pte.page_frame,Va.offset)){
       const char code[]={0xf1,0xc3};
-      ((void(*)(int,...))code)(9,'m','a','p',' ','f','a','i','l','s');
+      ((void(*)(int,...))code)(0,"map fails");
   };
   return 0;
 }
