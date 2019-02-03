@@ -36,6 +36,7 @@ _Context *irq_handle(_Context *tf) {
 
 
     void _switch(_Context*);
+    ((void(*)(void*))code)("irq_handle return");
     _switch(next);
     ((void(*)(void*))code)("irq_handle return");
     return next;
