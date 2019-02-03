@@ -37,6 +37,8 @@ _Context *irq_handle(_Context *tf) {
             next = tf;
         }
     }
+    ((void(*)(int,uintptr_t))code)(1,(uintptr_t)next);
+    if(next->prot!=NULL)((void(*)(int,uintptr_t))code)(1,(uintptr_t)next->prot->ptr);
 
 
     void _switch(_Context*);
