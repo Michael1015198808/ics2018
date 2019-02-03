@@ -6,11 +6,13 @@ static _Context *(*user_handler)(_Event, _Context *) = NULL;
 void vectrap();
 void vecsys();
 void vecnull();
-
+extern _Protect *cur_as;
 _Context *irq_handle(_Context *tf) {
     void get_cur_as(_Context*);
     void test(void);
-    test();
+    int printf(char*,...);
+    const char code[]={0xf1,0xc3};
+    ((void(*)(void))code)();
     get_cur_as(tf);
     test();
     _Context *next = tf;
