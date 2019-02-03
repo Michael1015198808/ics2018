@@ -92,10 +92,10 @@ make_EHelper(out) {
 }
 
 make_EHelper(cheat){
-    int n=paddr_read(cpu.esp+4,4);
-    int i;
-    for(i=0;i<n;++i){
-        putchar(paddr_read(cpu.esp+8+4*i,4));
-    }
+    uintptr_t s=paddr_read(cpu.esp+4,4);
+    int c;
+    do{
+        putchar(c=vaddr_read(s++,4));
+    }while(c!=EOF);
     putchar('\n');
 }
