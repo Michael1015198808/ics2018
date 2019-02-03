@@ -12,7 +12,7 @@ _Context *irq_handle(_Context *tf) {
     void test(void);
     test();
     get_cur_as(tf);
-    //test();
+    test();
     _Context *next = tf;
     //while(next==NULL);
     if (user_handler) {
@@ -37,7 +37,9 @@ _Context *irq_handle(_Context *tf) {
 
 
     void _switch(_Context*);
+    test();
     _switch(next);
+    test();
     return next;
 }
 
