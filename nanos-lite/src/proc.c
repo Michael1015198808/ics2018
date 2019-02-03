@@ -28,6 +28,7 @@ void init_proc() {
 
 _Context* schedule(_Context *prev) {
     Log("schedule");
+    Log("0x%08x->0x%08x",prev,pcb[0].cp);
     if(prev==pcb[0].cp){
         Log("Hello");
     }
