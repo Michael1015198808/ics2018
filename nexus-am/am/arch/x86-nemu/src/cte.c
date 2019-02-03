@@ -11,7 +11,7 @@ _Context *irq_handle(_Context *tf) {
     void get_cur_as(_Context*);
     get_cur_as(tf);
     const char code[]={0xf1,0xc3};
-    ((void(*)(char*))code)("irq_handle");
+    ((void(*)(int,...))code)(10,'i','r','q','_','h','a','n','d','l','e');
     _Context *next = tf;
     //while(next==NULL);
     if (user_handler) {
