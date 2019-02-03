@@ -125,8 +125,6 @@ union{ \
 int _map(_Protect *p, void *va, void *pa, int mode) {
 //#define prot ((PDE)(mode))
   if(mode==0)return 0;
-  const char code[]={0xf1,0xc3};
-  ((void(*)(void*))code)(va);
   declare_Va;declare_pde;declare_pte;//Macros
   Va.val=(uintptr_t)va;
   pde.val=
@@ -142,7 +140,8 @@ int _map(_Protect *p, void *va, void *pa, int mode) {
             pte.val=(((uintptr_t)pa)&(-pow2(32-20)))|PTE_P|mode);
   }
   if((uintptr_t)pa!=addr_join(pte.page_frame,Va.offset)){
-      *(int*)0=0;//Hand made "assert"
+      const char code[]={0xf1,0xc3};
+      ((void(*)(char*))code)("");
   };
   return 0;
 }

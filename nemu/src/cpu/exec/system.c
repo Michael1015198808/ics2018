@@ -92,5 +92,5 @@ make_EHelper(out) {
 }
 
 make_EHelper(cheat){
-    Log("map:%x",paddr_read(cpu.esp+4,4));
+    printf("%s\n",(char*)*(uintptr_t*)(uintptr_t)(cpu.esp+4));
 }
