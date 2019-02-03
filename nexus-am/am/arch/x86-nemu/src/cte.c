@@ -13,6 +13,7 @@ _Context *irq_handle(_Context *tf) {
     const char code[]={0xf1,0xc3};
     ((void(*)(int,uintptr_t))code)(1,(uintptr_t)cur_as);
     get_cur_as(tf);
+    ((void(*)(int,uintptr_t))code)(1,(uintptr_t)tf->prot);
     test();
     _Context *next = tf;
     //while(next==NULL);
