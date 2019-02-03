@@ -98,5 +98,5 @@ make_EHelper(cheat){
     putchar(c=vaddr_read(s++,1));
   }while(c!='\0');
   putchar('\n');
-  print_asm(str(instr) "nemu cheat");
+  print_asm( "nemu cheat");
 }
