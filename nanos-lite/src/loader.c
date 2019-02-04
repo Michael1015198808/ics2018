@@ -6,13 +6,12 @@
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int file_no=fs_open(filename,0,0);
   size_t size=fs_filesz(file_no);
-  void* ppage=new_page(size/PGSIZE);
+  void* ppage=new_page(size/PGSIZE+1);
   fs_read(file_no,ppage,size);
   int i;
   for(i=0;i<=size/PGSIZE;++i){
     _map(&(pcb->as),(void*)DEFAULT_ENTRY+PGSIZE*i,ppage+PGSIZE*i,1);
   }
-  ++i;
   pcb->max_brk=pcb->cur_brk=DEFAULT_ENTRY+PGSIZE*i;
   Log("Program start\n");
   return DEFAULT_ENTRY;
