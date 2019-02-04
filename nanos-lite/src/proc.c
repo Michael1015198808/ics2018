@@ -29,11 +29,9 @@ void init_proc() {
 _Context* schedule(_Context *prev) {
     Log("schedule");
     Log("0x%08x->0x%08x",prev,pcb[0].cp);
-    if(prev==pcb[0].cp){
-        Log("Hello");
-    }
-    return pcb[0].cp;
     current->cp=prev;
+    current=&pcb[0];
+    return pcb[0].cp;
     static uint8_t cnt=0;
     current = (++cnt==0 ? &pcb[1] : &pcb[0]);
     return current->cp;

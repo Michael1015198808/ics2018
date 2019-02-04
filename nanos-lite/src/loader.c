@@ -13,7 +13,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     _map(&(pcb->as),(void*)DEFAULT_ENTRY+PGSIZE*i,ppage+PGSIZE*i,1);
   }
   pcb->max_brk=pcb->cur_brk=DEFAULT_ENTRY+PGSIZE*i;
-  Log("init brk:0x%08x",pcb->cur_brk);
   Log("Program start\n");
   return DEFAULT_ENTRY;
 }
