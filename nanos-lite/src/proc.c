@@ -23,27 +23,13 @@ void hello_fun(void *arg) {
 void init_proc() {
   //context_kload(&pcb[1],(void*)hello_fun);
   context_uload(&pcb[0], "/bin/pal");
-  _map(&pcb[0].as,(void*)0x60400815,new_page(1),1);
+  context_uload(&pcb[1], "/bin/hello");
   switch_boot_pcb();
 }
 
 _Context* schedule(_Context *prev) {
-    Log("schedule");
-    Log("0x%08x->0x%08x",prev,pcb[0].cp);
     current->cp=prev;
-    current=&pcb[0];
-    return pcb[0].cp;
     static uint8_t cnt=0;
     current = (++cnt==0 ? &pcb[1] : &pcb[0]);
     return current->cp;
-}
-void test(void){
-    static void* test_ptr=NULL;
-    static int cnt=0;
-    ++cnt;
-    if(test_ptr==NULL)test_ptr=pcb[0].cp->prot->ptr;
-    if(test_ptr!=pcb->cp->prot->ptr){
-        Log("%d",cnt);
-        assert(0);
-    }
 }
