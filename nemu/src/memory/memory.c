@@ -75,8 +75,7 @@ union{ \
 #define addr_join(_A,_B) \
     (((_A)<<(32-20)) \
       +(_B))
-enum {PA_Write,PA_Read};
-static inline paddr_t page_translate(vaddr_t addr,uint32_t type){
+static inline paddr_t page_translate(vaddr_t addr){
   declare_va;declare_pde;declare_pte;//Macros
 
   /*static int test=0;
@@ -91,11 +90,11 @@ static inline paddr_t page_translate(vaddr_t addr,uint32_t type){
 
   PDE.val=
       join_read(cpu.CR3>>12,va.dir<<2);
-  Assert(PDE.present||type==PA_Write,"PDE not found\naddr:0x%08x,dir:%d",addr,va.dir);
+  Assert(PDE.present,"PDE not found\naddr:0x%08x,dir:%d",addr,va.dir);
 
   PTE.val=
       join_read(PDE.page_frame,va.page<<2);
-  Assert(PTE.present||type==PA_Write,"PTE not found\naddr:0x%08x,page:%d",addr,va.page);
+  Assert(PTE.present,"PTE not found\naddr:0x%08x,page:%d",addr,va.page);
 
   paddr_t pa=addr_join(PTE.page_frame,va.offset);
   return pa;
@@ -126,14 +125,14 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
                     //test code*/
         return bit_join(
                 paddr_read(
-                    page_translate(addr,PA_Read),
+                    page_translate(addr),
                     in_page_len),
                 pass_page_len,
                 paddr_read(
-                    page_translate(addr+in_page_len,PA_Read),
+                    page_translate(addr+in_page_len),
                     pass_page_len) );
     }else{
-      return paddr_read(page_translate(addr,PA_Read), len);
+      return paddr_read(page_translate(addr), len);
     }
   }else{
       return paddr_read(addr, len);
@@ -146,7 +145,7 @@ void vaddr_write(vaddr_t addr, uint32_t data, int len) {
       printf("Cross page!\n");
       assert(0);
     }else{
-      paddr_write(page_translate(addr,PA_Write), data, len);
+      paddr_write(page_translate(addr), data, len);
     }
   }else{
     paddr_write(addr, data, len);
