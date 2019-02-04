@@ -91,11 +91,11 @@ static inline paddr_t page_translate(vaddr_t addr,uint32_t type){
 
   PDE.val=
       join_read(cpu.CR3>>12,va.dir<<2);
-  Assert(PDE.present,"PDE not found\n%saddr:0x%08x,dir:%d",type==PA_Read?"read ":"write ",addr,va.dir);
+  Assert(PDE.present||type==PA_Write,"PDE not found\naddr:0x%08x,dir:%d",addr,va.dir);
 
   PTE.val=
       join_read(PDE.page_frame,va.page<<2);
-  Assert(PTE.present,"PTE not found\n%saddr:0x%08x,page:%d",type==PA_Read?"read ":"write ",addr,va.page);
+  Assert(PTE.present||type==PA_Write,"PTE not found\naddr:0x%08x,page:%d",addr,va.page);
 
   paddr_t pa=addr_join(PTE.page_frame,va.offset);
   return pa;
