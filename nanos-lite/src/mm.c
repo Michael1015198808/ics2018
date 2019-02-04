@@ -17,14 +17,12 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t new_brk) {
-  Log("old_break:0x%08x,new_break:0x%08x",current->cur_brk,new_brk);
   current->cur_brk=new_brk;
   while(current->max_brk<=new_brk){
     _map(&current->as,(void*)current->max_brk,new_page(1),1);
     //Since new_page has assert, we don't need to check the return value
     current->max_brk+=PGSIZE;
   }
-  Log("break:0x%08x",current->cur_brk);
   return 0;
 }
 
