@@ -75,7 +75,8 @@ union{ \
 #define addr_join(_A,_B) \
     (((_A)<<(32-20)) \
       +(_B))
-static inline paddr_t page_translate(vaddr_t addr){
+enum {PA_Write,PA_Read};
+static inline paddr_t page_translate(vaddr_t addr,uint32_t type){
   declare_va;declare_pde;declare_pte;//Macros
 
   /*static int test=0;
@@ -125,14 +126,14 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
                     //test code*/
         return bit_join(
                 paddr_read(
-                    page_translate(addr),
+                    page_translate(addr,PA_Read),
                     in_page_len),
                 pass_page_len,
                 paddr_read(
-                    page_translate(addr+in_page_len),
+                    page_translate(addr+in_page_len,PA_Read),
                     pass_page_len) );
     }else{
-      return paddr_read(page_translate(addr), len);
+      return paddr_read(page_translate(addr,PA_Read), len);
     }
   }else{
       return paddr_read(addr, len);
@@ -145,7 +146,7 @@ void vaddr_write(vaddr_t addr, uint32_t data, int len) {
       printf("Cross page!\n");
       assert(0);
     }else{
-      paddr_write(page_translate(addr), data, len);
+      paddr_write(page_translate(addr,PA_Write), data, len);
     }
   }else{
     paddr_write(addr, data, len);
