@@ -34,7 +34,7 @@ _Context* do_syscall(_Context *c) {
       c->GPRx = fs_lseek(c->GPR2, c->GPR3, c->GPR4);
           break;
     case SYS_brk:
-      c->GPRx = 0;//Success
+      c->GPRx = mm_brk(a[1]);//Success
           break;
     case SYS_execve:
       naive_uload(NULL, (char*)c->GPR2);
