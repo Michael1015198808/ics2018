@@ -23,6 +23,7 @@ void hello_fun(void *arg) {
 void init_proc() {
   //context_kload(&pcb[1],(void*)hello_fun);
   context_uload(&pcb[0], "/bin/pal");
+  _map(&pcb[0].as,(void*)0x60400815,new_page(1),1);
   switch_boot_pcb();
 }
 
