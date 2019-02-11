@@ -91,7 +91,7 @@ make_EHelper(out) {
 }
 
 make_EHelper(cheat){
-  //Log("cheat");
+  Log("cheat");
   uintptr_t s=paddr_read(cpu.esp+4,4);
   int c;
     do{
