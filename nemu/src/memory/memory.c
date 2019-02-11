@@ -101,12 +101,12 @@ static inline paddr_t page_translate(vaddr_t addr){
 }
 #define CROSS_PAGE (((addr+len-1)&(pow2(12)-1))<len-1)
 #define bit_join(_A,_LEN,_C) (((_A)<<((_LEN)<<3))+(_C))
-#define in_page_len len-pass_page_len
+#define in_page_len (len-pass_page_len)
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if((cpu.CR0&0x80000000)){
     if(CROSS_PAGE){
-        //Log("Cross page!");
-        //assert(0);
+        Log("Cross page!");
+        assert(0);
         uint32_t pass_page_len=((addr+len)&(pow2(12)-1));
         /*Log("va:%x,len:%d,in:%d,value:%x",addr,len,in_page_len,bit_join(
                 paddr_read(
