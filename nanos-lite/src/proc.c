@@ -39,9 +39,24 @@ _Context* schedule(_Context *prev) {
     if(fd==-1){
         fd=fs_open("/dev/events",0,0);
     }
-    char info[25],key[25];
+    char info[25],con[10]="kd F\0\0";
     fs_read(fd,info,25);
-    const char code[]={0xf2,0xc3};
-    ((void(*)(char*,...))code)(info,key);
+    int i;
+    for(i=1;i<5;++i){
+        con[4]='0'+i;
+        if(strcmp(info,con)){break;}
+    }
+    const char code[]={0xf1,0xc3};//For output
+    if(i<5)
+      switch(i){
+        case 1:
+        case 2:
+        case 3:
+            fg_pcb=i;
+            break;
+        case 4:
+            context_uload(&pcb[0], "/bin/hello");
+            ((void(*)(char*))code)("reload hello");
+      }
     return current->cp;
 }
