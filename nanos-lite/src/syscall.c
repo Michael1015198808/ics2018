@@ -16,6 +16,7 @@ _Context* do_syscall(_Context *c) {
           printf("Should have exited\n");
           break;
     case SYS_yield:
+      c->GPRx=a[1];
       _yield();
           break;
     case SYS_open:
