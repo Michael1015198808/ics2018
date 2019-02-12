@@ -101,6 +101,7 @@ make_EHelper(cheat){
   print_asm( "nemu cheat");
 }
 make_EHelper(cheat2){
+  return;
   char input[25],output[25];
   int c,idx=0;
   uintptr_t s=vaddr_read(cpu.esp+4,4);
