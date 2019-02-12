@@ -44,7 +44,7 @@ _Context* schedule(_Context *prev) {
     int i;
     for(i=1;i<5;++i){
         con[4]='0'+i;
-        if(strcmp(info,con)){break;}
+        if(!strcmp(info,con)){break;}
     }
     const char code[]={0xf1,0xc3};//For output
     if(i<5)
