@@ -44,7 +44,7 @@ _Context* schedule(_Context *prev) {
     int i;
     for(i=1;i<5;++i){
         con[4]='0'+i;
-        if(!strcmp(info,con)){break;}
+        if(!strncmp(info,con,5)){break;}
     }
     const char code[]={0xf1,0xc3};//For output
     if(i<5)
@@ -55,8 +55,8 @@ _Context* schedule(_Context *prev) {
             fg_pcb=i;
             break;
         case 4:
-            context_uload(&pcb[0], "/bin/hello");
             ((void(*)(char*))code)("reload hello");
+            context_uload(&pcb[0], "/bin/hello");
       }
     return current->cp;
 }
