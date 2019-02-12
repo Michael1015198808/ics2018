@@ -26,6 +26,17 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     if(key==0){
       return snprintf(buf,len, "t %d\n",uptime());
     }else{
+        switch(key){
+            case _KEY_F1:
+                printf("Running pal and hello\n");
+                break;
+            case _KEY_F2:
+                break;
+            case _KEY_F3:
+                break;
+            case _KEY_F4:
+                break;
+        }
       return snprintf(buf,len, "k%c %s\n",key&0x8000?'u':'d',keyname[key&0x7fff]);
     }
 }
