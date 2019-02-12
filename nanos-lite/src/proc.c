@@ -42,10 +42,10 @@ _Context* schedule(_Context *prev) {
     char info[25],con[10]="kd F\0\0";
     fs_read(fd,info,25);
     const char code[]={0xf1,0xc3};//For output
-    ((void(*)(char*))code)(info);
     int i;
     for(i=1;i<5;++i){
         con[4]='0'+i;
+        ((void(*)(char*))code)(con);
         if(!strncmp(info,con,5)){break;}
     }
     if(i<5)
