@@ -21,13 +21,18 @@ void hello_fun(void *arg) {
     _yield();
   }
 }
-
+char *program[]={
+  "/bin/hello",
+  "/bin/pal",
+  "/bin/dummy",
+  "/bin/init"
+};
 void init_proc() {
   //context_kload(&pcb[1],(void*)hello_fun);
-  context_uload(&pcb[0], "/bin/hello");
-  context_uload(&pcb[1], "/bin/pal");
-  context_uload(&pcb[2], "/bin/dummy");
-  context_uload(&pcb[3], "/bin/init");
+  int i;
+  for(i=0;i<4;++i){
+    context_uload(&pcb[i],program[i]);
+  }
   switch_boot_pcb();
 }
 
@@ -52,10 +57,12 @@ _Context* schedule(_Context *prev) {
         case 1:
         case 2:
         case 3:
+            ((void(*)(char*))code)("switch between hello and\n");
+            ((void(*)(char*))code)(program[i]);
             fg_pcb=i;
             break;
         case 4:
-            ((void(*)(char*))code)("reload hello");
+            ((void(*)(char*))code)("reload hello\n");
             context_uload(&pcb[0], "/bin/hello");
       }
     return current->cp;
