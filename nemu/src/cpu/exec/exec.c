@@ -234,13 +234,6 @@ static inline void update_eip(void) {
 }
 
 void exec_wrapper(bool print_flag) {
-    int i;
-	for(i=0;i<8;++i){
-		if(!(i&3)){
-			puts("");
-		}
-		printf("%s:%4d(0x%4x)\t",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
-	}
   vaddr_t ori_eip = cpu.eip;
 
 #ifdef DEBUG
@@ -261,6 +254,7 @@ void exec_wrapper(bool print_flag) {
   }
 #endif
 
+    int i;
 	int watchregs[]={};
 	int watchaddrs[]={};
 	for(i=0;i<sizeof(watchregs)/4;++i){
