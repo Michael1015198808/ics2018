@@ -190,10 +190,10 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    cpu.f=*src?1:0; \
+    cpu.eflags.f=*src?1:0; \
   } \
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
-    *dest=cpu.f; \
+    *dest=cpu.eflags.f; \
   }
 
 make_rtl_setget_eflags(CF)
@@ -206,18 +206,18 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
 	if((*result&~(0xffffffffLL<<(width*8)))==0){
 					//printf("%x\t%d\n",(<<(width*8-1)),(*result&~(0xffffffff<<(width*8))));
-					cpu.ZF=1;
+					cpu.eflags.ZF=1;
 	}else{
-					cpu.ZF=0;
+					cpu.eflags.ZF=0;
 	}
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
 	if((*result)&(1<<(8*width-1))){
-					cpu.SF=1;
+					cpu.eflags.SF=1;
 	}else{
-					cpu.SF=0;
+					cpu.eflags.SF=0;
 	}
 }
 

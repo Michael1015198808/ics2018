@@ -5,7 +5,7 @@ make_EHelper(test) {
 	//printf("cl%d\n",reg_b(R_CL));
 	//printf("%d\t%d\ntest\n",id_dest->val,id_src->val);
 	rtl_and(&t2,&id_dest->val,&id_src->val);
-	cpu.OF=cpu.CF=0;
+	cpu.eflags.OF=cpu.eflags.CF=0;
 	rtl_update_ZFSF(&t2,id_dest->width);
 
   print_asm_template2(test);
@@ -13,7 +13,7 @@ make_EHelper(test) {
 
 make_EHelper(and) {
 	rtl_and(&t2,&id_dest->val,&id_src->val);
-	cpu.OF=cpu.CF=0;
+	cpu.eflags.OF=cpu.eflags.CF=0;
 	rtl_update_ZFSF(&t2,id_dest->width);
 	operand_write(id_dest,&t2);
 
@@ -22,7 +22,7 @@ make_EHelper(and) {
 
 make_EHelper(xor) {
 	rtl_xor(&t2,&id_dest->val,&id_src->val);
-	cpu.OF=cpu.CF=0;
+	cpu.eflags.OF=cpu.eflags.CF=0;
 	rtl_update_ZFSF(&t2,id_dest->width);
 	operand_write(id_dest,&t2);
 
@@ -31,7 +31,7 @@ make_EHelper(xor) {
 
 make_EHelper(or) {
 	rtl_or(&t2,&id_dest->val,&id_src->val);
-	cpu.OF=cpu.CF=0;
+	cpu.eflags.OF=cpu.eflags.CF=0;
 	rtl_update_ZFSF(&t2,id_dest->width);
 	operand_write(id_dest,&t2);
 

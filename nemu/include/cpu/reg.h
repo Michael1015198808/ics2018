@@ -32,10 +32,10 @@ typedef union {
     vaddr_t eip;
 		union{
 			struct{
-				uint32_t CF:1,:5,ZF:1,SF:1,:3,OF:1;
+				uint32_t CF:1,:5,ZF:1,SF:1,:1,IF:1,:1,OF:1;
 			};
-			rtlreg_t eflags;
-		};
+			rtlreg_t val;
+		}eflags;
 		rtlreg_t CS;
 		struct{
 		    uint16_t size;
@@ -49,6 +49,7 @@ typedef union {
                 uint32_t CR3;
             };
         };
+    uint32_t INTR:1;
   };
 
 } CPU_state;

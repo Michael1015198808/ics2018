@@ -11,6 +11,10 @@ static _Context *do_event(_Event e, _Context *c) {
             //Log("syscall%d,%d,%x,%d",c->GPR1,c->GPR2,c->GPR3,c->GPR4);
             do_syscall(c);
             break;
+        case _EVENT_IRQ_TIMER:
+            Log("Timer interrupt");
+            _yield();
+            break;
         default:
             panic("Unhandled event ID = %d", e.event);
     }

@@ -6,6 +6,7 @@ static _Context *(*user_handler)(_Event, _Context *) = NULL;
 void vectrap();
 void vecsys();
 void vecnull();
+void irq0();//in nexus-am/am/arch/x86-nemu/src/trap.S
 extern _Protect *cur_as;
 _Context *irq_handle(_Context *tf) {
     void get_cur_as(_Context*);
@@ -48,7 +49,8 @@ int _cte_init(_Context *(*handler)(_Event, _Context *)) {
 
     // -------------------- system call --------------------------
     idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectrap, DPL_KERN);
-    idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys, DPL_KERN);
+    idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys,  DPL_KERN);
+    idt[ 32 ] = GATE(STS_TG32, KSEL(SEG_KCODE), irq0,    DPL_KERN);
 
     set_idt(idt, sizeof(idt));
 

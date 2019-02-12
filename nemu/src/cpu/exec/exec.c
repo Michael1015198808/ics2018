@@ -270,7 +270,7 @@ void exec_wrapper(bool print_flag) {
 					printf("%6x:%4d(0x%4x)\t",watchaddrs[i],vaddr_read(watchaddrs[i],2),vaddr_read(watchaddrs[i],2));
 	}
 #define print(f) \
-					printf("%s:%d\n",#f,cpu.f);
+					printf("%s:%d\n",#f,cpu.eflags.f);
 	//print(CF);print(OF);print(ZF);print(SF);
   update_eip();
 
@@ -281,4 +281,10 @@ void exec_wrapper(bool print_flag) {
     difftest_step(ori_eip);
   }
 #endif
+#define IRQ_TIMER 32
+  if (cpu.INTR & cpu.eflags.IF) {
+   cpu.INTR = false;
+   raise_intr(IRQ_TIMER, cpu.eip);
+   update_eip();
+  }
 }
