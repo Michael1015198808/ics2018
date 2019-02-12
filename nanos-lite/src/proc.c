@@ -39,9 +39,9 @@ _Context* schedule(_Context *prev) {
     if(fd==-1){
         fd=fs_open("/dev/events",0,0);
     }
-    char info[10],key[10];
-    fs_read(fd,info,10);
-    const char code[]={0xf2,0xc3};
-    ((void(*)(char*,...))code)(info,key);
+    //char info[10],key[10];
+    //fs_read(fd,info,10);
+    //const char code[]={0xf2,0xc3};
+    //((void(*)(char*,...))code)(info,key);
     return current->cp;
 }
