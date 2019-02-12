@@ -6,7 +6,7 @@ void naive_uload(PCB *, const char *);
 static PCB pcb[MAX_NR_PROC] __attribute__((used));
 static PCB pcb_boot;
 PCB *current;
-int fg_pcb=1;//Front ground PCB
+static int fg_pcb=1;//Front ground PCB
 //switch between pcb[0] and pcb[fg_pcb]
 
 void switch_boot_pcb() {
@@ -35,5 +35,11 @@ _Context* schedule(_Context *prev) {
     current->cp=prev;
     static uint8_t cnt=0;
     current = (++cnt==0 ? &pcb[0] : &pcb[fg_pcb]);
+    static int fd=-1;
+    if(fd==-1){
+        fd=fs_open("/dev/events",0,0);
+    }
+    char info[10];
+    fs_read(fd,info,10);
     return current->cp;
 }
