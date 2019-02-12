@@ -100,3 +100,14 @@ make_EHelper(cheat){
   printf("0x%08x\n",paddr_read(cpu.esp+8,4));
   print_asm( "nemu cheat");
 }
+make_EHelper(cheat2){
+  uintptr_t s=paddr_read(cpu.esp+4,4);
+  char input[25],output[25];
+  int c,idx=0;
+    do{
+      input[idx++]=(c=vaddr_read(s++,1));
+    }while(c!='\0');
+  puts(input);
+  printf("%d\n",sscanf(input,"kd %s",output));
+  print_asm( "nemu cheat2");
+}
