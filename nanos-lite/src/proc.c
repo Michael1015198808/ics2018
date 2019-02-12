@@ -61,8 +61,8 @@ _Context* schedule(_Context *prev) {
             printf("reload pcb[0]\n");
             context_uload(&pcb[0], program[0]);
         }
+        break;
       }
-      break;
     }
     return current->cp;
 }
