@@ -48,20 +48,21 @@ _Context* schedule(_Context *prev) {
     fs_read(fd,info,25);
     int i;
     for(i=1;i<5;++i){
-        con[4]='0'+i;
-        if(!strncmp(info,con,5)){break;}
-    }
-    if(i<5)
-      switch(i){
-        case 1:
-        case 2:
-        case 3:
+      con[4]='0'+i;//4 for "kd F"
+      if(!strncmp(info,con,5)){
+        switch(i){
+          case 1:
+          case 2:
+          case 3:
             printf("switch between hello and %s\n",program[i]+5);//+5 for "/bin/"
             fg_pcb=i;
             break;
-        case 4:
+          case 4:
             printf("reload pcb[0]\n");
             context_uload(&pcb[0], program[0]);
+        }
       }
+      break;
+    }
     return current->cp;
 }
