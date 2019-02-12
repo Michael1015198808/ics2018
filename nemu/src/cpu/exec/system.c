@@ -92,7 +92,7 @@ make_EHelper(out) {
 
 make_EHelper(cheat){
   Log("cheat");
-  uintptr_t s=paddr_read(cpu.esp+4,4);
+  uintptr_t s=vaddr_read(cpu.esp+4,4);
   int c;
     do{
       putchar(c=vaddr_read(s++,1));
@@ -103,7 +103,7 @@ make_EHelper(cheat){
 make_EHelper(cheat2){
   char input[25],output[25];
   int c,idx=0;
-  uintptr_t s=paddr_read(cpu.esp+4,4);
+  uintptr_t s=vaddr_read(cpu.esp+4,4);
   do{
     input[idx++]=(c=vaddr_read(s++,1));
   }while(c!='\0');
