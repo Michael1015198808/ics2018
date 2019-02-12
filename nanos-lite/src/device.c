@@ -1,4 +1,5 @@
 #include "common.h"
+#include "proc.h"
 #include <amdev.h>
 
 static int width=0;
