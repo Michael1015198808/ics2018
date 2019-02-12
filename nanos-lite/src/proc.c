@@ -34,7 +34,7 @@ void init_proc() {
 _Context* schedule(_Context *prev) {
     current->cp=prev;
     static uint8_t cnt=0;
-    current = (++cnt==0 ? &pcb[0] : &pcb[fg_pcb]);
+    current = (((++cnt)&15)==0 ? &pcb[0] : &pcb[fg_pcb]);
     static int fd=-1;
     if(fd==-1){
         fd=fs_open("/dev/events",0,0);
