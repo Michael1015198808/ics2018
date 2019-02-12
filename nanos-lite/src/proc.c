@@ -39,14 +39,13 @@ void init_proc() {
 _Context* schedule(_Context *prev) {
     current->cp=prev;
     static uint8_t cnt=0;
-    current = (((++cnt)&15)==0 ? &pcb[0] : &pcb[fg_pcb]);
+    current = (((++cnt)&0xff)==0 ? &pcb[0] : &pcb[fg_pcb]);
     static int fd=-1;
     if(fd==-1){
         fd=fs_open("/dev/events",0,0);
     }
     char info[25],con[10]="kd F\0\0";
     fs_read(fd,info,25);
-    const char code[]={0xf1,0xc3};//For output
     int i;
     for(i=1;i<5;++i){
         con[4]='0'+i;
@@ -57,13 +56,12 @@ _Context* schedule(_Context *prev) {
         case 1:
         case 2:
         case 3:
-            ((void(*)(char*))code)("switch between hello and\n");
-            ((void(*)(char*))code)(program[i]);
+            printf("switch between hello and %s\n",program[i]+5);//+5 for "/bin/"
             fg_pcb=i;
             break;
         case 4:
-            ((void(*)(char*))code)("reload hello\n");
-            context_uload(&pcb[0], "/bin/hello");
+            printf("reload pcb[0]\n");
+            context_uload(&pcb[0], program[0]);
       }
     return current->cp;
 }
