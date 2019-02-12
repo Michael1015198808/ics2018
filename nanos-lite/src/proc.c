@@ -45,7 +45,6 @@ _Context* schedule(_Context *prev) {
     int i;
     for(i=1;i<5;++i){
         con[4]='0'+i;
-        ((void(*)(char*))code)(con);
         if(!strncmp(info,con,5)){break;}
     }
     if(i<5)
