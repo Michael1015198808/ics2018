@@ -22,6 +22,8 @@ _Context *irq_handle(_Context *tf) {
             case 0x80:
                 ev.event = _EVENT_SYSCALL;
                 break;
+            case 32:
+                ev.event = _EVENT_IRQ_TIMER;
             default:
                 ev.event = _EVENT_ERROR;
                 break;
