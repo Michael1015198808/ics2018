@@ -24,7 +24,7 @@ void hello_fun(void *arg) {
 char *program[]={
   "/bin/hello",
   "/bin/pal",
-  "/bin/dummy",
+  "/bin/dummy",//For exit
   "/bin/init"
 };
 void init_proc() {
@@ -60,6 +60,7 @@ _Context* schedule(_Context *prev) {
           case 4:
             printf("reload pcb[0]\n");
             context_uload(&pcb[0], program[0]);
+            break;
         }
         break;
       }
