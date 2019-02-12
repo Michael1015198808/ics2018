@@ -27,13 +27,19 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     if(key==0){
       return snprintf(buf,len, "t %d\n",uptime());
     }else{
+        extern int fg_pcb;
         switch(key){
             case _KEY_F1:
+                fg_pcb=1;
                 printf("Running pal and hello\n");
                 break;
             case _KEY_F2:
+                fg_pcb=2;
+                printf("Running pal and dummy\n");
                 break;
             case _KEY_F3:
+                fg_pcb=3;
+                printf("Running pal and init\n");
                 break;
             case _KEY_F4:
                 break;

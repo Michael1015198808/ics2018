@@ -25,4 +25,5 @@ extern PCB *current;
 
 void context_kload(PCB *, void *);
 void context_uload(PCB *, const char *);
+size_t events_read(void *, size_t, size_t);
 #endif
