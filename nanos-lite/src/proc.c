@@ -51,9 +51,7 @@ _Context* schedule(_Context *prev) {
       con[4]='0'+i;//4 for "kd F"
       if(!strncmp(info,con,5)){
         switch(i){
-          case 1:
-          case 2:
-          case 3:
+          case 1:case 2:case 3:
             printf("switch between hello and %s\n",program[i]+5);//+5 for "/bin/"
             fg_pcb=i;
             break;
